@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trending Storyline Monitor</title>
+    <meta
+      name="description"
+      content="A public story stream for tracking developing topics, source spread, and weekly audio briefings."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="masthead">
+        <div class="brand-row">
+          <div class="brand-lockup">
+            <span class="brand-mark">Y</span>
+            <strong>Trending Storyline Monitor</strong>
+          </div>
+          <nav class="top-nav" aria-label="Primary">
+            <a href="#story-feed">new</a>
+            <a href="#trends-panel">trends</a>
+            <a href="#charts-panel">charts</a>
+            <a href="#topic-panel">topics</a>
+            <a href="#audio-panel">audio</a>
+          </nav>
+          <a class="login-link" href="#">live intel</a>
+        </div>
+      </header>
+
+      <main class="stream-layout">
+        <section class="stream-column" aria-label="Main story feed">
+          <div class="stream-intro">
+            <h1>Public story stream</h1>
+            <p>Reviewed coverage, grouped into live threads with enough signal for the public and enough structure for the team.</p>
+          </div>
+
+          <div class="feed-toolbar">
+            <label class="filter-wrap" for="topic-filter">
+              <span>topic</span>
+              <select id="topic-filter">
+                <option value="all">all topics</option>
+              </select>
+            </label>
+            <a class="audio-jump" href="#audio-panel">latest audio briefing</a>
+          </div>
+
+          <ol id="story-feed" class="story-feed" aria-live="polite"></ol>
+        </section>
+
+        <aside class="intel-column" aria-label="Story intelligence">
+          <section id="trends-panel" class="intel-panel">
+            <h2>Rising topics</h2>
+            <div id="trends-list" class="trend-list"></div>
+          </section>
+
+          <section id="charts-panel" class="intel-panel">
+            <h2>Charts</h2>
+            <div class="chart-block">
+              <h3>Topic volume</h3>
+              <div id="topic-volume-chart" class="chart-stack"></div>
+            </div>
+            <div class="chart-block">
+              <h3>Source spread</h3>
+              <div id="source-spread-chart" class="chart-stack"></div>
+            </div>
+            <div class="chart-block">
+              <h3>Trend direction</h3>
+              <div id="trend-direction-chart" class="spark-grid"></div>
+            </div>
+          </section>
+
+          <section id="topic-panel" class="intel-panel">
+            <h2>Topic page</h2>
+            <div id="topic-detail" class="topic-detail"></div>
+          </section>
+
+          <section id="audio-panel" class="intel-panel">
+            <h2>Audio briefings</h2>
+            <div id="audio-list" class="audio-list"></div>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <template id="story-item-template">
+      <li class="story-item">
+        <div class="story-row">
+          <button class="story-headline" type="button"></button>
+          <span class="story-source"></span>
+        </div>
+        <div class="story-subline">
+          <span class="story-date"></span>
+          <span class="story-slug"></span>
+          <span class="story-summary"></span>
+        </div>
+        <div class="story-meta">
+          <span class="relevance-pill"></span>
+          <span class="story-why"></span>
+        </div>
+        <div class="story-footer">
+          <div class="tag-row"></div>
+          <div class="related-links"></div>
+        </div>
+      </li>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
