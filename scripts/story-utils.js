@@ -200,6 +200,82 @@ function extractUrls(value) {
     });
 }
 
+function normalizeUrl(value) {
+  try {
+    const parsed = new URL(String(value || "").trim());
+    parsed.hash = "";
+
+    if (parsed.searchParams.has("utm_source")) {
+      parsed.searchParams.delete("utm_source");
+    }
+    if (parsed.searchParams.has("utm_medium")) {
+      parsed.searchParams.delete("utm_medium");
+    }
+    if (parsed.searchParams.has("utm_campaign")) {
+      parsed.searchParams.delete("utm_campaign");
+    }
+
+    if (parsed.pathname !== "/") {
+      parsed.pathname = parsed.pathname.replace(/\/$/, "");
+    }
+
+    return parsed.toString();
+  } catch (_error) {
+    return String(value || "").trim();
+  }
+}
+
+function isBlockedUrl(value) {
+  try {
+    const parsed = new URL(value);
+    const host = parsed.hostname.replace(/^www\./, "");
+    const path = parsed.pathname.toLowerCase();
+
+    if (
+      host === "mail.google.com" ||
+      host === "facebook.com" ||
+      host === "x.com" ||
+      host === "twitter.com" ||
+      host === "instagram.com" ||
+      host === "youtube.com" ||
+      host === "youtu.be" ||
+      host === "bsky.app" ||
+      host === "adclick.g.doubleclick.net" ||
+      host.endsWith("revcontent.com") ||
+      host === "minute-ly.com" ||
+      host === "sellwild.com" ||
+      host === "apps.apple.com" ||
+      host === "play.google.com" ||
+      host === "bloxdigital.com" ||
+      host === "bloxcms.com"
+    ) {
+      return true;
+    }
+
+    return (
+      path === "/" ||
+      path === "/search" ||
+      path === "/news" ||
+      path === "/weather" ||
+      path === "/sports" ||
+      path === "/video" ||
+      path === "/community" ||
+      path === "/contact" ||
+      path === "/livestream" ||
+      path === "/newsletter" ||
+      path === "/coronavirus"
+    );
+  } catch (_error) {
+    return true;
+  }
+}
+
+function choosePrimaryUrl(candidates) {
+  const normalized = [...new Set(candidates.map(normalizeUrl).filter(Boolean))];
+  const preferred = normalized.find((value) => !isBlockedUrl(value));
+  return preferred || "";
+}
+
 function normalizeAirtableStory(record) {
   const fields = record.fields || {};
   const headline = String(fields.Headline || "").trim() || "Untitled story";
@@ -210,21 +286,32 @@ function normalizeAirtableStory(record) {
   const related = splitList(fields.Related);
   const tags = splitList(fields.Tags);
   const rawEmailUrls = extractUrls(fields["Raw Email"]);
-  const relatedUrls = splitList(
+  const mappedRelatedUrls = splitList(
     fields["Related URLs"] ||
       fields.URLs ||
       fields.Links
-  );
-  const combinedUrls = [...new Set([...relatedUrls, ...rawEmailUrls])];
-  const url = String(
+  ).map(normalizeUrl);
+  const directUrl = String(
     fields.URL ||
       fields["Primary URL"] ||
       fields["Story URL"] ||
       fields["Source URL"] ||
-      fields["Outlook Link"] ||
-      combinedUrls[0] ||
       ""
   ).trim();
+  const primaryUrl = choosePrimaryUrl([
+    directUrl,
+    ...mappedRelatedUrls,
+    ...rawEmailUrls
+  ]);
+  const relatedUrls = [...new Set([
+    ...mappedRelatedUrls.filter((value) => !isBlockedUrl(value)),
+    primaryUrl
+  ].filter(Boolean))];
+  const url = normalizeUrl(
+    directUrl ||
+      primaryUrl ||
+      ""
+  );
 
   return {
     id: slug,
