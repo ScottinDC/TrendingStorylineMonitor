@@ -161,6 +161,8 @@ function normalizePublishedStory(item) {
     source: editorial.source || item.senderDomain || "outlook",
     date,
     slug,
+    url: editorial.url || item.webLink || "",
+    relatedUrls: Array.isArray(editorial.relatedUrls) ? editorial.relatedUrls : [],
     tags: Array.isArray(editorial.tags) ? editorial.tags : [],
     topic: editorial.topic || "General",
     summary: editorial.summary || firstSentence(item.bodyPreview, "Needs editorial summary."),
@@ -192,6 +194,20 @@ function normalizeAirtableStory(record) {
   const recentMovement = splitList(fields.RecentMovement).map((value) => Number(value) || 1);
   const related = splitList(fields.Related);
   const tags = splitList(fields.Tags);
+  const relatedUrls = splitList(
+    fields["Related URLs"] ||
+      fields.URLs ||
+      fields.Links
+  );
+  const url = String(
+    fields.URL ||
+      fields["Primary URL"] ||
+      fields["Story URL"] ||
+      fields["Source URL"] ||
+      fields["Outlook Link"] ||
+      relatedUrls[0] ||
+      ""
+  ).trim();
 
   return {
     id: slug,
@@ -199,6 +215,8 @@ function normalizeAirtableStory(record) {
     source: String(fields.Source || "airtable").trim() || "airtable",
     date,
     slug,
+    url,
+    relatedUrls,
     tags,
     topic: String(fields.Topic || "General").trim() || "General",
     summary: String(fields.Summary || "Needs editorial summary.").trim(),

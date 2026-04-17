@@ -17,6 +17,8 @@ Create one table named `Stories`.
 - `RecentMovement` - long text storing comma-separated values such as `3,4,5,5,6,7,8`
 - `Related` - long text storing comma-separated slugs
 - `Slug` - single line text
+- `URL` - url
+- `Related URLs` - long text storing newline- or comma-separated URLs
 - `Outlook Link` - url
 - `Raw Email` - long text
 
@@ -33,6 +35,8 @@ Create one table named `Stories`.
 - OpenAI `momentum` -> `Momentum`
 - OpenAI `recent_movement` -> `RecentMovement`
 - OpenAI `related` -> `Related`
+- extracted primary article URL -> `URL`
+- additional extracted links -> `Related URLs`
 - Outlook web link -> `Outlook Link`
 - Outlook preview or body -> `Raw Email`
 - Default `Status` -> `New`
@@ -40,3 +44,5 @@ Create one table named `Stories`.
 ## Publishing rule
 
 Only records with `Status = Approved` are published into `data/stories.json`.
+
+If `URL` and `Related URLs` are populated, the published site clusters topics around those links and exposes them in the topic dropdown.

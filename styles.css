@@ -154,6 +154,22 @@ button {
   border-bottom: 1px solid var(--line);
 }
 
+.active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.filter-pill {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink);
+  padding: 3px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 .filter-wrap {
   display: inline-flex;
   align-items: center;
@@ -189,54 +205,18 @@ button {
   text-decoration: none;
 }
 
-.story-feed {
-  margin: 0;
-  padding: 0 0 0 20px;
-}
-
-.story-item {
-  padding: 4px 0 7px;
-}
-
-.story-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  align-items: baseline;
-}
-
-.story-headline {
-  appearance: none;
-  border: 0;
-  background: transparent;
-  padding: 0;
-  cursor: pointer;
-  text-align: left;
-  font-size: 10pt;
-  line-height: 1.22;
-  color: var(--navy);
-}
-
-.story-headline:hover,
 .audio-jump:hover,
-.related-links button:hover,
+.topic-card-button:hover strong,
+.topic-story-list a:hover,
 .topic-story-list button:hover,
 .trend-item button:hover,
-.audio-entry a:hover {
+.audio-entry a:hover,
+.url-item a:hover,
+.tag:hover {
   text-decoration: underline;
 }
 
-.story-source::before {
-  content: "(";
-}
-
-.story-source::after {
-  content: ")";
-}
-
-.story-subline,
-.story-meta,
-.story-footer,
+.topic-feed,
 .trend-item,
 .audio-entry,
 .chart-block,
@@ -245,44 +225,21 @@ button {
   margin-top: 2px;
 }
 
-.story-subline,
-.story-meta {
+.tag-row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.story-subline span + span::before,
-.story-meta span + span::before {
-  content: "|";
-  margin-right: 6px;
-}
-
-.story-footer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-}
-
-.tag-row,
-.related-links {
-  display: inline-flex;
   flex-wrap: wrap;
   gap: 4px;
+  margin-top: 6px;
 }
 
 .tag {
   color: var(--accent);
+  text-decoration: none;
 }
 
-.relevance-pill {
-  color: var(--accent);
-}
-
-.related-links button,
 .topic-story-list button,
-.audio-entry a,
+.topic-story-list a,
+.audio-play-button,
 .trend-item button {
   appearance: none;
   border: 0;
@@ -291,6 +248,34 @@ button {
   color: var(--accent);
   cursor: pointer;
   text-align: left;
+  text-decoration: none;
+}
+
+.audio-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.audio-play-button {
+  border: 1px solid var(--line);
+  background: var(--white);
+  color: var(--accent);
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.audio-play-button[disabled] {
+  cursor: default;
+  color: var(--muted);
+}
+
+.briefing-audio {
+  width: 100%;
+  max-width: 260px;
+  height: 28px;
 }
 
 .intel-column {
@@ -313,7 +298,8 @@ button {
 .chart-stack,
 .spark-grid,
 .topic-detail,
-.topic-story-list {
+.topic-story-list,
+.topic-feed {
   display: grid;
   gap: 6px;
 }
@@ -322,10 +308,105 @@ button {
 .audio-entry,
 .topic-summary,
 .topic-story-list button,
+.topic-story-list a,
 .spark-card {
   background: var(--panel);
   border: 1px solid var(--line);
   padding: 6px;
+}
+
+.topic-card {
+  border: 1px solid var(--line);
+  background: var(--white);
+  padding: 8px;
+}
+
+.direction-up {
+  border-left: 4px solid var(--orange);
+}
+
+.direction-down {
+  border-left: 4px solid var(--navy);
+}
+
+.direction-steady {
+  border-left: 4px solid var(--blue);
+}
+
+.topic-card-button {
+  appearance: none;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.topic-card-top,
+.topic-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.topic-card-top strong {
+  color: var(--navy);
+  font-size: 10pt;
+}
+
+.topic-card-meta {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 7pt;
+}
+
+.direction-pill {
+  color: var(--accent);
+  font-size: 7pt;
+}
+
+.topic-summary-copy {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 8pt;
+}
+
+.url-dropdown {
+  margin-top: 8px;
+  border-top: 1px solid var(--line);
+  padding-top: 6px;
+}
+
+.url-dropdown summary {
+  cursor: pointer;
+  color: var(--navy);
+  font-size: 7pt;
+}
+
+.url-list {
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 6px;
+}
+
+.url-item {
+  display: grid;
+  gap: 2px;
+}
+
+.url-item a {
+  color: var(--accent);
+  font-size: 8pt;
+  text-decoration: none;
+}
+
+.url-item span {
+  color: var(--muted);
+  font-size: 7pt;
 }
 
 .trend-item-top,

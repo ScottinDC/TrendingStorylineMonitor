@@ -6,10 +6,15 @@ const fallbackData = {
       source: "highcountrynews.com",
       date: "2026-04-12",
       slug: "water-rights-colorado",
+      url: "https://www.hcn.org/issues/58-4/colorado-basin-water-restrictions",
+      relatedUrls: [
+        "https://www.hcn.org/issues/58-4/colorado-basin-water-restrictions",
+        "https://www.hcn.org/issues/58-4/rural-water-districts-summer-demand"
+      ],
       tags: ["water policy", "rural counties", "climate"],
       topic: "Water access",
-      summary: "regional talks converge on emergency conservation targets ahead of peak summer demand",
-      whyItMatters: "food production, municipal planning, and interstate coordination all tighten at once",
+      summary: "Regional talks are converging on emergency conservation targets ahead of peak summer demand.",
+      whyItMatters: "Food production, municipal planning, and interstate coordination are tightening at the same time.",
       relevance: "high relevance",
       momentum: 81,
       recentMovement: [4, 5, 5, 7, 8, 10, 12],
@@ -21,10 +26,14 @@ const fallbackData = {
       source: "apnews.com",
       date: "2026-04-11",
       slug: "crop-insurance-west",
+      url: "https://apnews.com/article/western-drought-crop-insurance-farms",
+      relatedUrls: [
+        "https://apnews.com/article/western-drought-crop-insurance-farms"
+      ],
       tags: ["agriculture", "drought", "insurance"],
       topic: "Water access",
-      summary: "state advocates want faster claims handling and revised risk models as drought widens",
-      whyItMatters: "insurance rules are becoming operating rules for farms under climate pressure",
+      summary: "State advocates want faster claims handling and revised risk models as drought widens.",
+      whyItMatters: "Insurance rules are becoming operating rules for farms under climate pressure.",
       relevance: "high relevance",
       momentum: 75,
       recentMovement: [3, 4, 5, 6, 7, 8, 9],
@@ -36,10 +45,15 @@ const fallbackData = {
       source: "reuters.com",
       date: "2026-04-13",
       slug: "grid-data-center-south",
+      url: "https://www.reuters.com/world/us/power-regulators-data-center-corridors-south-2026-04-13/",
+      relatedUrls: [
+        "https://www.reuters.com/world/us/power-regulators-data-center-corridors-south-2026-04-13/",
+        "https://www.utilitydive.com/news/data-center-power-corridors-fast-track/744210/"
+      ],
       tags: ["energy", "ai infrastructure", "utilities"],
       topic: "Grid strain",
-      summary: "utilities debate how quickly new capacity can come online as large compute projects stack up",
-      whyItMatters: "household reliability and industrial growth are now tied to the same buildout decisions",
+      summary: "Utilities are debating how quickly new capacity can come online as large compute projects stack up.",
+      whyItMatters: "Household reliability and industrial growth are now tied to the same buildout decisions.",
       relevance: "very high relevance",
       momentum: 92,
       recentMovement: [2, 3, 5, 7, 8, 11, 14],
@@ -51,10 +65,14 @@ const fallbackData = {
       source: "texastribune.org",
       date: "2026-04-10",
       slug: "utility-rate-hearings",
+      url: "https://www.texastribune.org/2026/04/10/utility-rate-hearings-data-centers/",
+      relatedUrls: [
+        "https://www.texastribune.org/2026/04/10/utility-rate-hearings-data-centers/"
+      ],
       tags: ["rates", "consumer impact", "electricity"],
       topic: "Grid strain",
-      summary: "public hearings are testing who pays when transmission upgrades follow industrial demand spikes",
-      whyItMatters: "rate design will shape whether public support for AI-era grid expansion holds",
+      summary: "Public hearings are testing who pays when transmission upgrades follow industrial demand spikes.",
+      whyItMatters: "Rate design will shape whether public support for AI-era grid expansion holds.",
       relevance: "medium relevance",
       momentum: 63,
       recentMovement: [2, 2, 3, 4, 5, 7, 8],
@@ -66,10 +84,14 @@ const fallbackData = {
       source: "npr.org",
       date: "2026-04-12",
       slug: "school-phone-bans",
+      url: "https://www.npr.org/2026/04/12/school-phone-ban-states",
+      relatedUrls: [
+        "https://www.npr.org/2026/04/12/school-phone-ban-states"
+      ],
       tags: ["education", "youth policy", "mental health"],
       topic: "Student attention",
-      summary: "districts move from pilots to broader restrictions while working through enforcement details",
-      whyItMatters: "policy momentum is outrunning implementation capacity in many systems",
+      summary: "Districts are moving from pilots to broader restrictions while working through enforcement details.",
+      whyItMatters: "Policy momentum is outrunning implementation capacity in many systems.",
       relevance: "medium relevance",
       momentum: 58,
       recentMovement: [3, 3, 4, 4, 5, 6, 7],
@@ -81,10 +103,14 @@ const fallbackData = {
       source: "chalkbeat.org",
       date: "2026-04-09",
       slug: "student-discipline-tech",
+      url: "https://www.chalkbeat.org/2026/04/09/device-rules-discipline-data",
+      relatedUrls: [
+        "https://www.chalkbeat.org/2026/04/09/device-rules-discipline-data"
+      ],
       tags: ["classroom policy", "district data", "implementation"],
       topic: "Student attention",
-      summary: "early district reporting shows rule enforcement varies sharply by school and staffing level",
-      whyItMatters: "the practical story is whether attention rules widen discipline disparities",
+      summary: "Early district reporting shows rule enforcement varies sharply by school and staffing level.",
+      whyItMatters: "The practical story is whether attention rules widen discipline disparities.",
       relevance: "moderate relevance",
       momentum: 44,
       recentMovement: [1, 2, 2, 3, 4, 4, 5],
@@ -96,10 +122,14 @@ const fallbackData = {
       source: "bloomberg.com",
       date: "2026-04-08",
       slug: "semiconductor-water-demand",
+      url: "https://www.bloomberg.com/news/articles/2026-04-08/chip-water-demand-growth-regions",
+      relatedUrls: [
+        "https://www.bloomberg.com/news/articles/2026-04-08/chip-water-demand-growth-regions"
+      ],
       tags: ["manufacturing", "industrial policy", "water demand"],
       topic: "Resource competition",
-      summary: "large manufacturing projects are colliding with local concerns over water, land, and subsidies",
-      whyItMatters: "industrial policy and local resource stress are becoming the same public argument",
+      summary: "Large manufacturing projects are colliding with local concerns over water, land, and subsidies.",
+      whyItMatters: "Industrial policy and local resource stress are becoming the same public argument.",
       relevance: "high relevance",
       momentum: 69,
       recentMovement: [2, 4, 4, 5, 6, 8, 8],
@@ -111,10 +141,14 @@ const fallbackData = {
       source: "politico.com",
       date: "2026-04-07",
       slug: "reservoir-emergency-rule",
+      url: "https://www.politico.com/news/2026/04/07/reservoir-emergency-rule-western-states-legal-review",
+      relatedUrls: [
+        "https://www.politico.com/news/2026/04/07/reservoir-emergency-rule-western-states-legal-review"
+      ],
       tags: ["legal challenge", "reservoirs", "state response"],
       topic: "Water access",
-      summary: "temporary operating changes are shifting release timing and local planning assumptions",
-      whyItMatters: "emergency rules can harden into precedent if another stress season follows",
+      summary: "Temporary operating changes are shifting release timing and local planning assumptions.",
+      whyItMatters: "Emergency rules can harden into precedent if another stress season follows.",
       relevance: "medium relevance",
       momentum: 61,
       recentMovement: [2, 2, 3, 4, 5, 6, 6],
@@ -126,10 +160,14 @@ const fallbackData = {
       source: "edsurge.com",
       date: "2026-04-06",
       slug: "edtech-procurement",
+      url: "https://www.edsurge.com/news/2026-04-06-edtech-procurement-attention-priorities",
+      relatedUrls: [
+        "https://www.edsurge.com/news/2026-04-06-edtech-procurement-attention-priorities"
+      ],
       tags: ["procurement", "education budgets", "classroom tools"],
       topic: "Student attention",
-      summary: "buyers are reevaluating software categories that expanded during remote learning",
-      whyItMatters: "budget changes are a durable downstream signal for where schools are headed",
+      summary: "Buyers are reevaluating software categories that expanded during remote learning.",
+      whyItMatters: "Budget changes are a durable downstream signal for where schools are headed.",
       relevance: "developing relevance",
       momentum: 38,
       recentMovement: [1, 1, 2, 2, 3, 4, 4],
@@ -161,18 +199,53 @@ const fallbackData = {
 const DATA_URL = "./data/stories.json";
 
 const topicFilter = document.querySelector("#topic-filter");
-const storyFeed = document.querySelector("#story-feed");
+const topicFeed = document.querySelector("#topic-feed");
 const trendsList = document.querySelector("#trends-list");
 const topicDetail = document.querySelector("#topic-detail");
 const audioList = document.querySelector("#audio-list");
-const storyTemplate = document.querySelector("#story-item-template");
+const activeFilters = document.querySelector("#active-filters");
 
 let stories = [];
 let audioBriefings = [];
-let activeTopic = new URLSearchParams(window.location.search).get("topic") || "all";
 
-function getTopics() {
-  return [...new Set(stories.map((story) => story.topic))].sort();
+const initialParams = new URLSearchParams(window.location.search);
+let activeTopic = initialParams.get("topic") || "all";
+let activeTag = initialParams.get("tag") || "";
+
+function toList(value) {
+  if (Array.isArray(value)) {
+    return value.map((item) => String(item || "").trim()).filter(Boolean);
+  }
+
+  return String(value || "")
+    .split(/[,\n|]/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function firstSentence(value, fallback = "") {
+  const trimmed = String(value || "").trim();
+  if (!trimmed) {
+    return fallback;
+  }
+  const match = trimmed.match(/.+?[.!?](?:\s|$)/);
+  return (match ? match[0] : `${trimmed}.`).trim();
+}
+
+function trimSentenceEnd(value) {
+  return String(value || "").trim().replace(/[.!?]+$/, "");
+}
+
+function dedupeBy(values, getKey) {
+  const seen = new Set();
+  return values.filter((item) => {
+    const key = getKey(item);
+    if (!key || seen.has(key)) {
+      return false;
+    }
+    seen.add(key);
+    return true;
+  });
 }
 
 function formatDate(dateString) {
@@ -187,43 +260,213 @@ function formatMovement(value) {
   return value > 0 ? `+${value}` : `${value}`;
 }
 
-function storyById(id) {
-  return stories.find((story) => story.id === id);
+function formatUrlLabel(value) {
+  try {
+    const parsed = new URL(value);
+    const path = parsed.pathname === "/" ? "" : parsed.pathname.replace(/\/$/, "");
+    return `${parsed.hostname}${path}`;
+  } catch (_error) {
+    return value;
+  }
 }
 
-function sortedStoriesForTopic(topic) {
-  return [...stories.filter((story) => story.topic === topic)].sort(
-    (a, b) => b.momentum - a.momentum || new Date(b.date) - new Date(a.date)
+function normalizeStory(story) {
+  const urlCandidates = [
+    story.url,
+    story.primaryUrl,
+    story.storyUrl,
+    story.outlookLink
+  ].filter(Boolean);
+  const relatedUrls = dedupeBy(
+    [
+      ...urlCandidates,
+      ...toList(story.relatedUrls),
+      ...toList(story.urls),
+      ...toList(story.links)
+    ].map((item) => String(item).trim()),
+    (item) => item
+  );
+
+  return {
+    ...story,
+    topic: String(story.topic || "General").trim() || "General",
+    tags: dedupeBy(toList(story.tags), (item) => item.toLowerCase()),
+    recentMovement: toList(story.recentMovement).map((item) => Number(item) || 1).slice(0, 7),
+    summary: String(story.summary || "Needs editorial summary.").trim(),
+    whyItMatters: String(story.whyItMatters || "Needs editorial review before publishing.").trim(),
+    relevance: String(story.relevance || "developing relevance").trim(),
+    momentum: Number(story.momentum) || 50,
+    url: urlCandidates[0] || relatedUrls[0] || "",
+    relatedUrls
+  };
+}
+
+function tagMatches(story) {
+  return !activeTag || story.tags.some((tag) => tag.toLowerCase() === activeTag.toLowerCase());
+}
+
+function storiesForCurrentTag() {
+  return stories.filter(tagMatches);
+}
+
+function groupedTopicEntries() {
+  const grouped = new Map();
+
+  storiesForCurrentTag().forEach((story) => {
+    if (!grouped.has(story.topic)) {
+      grouped.set(story.topic, []);
+    }
+    grouped.get(story.topic).push(story);
+  });
+
+  return [...grouped.entries()]
+    .map(([topic, topicStories]) => buildTopicEntry(topic, topicStories))
+    .sort((a, b) => {
+      if (b.direction.delta !== a.direction.delta) {
+        return b.direction.delta - a.direction.delta;
+      }
+      if (b.avgMomentum !== a.avgMomentum) {
+        return b.avgMomentum - a.avgMomentum;
+      }
+      if (b.volume !== a.volume) {
+        return b.volume - a.volume;
+      }
+      return a.topic.localeCompare(b.topic);
+    });
+}
+
+function averageMovementSeries(topicStories) {
+  const longest = Math.max(...topicStories.map((story) => story.recentMovement.length), 1);
+  return Array.from({ length: longest }, (_, index) => {
+    const values = topicStories
+      .map((story) => story.recentMovement[index])
+      .filter((value) => Number.isFinite(value));
+
+    if (!values.length) {
+      return 1;
+    }
+
+    return Math.round(values.reduce((sum, value) => sum + value, 0) / values.length);
+  });
+}
+
+function directionFromSeries(series) {
+  const first = series[0] || 0;
+  const last = series[series.length - 1] || 0;
+  const delta = last - first;
+
+  if (delta >= 2) {
+    return { label: "Trending up", tone: "up", delta };
+  }
+
+  if (delta <= -2) {
+    return { label: "Trending down", tone: "down", delta };
+  }
+
+  return { label: "Holding steady", tone: "steady", delta };
+}
+
+function collectTopicUrls(topicStories) {
+  const urlRows = topicStories.flatMap((story) => {
+    const urlSet = dedupeBy(
+      [story.url, ...story.relatedUrls].filter(Boolean),
+      (item) => item
+    );
+
+    return urlSet.map((url, index) => ({
+      url,
+      headline: story.headline,
+      source: story.source,
+      date: story.date,
+      isPrimary: index === 0
+    }));
+  });
+
+  return dedupeBy(urlRows, (item) => item.url);
+}
+
+function topicTags(topicStories) {
+  return dedupeBy(
+    topicStories.flatMap((story) => story.tags),
+    (item) => item.toLowerCase()
   );
 }
 
-function topicStats() {
-  return getTopics()
-    .map((topic) => {
-      const topicStories = stories.filter((story) => story.topic === topic);
-      const volume = topicStories.length;
-      const avgMomentum = Math.round(
-        topicStories.reduce((sum, story) => sum + story.momentum, 0) / volume
-      );
-      const outlets = new Set(topicStories.map((story) => story.source)).size;
-      const movement = avgMomentum - 50;
+function buildTopicSummary(topic, topicStories, direction, urls, avgMomentum, outlets) {
+  const strongestStory = [...topicStories].sort(
+    (a, b) => b.momentum - a.momentum || new Date(b.date) - new Date(a.date)
+  )[0];
+  const directionPhrase = direction.tone === "up" ? "moving up" : direction.tone === "down" ? "slipping back" : "holding steady";
+  const leadingSummary = trimSentenceEnd(firstSentence(strongestStory?.summary, `${topic} is drawing attention across multiple sources.`));
+  const significance = trimSentenceEnd(
+    firstSentence(
+      strongestStory?.whyItMatters,
+      "It matters because the cluster is affecting public attention and editorial priorities."
+    )
+  );
 
-      return {
-        topic,
-        volume,
-        avgMomentum,
-        outlets,
-        movement,
-        stories: topicStories
-      };
-    })
-    .sort((a, b) => b.avgMomentum - a.avgMomentum || b.volume - a.volume || a.topic.localeCompare(b.topic));
+  return `${leadingSummary}. ${significance} The cluster is ${directionPhrase} across ${urls.length || topicStories.length} tracked URLs, ${outlets} sources, and an average momentum of ${avgMomentum}.`;
 }
 
-function filteredStories() {
-  return [...stories]
-    .filter((story) => activeTopic === "all" || story.topic === activeTopic)
-    .sort((a, b) => new Date(b.date) - new Date(a.date) || b.momentum - a.momentum);
+function buildTopicEntry(topic, topicStories) {
+  const sortedStories = [...topicStories].sort(
+    (a, b) => b.momentum - a.momentum || new Date(b.date) - new Date(a.date)
+  );
+  const volume = topicStories.length;
+  const avgMomentum = Math.round(
+    topicStories.reduce((sum, story) => sum + story.momentum, 0) / Math.max(volume, 1)
+  );
+  const outlets = new Set(topicStories.map((story) => story.source)).size;
+  const movementSeries = averageMovementSeries(topicStories);
+  const direction = directionFromSeries(movementSeries);
+  const urls = collectTopicUrls(topicStories);
+
+  return {
+    topic,
+    volume,
+    avgMomentum,
+    outlets,
+    movementSeries,
+    direction,
+    tags: topicTags(topicStories),
+    stories: sortedStories,
+    urls,
+    summary: buildTopicSummary(topic, sortedStories, direction, urls, avgMomentum, outlets)
+  };
+}
+
+function visibleTopicEntries() {
+  const entries = groupedTopicEntries();
+  if (activeTopic === "all") {
+    return entries;
+  }
+  return entries.filter((entry) => entry.topic === activeTopic);
+}
+
+function getTopics() {
+  return groupedTopicEntries().map((entry) => entry.topic);
+}
+
+function buildQuery(nextTopic, nextTag) {
+  const url = new URL(window.location.href);
+
+  if (!nextTopic || nextTopic === "all") {
+    url.searchParams.delete("topic");
+  } else {
+    url.searchParams.set("topic", nextTopic);
+  }
+
+  if (!nextTag) {
+    url.searchParams.delete("tag");
+  } else {
+    url.searchParams.set("tag", nextTag);
+  }
+
+  return url;
+}
+
+function updateUrl() {
+  window.history.replaceState({}, "", buildQuery(activeTopic, activeTag));
 }
 
 function renderTopicFilter() {
@@ -241,77 +484,137 @@ function renderTopicFilter() {
   topicFilter.value = activeTopic;
 }
 
-function renderStories() {
-  const items = filteredStories();
-  storyFeed.innerHTML = "";
+function renderActiveFilters() {
+  activeFilters.innerHTML = "";
 
-  if (!items.length) {
-    storyFeed.innerHTML = '<li class="empty-state">No approved stories match this topic yet.</li>';
+  if (!activeTag && activeTopic === "all") {
     return;
   }
 
-  items.forEach((story) => {
-    const node = storyTemplate.content.firstElementChild.cloneNode(true);
-    const headline = node.querySelector(".story-headline");
+  if (activeTopic !== "all") {
+    const topicPill = document.createElement("button");
+    topicPill.type = "button";
+    topicPill.className = "filter-pill";
+    topicPill.textContent = `topic: ${activeTopic}`;
+    topicPill.addEventListener("click", () => selectTopic("all"));
+    activeFilters.append(topicPill);
+  }
 
-    headline.textContent = story.headline;
-    headline.addEventListener("click", () => selectTopic(story.topic));
+  if (activeTag) {
+    const tagPill = document.createElement("button");
+    tagPill.type = "button";
+    tagPill.className = "filter-pill";
+    tagPill.textContent = `tag: ${activeTag}`;
+    tagPill.addEventListener("click", () => selectTag(""));
+    activeFilters.append(tagPill);
+  }
+}
 
-    node.querySelector(".story-source").textContent = story.source;
-    node.querySelector(".story-date").textContent = formatDate(story.date);
-    node.querySelector(".story-slug").textContent = story.slug;
-    node.querySelector(".story-summary").textContent = story.summary;
-    node.querySelector(".relevance-pill").textContent = `${story.relevance} | momentum ${story.momentum}`;
-    node.querySelector(".story-why").textContent = story.whyItMatters;
+function tagLink(tag) {
+  const anchor = document.createElement("a");
+  anchor.className = "tag";
+  anchor.href = buildQuery("all", tag).toString();
+  anchor.textContent = tag;
+  return anchor;
+}
 
-    const tagRow = node.querySelector(".tag-row");
-    (story.tags || []).forEach((tag) => {
-      const chip = document.createElement("span");
-      chip.className = "tag";
-      chip.textContent = tag;
-      tagRow.append(chip);
-    });
+function renderTopicFeed() {
+  const entries = visibleTopicEntries();
+  topicFeed.innerHTML = "";
 
-    const relatedLinks = node.querySelector(".related-links");
-    (story.related || [])
-      .map(storyById)
-      .filter(Boolean)
-      .forEach((relatedStory) => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.textContent = relatedStory.slug;
-        button.addEventListener("click", () => {
-          selectTopic(relatedStory.topic);
-          window.requestAnimationFrame(() => {
-            document.getElementById(relatedStory.id)?.scrollIntoView({ behavior: "smooth", block: "center" });
-          });
-        });
-        relatedLinks.append(button);
+  if (!entries.length) {
+    topicFeed.innerHTML = '<div class="empty-state">No topics match the current filter yet.</div>';
+    return;
+  }
+
+  entries.forEach((entry) => {
+    const article = document.createElement("article");
+    article.className = `topic-card direction-${entry.direction.tone}`;
+
+    const header = document.createElement("button");
+    header.type = "button";
+    header.className = "topic-card-button";
+    header.innerHTML = `
+      <div class="topic-card-top">
+        <strong>${entry.topic}</strong>
+        <span class="direction-pill">${entry.direction.label}</span>
+      </div>
+      <div class="topic-card-meta">
+        <span>${entry.urls.length || entry.volume} related URLs</span>
+        <span>${entry.outlets} sources</span>
+        <span>momentum ${entry.avgMomentum}</span>
+      </div>
+    `;
+    header.addEventListener("click", () => selectTopic(entry.topic));
+    article.append(header);
+
+    const summary = document.createElement("p");
+    summary.className = "topic-summary-copy";
+    summary.textContent = entry.summary;
+    article.append(summary);
+
+    const tagRow = document.createElement("div");
+    tagRow.className = "tag-row";
+    entry.tags.forEach((tag) => tagRow.append(tagLink(tag)));
+    article.append(tagRow);
+
+    const details = document.createElement("details");
+    details.className = "url-dropdown";
+    details.open = activeTopic === entry.topic;
+
+    const summaryRow = document.createElement("summary");
+    summaryRow.textContent = `Related URLs (${entry.urls.length || entry.volume})`;
+    details.append(summaryRow);
+
+    const urlList = document.createElement("ul");
+    urlList.className = "url-list";
+
+    if (!entry.urls.length) {
+      const empty = document.createElement("li");
+      empty.className = "empty-state";
+      empty.textContent = "No source URLs are stored for this topic yet.";
+      urlList.append(empty);
+    } else {
+      entry.urls.forEach((item) => {
+        const row = document.createElement("li");
+        row.className = "url-item";
+        row.innerHTML = `
+          <a href="${item.url}" target="_blank" rel="noreferrer">${formatUrlLabel(item.url)}</a>
+          <span>${item.source} | ${formatDate(item.date)}</span>
+        `;
+        urlList.append(row);
       });
+    }
 
-    node.id = story.id;
-    storyFeed.append(node);
+    details.append(urlList);
+    article.append(details);
+    topicFeed.append(article);
   });
 }
 
 function renderTrends() {
-  const trendData = topicStats();
+  const entries = groupedTopicEntries();
   trendsList.innerHTML = "";
 
-  trendData.forEach((entry) => {
+  if (!entries.length) {
+    trendsList.innerHTML = '<div class="empty-state">No topic clusters are available yet.</div>';
+    return;
+  }
+
+  entries.forEach((entry) => {
     const item = document.createElement("div");
     item.className = "trend-item";
     item.innerHTML = `
       <div class="trend-item-top">
         <strong>${entry.topic}</strong>
-        <span>${formatMovement(entry.movement)}</span>
+        <span>${entry.direction.label}</span>
       </div>
-      <p>${entry.volume} stories | ${entry.outlets} sources</p>
+      <p>${entry.summary}</p>
     `;
 
     const jump = document.createElement("button");
     jump.type = "button";
-    jump.textContent = "open thread";
+    jump.textContent = "open topic";
     jump.addEventListener("click", () => selectTopic(entry.topic));
     item.append(jump);
     trendsList.append(item);
@@ -319,12 +622,43 @@ function renderTrends() {
 }
 
 function renderTopicDetail() {
-  const stats = topicStats();
+  const entries = groupedTopicEntries();
+
+  if (activeTag) {
+    const taggedStories = storiesForCurrentTag().sort(
+      (a, b) => new Date(b.date) - new Date(a.date) || b.momentum - a.momentum
+    );
+    topicDetail.innerHTML = `
+      <div class="topic-summary">
+        <h3>Tag page: ${activeTag}</h3>
+        <p>${taggedStories.length} related URLs across ${new Set(taggedStories.map((story) => story.topic)).size} topics.</p>
+      </div>
+    `;
+
+    const list = document.createElement("div");
+    list.className = "topic-story-list";
+
+    taggedStories.forEach((story) => {
+      const item = document.createElement("a");
+      item.href = story.url || "#";
+      item.target = story.url ? "_blank" : "";
+      item.rel = story.url ? "noreferrer" : "";
+      item.textContent = `${story.topic} | ${story.headline}`;
+      if (!story.url) {
+        item.removeAttribute("target");
+        item.removeAttribute("rel");
+      }
+      list.append(item);
+    });
+
+    topicDetail.append(list);
+    return;
+  }
 
   if (activeTopic === "all") {
-    const leadTopic = stats[0];
+    const lead = entries[0];
 
-    if (!leadTopic) {
+    if (!lead) {
       topicDetail.innerHTML = '<div class="empty-state">Choose a topic to browse deeper.</div>';
       return;
     }
@@ -332,63 +666,61 @@ function renderTopicDetail() {
     topicDetail.innerHTML = `
       <div class="topic-summary">
         <h3>All topics</h3>
-        <p>${stories.length} approved stories across ${stats.length} live topics</p>
+        <p>${entries.length} live topic clusters from ${storiesForCurrentTag().length} tracked URLs.</p>
         <ul>
-          <li>strongest thread: ${leadTopic.topic}</li>
-          <li>average momentum leader: ${leadTopic.avgMomentum}</li>
-          <li>most active source spread: ${Math.max(...stats.map((entry) => entry.outlets))} outlets</li>
+          <li>strongest topic: ${lead.topic}</li>
+          <li>current direction leader: ${lead.direction.label.toLowerCase()}</li>
+          <li>average momentum leader: ${lead.avgMomentum}</li>
         </ul>
       </div>
     `;
 
     const list = document.createElement("div");
     list.className = "topic-story-list";
-    stats.forEach((entry) => {
+    entries.forEach((entry) => {
       const button = document.createElement("button");
       button.type = "button";
-      button.textContent = `${entry.topic} | ${entry.volume} stories | momentum ${entry.avgMomentum}`;
+      button.textContent = `${entry.topic} | ${entry.urls.length || entry.volume} URLs | ${entry.direction.label.toLowerCase()}`;
       button.addEventListener("click", () => selectTopic(entry.topic));
       list.append(button);
     });
-
     topicDetail.append(list);
     return;
   }
 
-  const topicEntry = stats.find((entry) => entry.topic === activeTopic);
+  const entry = entries.find((item) => item.topic === activeTopic);
 
-  if (!topicEntry) {
+  if (!entry) {
     topicDetail.innerHTML = '<div class="empty-state">Choose a topic to browse deeper.</div>';
     return;
   }
 
-  topicDetail.innerHTML = "";
-
-  const strongestStory = sortedStoriesForTopic(topicEntry.topic)[0];
-  const summary = document.createElement("div");
-  summary.className = "topic-summary";
-  summary.innerHTML = `
-    <h3>${topicEntry.topic}</h3>
-    <p>${topicEntry.volume} approved stories | average momentum ${topicEntry.avgMomentum} | ${topicEntry.outlets} active sources</p>
-    <ul>
-      <li>recent movement: ${formatMovement(topicEntry.movement)}</li>
-      <li>strongest signal: ${strongestStory.headline}</li>
-      <li>common thread: ${strongestStory.tags[0]}</li>
-    </ul>
+  topicDetail.innerHTML = `
+    <div class="topic-summary">
+      <h3>${entry.topic}</h3>
+      <p>${entry.summary}</p>
+      <ul>
+        <li>${entry.urls.length || entry.volume} tracked URLs</li>
+        <li>${entry.outlets} active sources</li>
+        <li>${entry.direction.label.toLowerCase()} | average momentum ${entry.avgMomentum}</li>
+      </ul>
+    </div>
   `;
-  topicDetail.append(summary);
 
   const list = document.createElement("div");
   list.className = "topic-story-list";
-  sortedStoriesForTopic(topicEntry.topic).forEach((story) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.textContent = `${story.headline} | ${story.source} | momentum ${story.momentum}`;
-    button.addEventListener("click", () => {
-      selectTopic(topicEntry.topic);
-      document.getElementById(story.id)?.scrollIntoView({ behavior: "smooth", block: "center" });
-    });
-    list.append(button);
+
+  entry.stories.forEach((story) => {
+    const link = document.createElement("a");
+    link.href = story.url || "#";
+    link.target = story.url ? "_blank" : "";
+    link.rel = story.url ? "noreferrer" : "";
+    link.textContent = `${story.headline} | ${story.source} | ${formatDate(story.date)}`;
+    if (!story.url) {
+      link.removeAttribute("target");
+      link.removeAttribute("rel");
+    }
+    list.append(link);
   });
 
   topicDetail.append(list);
@@ -400,33 +732,76 @@ function renderAudioBriefings() {
   audioBriefings.forEach((briefing) => {
     const entry = document.createElement("div");
     entry.className = "audio-entry";
+    const canPlay = briefing.link && briefing.link !== "#";
+
     entry.innerHTML = `
       <div class="audio-entry-top">
         <strong>${briefing.title}</strong>
         <span>${briefing.duration}</span>
       </div>
       <p>${briefing.note}</p>
-      <a href="${briefing.link}">open briefing</a>
     `;
+
+    const controls = document.createElement("div");
+    controls.className = "audio-controls";
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "audio-play-button";
+    button.textContent = "Play Briefing";
+    button.disabled = !canPlay;
+
+    if (canPlay) {
+      const audio = document.createElement("audio");
+      audio.preload = "none";
+      audio.src = briefing.link;
+      audio.className = "briefing-audio";
+
+      button.addEventListener("click", async () => {
+        if (audio.paused) {
+          await audio.play();
+          button.textContent = "Pause Briefing";
+        } else {
+          audio.pause();
+          button.textContent = "Play Briefing";
+        }
+      });
+
+      audio.addEventListener("pause", () => {
+        button.textContent = "Play Briefing";
+      });
+
+      audio.addEventListener("play", () => {
+        button.textContent = "Pause Briefing";
+      });
+
+      controls.append(button, audio);
+    } else {
+      button.textContent = "Briefing Unavailable";
+      controls.append(button);
+    }
+
+    entry.append(controls);
     audioList.append(entry);
   });
 }
 
 function renderTopicVolumeChart() {
   const container = document.querySelector("#topic-volume-chart");
-  const stats = topicStats();
-  const maxVolume = Math.max(...stats.map((item) => item.volume), 1);
+  const entries = groupedTopicEntries();
+  const maxVolume = Math.max(...entries.map((item) => item.urls.length || item.volume), 1);
   container.innerHTML = "";
 
-  stats.forEach((item) => {
+  entries.forEach((item) => {
+    const value = item.urls.length || item.volume;
     const row = document.createElement("div");
     row.className = "chart-row";
     row.innerHTML = `
       <div class="chart-top">
         <span>${item.topic}</span>
-        <strong>${item.volume}</strong>
+        <strong>${value}</strong>
       </div>
-      <div class="chart-track"><div class="chart-fill" style="width:${(item.volume / maxVolume) * 100}%;"></div></div>
+      <div class="chart-track"><div class="chart-fill" style="width:${(value / maxVolume) * 100}%;"></div></div>
     `;
     container.append(row);
   });
@@ -434,11 +809,11 @@ function renderTopicVolumeChart() {
 
 function renderSourceSpreadChart() {
   const container = document.querySelector("#source-spread-chart");
-  const stats = topicStats();
-  const maxOutlets = Math.max(...stats.map((item) => item.outlets), 1);
+  const entries = groupedTopicEntries();
+  const maxOutlets = Math.max(...entries.map((item) => item.outlets), 1);
   container.innerHTML = "";
 
-  stats.forEach((item) => {
+  entries.forEach((item) => {
     const row = document.createElement("div");
     row.className = "chart-row";
     row.innerHTML = `
@@ -454,19 +829,17 @@ function renderSourceSpreadChart() {
 
 function renderTrendDirectionChart() {
   const container = document.querySelector("#trend-direction-chart");
-  const stats = topicStats();
+  const entries = groupedTopicEntries();
   container.innerHTML = "";
 
-  stats.forEach((item) => {
-    const strongestStory = sortedStoriesForTopic(item.topic)[0];
-    const values = strongestStory?.recentMovement || [1];
-    const maxPoint = Math.max(...values);
+  entries.forEach((item) => {
+    const maxPoint = Math.max(...item.movementSeries, 1);
     const card = document.createElement("div");
     card.className = "spark-card";
     card.innerHTML = `<strong>${item.topic}</strong><div class="sparkline"></div>`;
 
     const line = card.querySelector(".sparkline");
-    values.forEach((value) => {
+    item.movementSeries.forEach((value) => {
       const bar = document.createElement("span");
       bar.style.height = `${Math.max(18, (value / maxPoint) * 100)}%`;
       line.append(bar);
@@ -478,7 +851,8 @@ function renderTrendDirectionChart() {
 
 function renderAll() {
   renderTopicFilter();
-  renderStories();
+  renderActiveFilters();
+  renderTopicFeed();
   renderTrends();
   renderTopicDetail();
   renderAudioBriefings();
@@ -491,17 +865,19 @@ function selectTopic(topic) {
   const topics = getTopics();
   activeTopic = topics.includes(topic) ? topic : "all";
   topicFilter.value = activeTopic;
-
-  const url = new URL(window.location.href);
-  if (activeTopic === "all") {
-    url.searchParams.delete("topic");
-  } else {
-    url.searchParams.set("topic", activeTopic);
-  }
-
-  window.history.replaceState({}, "", url);
-  renderStories();
+  updateUrl();
+  renderTopicFeed();
   renderTopicDetail();
+  renderActiveFilters();
+}
+
+function selectTag(tag) {
+  activeTag = tag;
+  if (activeTopic !== "all" && !groupedTopicEntries().some((entry) => entry.topic === activeTopic)) {
+    activeTopic = "all";
+  }
+  updateUrl();
+  renderAll();
 }
 
 async function loadFeedData() {
@@ -522,7 +898,7 @@ topicFilter?.addEventListener("change", (event) => {
 });
 
 loadFeedData().then((data) => {
-  stories = Array.isArray(data.stories) ? data.stories : fallbackData.stories;
+  stories = (Array.isArray(data.stories) ? data.stories : fallbackData.stories).map(normalizeStory);
   audioBriefings = Array.isArray(data.audioBriefings) ? data.audioBriefings : fallbackData.audioBriefings;
   renderAll();
 });

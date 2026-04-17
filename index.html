@@ -6,7 +6,7 @@
     <title>Trending Storyline Monitor</title>
     <meta
       name="description"
-      content="A public story stream for tracking developing topics, source spread, and weekly audio briefings."
+      content="A public topic monitor for clustering incoming URLs into trends, direction, source spread, and audio briefings."
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
@@ -19,7 +19,7 @@
             <strong>Trending Storyline Monitor</strong>
           </div>
           <nav class="top-nav" aria-label="Primary">
-            <a href="#story-feed">new</a>
+            <a href="#topic-feed">new</a>
             <a href="#trends-panel">trends</a>
             <a href="#charts-panel">charts</a>
             <a href="#topic-panel">topics</a>
@@ -30,10 +30,10 @@
       </header>
 
       <main class="stream-layout">
-        <section class="stream-column" aria-label="Main story feed">
+        <section class="stream-column" aria-label="Main topic feed">
           <div class="stream-intro">
-            <h1>Public story stream</h1>
-            <p>Reviewed coverage, grouped into live threads with enough signal for the public and enough structure for the team.</p>
+            <h1>Trending topic monitor</h1>
+            <p>Incoming URLs are clustered into recurring topics, scored for direction, and opened into the related links behind each trend.</p>
           </div>
 
           <div class="feed-toolbar">
@@ -46,12 +46,13 @@
             <a class="audio-jump" href="#audio-panel">latest audio briefing</a>
           </div>
 
-          <ol id="story-feed" class="story-feed" aria-live="polite"></ol>
+          <div id="active-filters" class="active-filters" aria-live="polite"></div>
+          <div id="topic-feed" class="topic-feed" aria-live="polite"></div>
         </section>
 
         <aside class="intel-column" aria-label="Story intelligence">
           <section id="trends-panel" class="intel-panel">
-            <h2>Rising topics</h2>
+            <h2>Trend snapshot</h2>
             <div id="trends-list" class="trend-list"></div>
           </section>
 
@@ -83,29 +84,6 @@
         </aside>
       </main>
     </div>
-
-    <template id="story-item-template">
-      <li class="story-item">
-        <div class="story-row">
-          <button class="story-headline" type="button"></button>
-          <span class="story-source"></span>
-        </div>
-        <div class="story-subline">
-          <span class="story-date"></span>
-          <span class="story-slug"></span>
-          <span class="story-summary"></span>
-        </div>
-        <div class="story-meta">
-          <span class="relevance-pill"></span>
-          <span class="story-why"></span>
-        </div>
-        <div class="story-footer">
-          <div class="tag-row"></div>
-          <div class="related-links"></div>
-        </div>
-      </li>
-    </template>
-
     <script src="./app.js"></script>
   </body>
 </html>

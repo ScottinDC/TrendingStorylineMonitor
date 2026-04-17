@@ -1,10 +1,10 @@
 # Trending Storyline Monitor
 
-A GitHub Pages-ready public story stream for reviewed story threads, topic momentum, source spread, and audio briefings. The static site now reads from `data/stories.json`, and the repo includes a small Outlook-to-review-queue pipeline so the feed can become operational instead of staying hand-seeded.
+A GitHub Pages-ready trend monitor for reviewed URL clusters, topic momentum, source spread, and audio briefings. The static site now reads from `data/stories.json`, and the repo includes a small Outlook-to-review-queue pipeline so the feed can become operational instead of staying hand-seeded.
 
 ## What is included
 
-- Public-facing story feed with filters, topic detail, trends, charts, and audio briefings
+- Public-facing topic feed with filters, tag pages, trends, charts, and audio briefings
 - `data/stories.json` as the published source consumed by the site
 - Outlook ingestion script that pulls messages from Microsoft Graph into `data/review-queue.json`
 - Review script for approving or rejecting queued items
@@ -16,7 +16,7 @@ A GitHub Pages-ready public story stream for reviewed story threads, topic momen
 - `index.html` - page structure
 - `styles.css` - layout and presentation
 - `app.js` - client-side rendering from `data/stories.json`
-- `data/stories.json` - published story feed used by the site
+- `data/stories.json` - published topic input used by the site
 - `data/review-queue.json` - editorial review queue populated from Outlook
 - `scripts/sync-stories.js` - pulls candidate stories from Outlook via Microsoft Graph
 - `scripts/review-story.js` - marks queued items as approved, pending, or rejected
