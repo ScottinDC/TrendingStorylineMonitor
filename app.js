@@ -200,7 +200,6 @@ const DATA_URL = "./data/stories.json";
 
 const topicFilter = document.querySelector("#topic-filter");
 const topicFeed = document.querySelector("#topic-feed");
-const trendsList = document.querySelector("#trends-list");
 const topicDetail = document.querySelector("#topic-detail");
 const audioList = document.querySelector("#audio-list");
 const activeFilters = document.querySelector("#active-filters");
@@ -471,7 +470,7 @@ function updateUrl() {
 
 function renderTopicFilter() {
   const topics = getTopics();
-  topicFilter.innerHTML = '<option value="all">all topics</option>';
+  topicFilter.innerHTML = '<option value="all">All Topics</option>';
 
   topics.forEach((topic) => {
     const option = document.createElement("option");
@@ -592,35 +591,6 @@ function renderTopicFeed() {
   });
 }
 
-function renderTrends() {
-  const entries = groupedTopicEntries();
-  trendsList.innerHTML = "";
-
-  if (!entries.length) {
-    trendsList.innerHTML = '<div class="empty-state">No topic clusters are available yet.</div>';
-    return;
-  }
-
-  entries.forEach((entry) => {
-    const item = document.createElement("div");
-    item.className = "trend-item";
-    item.innerHTML = `
-      <div class="trend-item-top">
-        <strong>${entry.topic}</strong>
-        <span>${entry.direction.label}</span>
-      </div>
-      <p>${entry.summary}</p>
-    `;
-
-    const jump = document.createElement("button");
-    jump.type = "button";
-    jump.textContent = "open topic";
-    jump.addEventListener("click", () => selectTopic(entry.topic));
-    item.append(jump);
-    trendsList.append(item);
-  });
-}
-
 function renderTopicDetail() {
   const entries = groupedTopicEntries();
 
@@ -665,7 +635,7 @@ function renderTopicDetail() {
 
     topicDetail.innerHTML = `
       <div class="topic-summary">
-        <h3>All topics</h3>
+        <h3>All Topics</h3>
         <p>${entries.length} live topic clusters from ${storiesForCurrentTag().length} tracked URLs.</p>
         <ul>
           <li>strongest topic: ${lead.topic}</li>
@@ -728,11 +698,16 @@ function renderTopicDetail() {
 
 function renderAudioBriefings() {
   audioList.innerHTML = "";
+  const playableBriefings = audioBriefings.filter((briefing) => briefing.link && briefing.link !== "#");
 
-  audioBriefings.forEach((briefing) => {
+  if (!playableBriefings.length) {
+    audioList.innerHTML = '<div class="empty-state">No audio briefings are available yet.</div>';
+    return;
+  }
+
+  playableBriefings.forEach((briefing) => {
     const entry = document.createElement("div");
     entry.className = "audio-entry";
-    const canPlay = briefing.link && briefing.link !== "#";
 
     entry.innerHTML = `
       <div class="audio-entry-top">
@@ -749,37 +724,40 @@ function renderAudioBriefings() {
     button.type = "button";
     button.className = "audio-play-button";
     button.textContent = "Play Briefing";
-    button.disabled = !canPlay;
+    const audio = document.createElement("audio");
+    audio.preload = "none";
+    audio.src = briefing.link;
+    audio.className = "briefing-audio";
 
-    if (canPlay) {
-      const audio = document.createElement("audio");
-      audio.preload = "none";
-      audio.src = briefing.link;
-      audio.className = "briefing-audio";
-
-      button.addEventListener("click", async () => {
-        if (audio.paused) {
-          await audio.play();
-          button.textContent = "Pause Briefing";
-        } else {
-          audio.pause();
-          button.textContent = "Play Briefing";
-        }
-      });
-
-      audio.addEventListener("pause", () => {
-        button.textContent = "Play Briefing";
-      });
-
-      audio.addEventListener("play", () => {
+    button.addEventListener("click", async () => {
+      if (audio.paused) {
+        await audio.play();
         button.textContent = "Pause Briefing";
-      });
+      } else {
+        audio.pause();
+        button.textContent = "Play Briefing";
+      }
+    });
 
-      controls.append(button, audio);
-    } else {
-      button.textContent = "Briefing Unavailable";
-      controls.append(button);
-    }
+    audio.addEventListener("pause", () => {
+      button.textContent = "Play Briefing";
+    });
+
+    audio.addEventListener("play", () => {
+      button.textContent = "Pause Briefing";
+    });
+
+    audio.addEventListener("error", () => {
+      entry.innerHTML = `
+        <div class="audio-entry-top">
+          <strong>${briefing.title}</strong>
+          <span>${briefing.duration}</span>
+        </div>
+        <p>Audio briefing is currently unavailable.</p>
+      `;
+    });
+
+    controls.append(button, audio);
 
     entry.append(controls);
     audioList.append(entry);
@@ -853,7 +831,6 @@ function renderAll() {
   renderTopicFilter();
   renderActiveFilters();
   renderTopicFeed();
-  renderTrends();
   renderTopicDetail();
   renderAudioBriefings();
   renderTopicVolumeChart();
