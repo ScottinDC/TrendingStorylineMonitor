@@ -22,10 +22,13 @@ A GitHub Pages-ready public story stream for reviewed story threads, topic momen
 - `scripts/review-story.js` - marks queued items as approved, pending, or rejected
 - `scripts/publish-stories.js` - publishes approved stories to the live feed
 - `scripts/publish-airtable.js` - rebuilds the live feed from approved Airtable records
+- `scripts/generate-podcast-briefing.js` - generates an MP3 briefing from approved Airtable stories using Google's Podcast API
 - `docs/airtable-schema.md` - Airtable field layout for the review table
+- `docs/podcast-api-setup.md` - Google Podcast API setup and briefing workflow
 - `prompts/story-extraction.md` - OpenAI prompt for Zapier extraction
 - `.github/workflows/pages.yml` - GitHub Pages deployment workflow
 - `.github/workflows/publish-from-airtable.yml` - on-demand Airtable publish workflow
+- `.github/workflows/generate-podcast-briefing.yml` - on-demand Podcast API workflow
 
 ## Setup
 
@@ -48,6 +51,11 @@ The Outlook sync script uses Microsoft Graph application auth and expects:
 - `AIRTABLE_TABLE_NAME`
 - `AIRTABLE_TOKEN`
 - `AIRTABLE_VIEW_NAME`
+- `GOOGLE_CLOUD_PROJECT_ID`
+- `GOOGLE_OAUTH_ACCESS_TOKEN`
+- `PODCAST_API_LANGUAGE_CODE`
+- `PODCAST_API_LENGTH`
+- `PODCAST_BRIEFING_STORY_LIMIT`
 
 ## Workflow
 
@@ -93,6 +101,16 @@ For GitHub automation, add these repository secrets:
 - `AIRTABLE_VIEW_NAME` (optional)
 
 Then trigger `.github/workflows/publish-from-airtable.yml` manually, or from Zapier using GitHub `repository_dispatch` with event type `publish-stories`.
+
+## Podcast Briefings
+
+To generate a podcast-style audio briefing from approved Airtable stories:
+
+```bash
+npm run generate:podcast
+```
+
+See [`docs/podcast-api-setup.md`](./docs/podcast-api-setup.md) for Google Cloud setup, secrets, and the GitHub workflow path.
 
 ## Recommended Zapier Chain
 

@@ -8,6 +8,7 @@
     "review:list": "node scripts/review-story.js list",
     "publish:stories": "node scripts/publish-stories.js",
     "publish:airtable": "node scripts/publish-airtable.js",
+    "generate:podcast": "node scripts/generate-podcast-briefing.js",
     "build:data": "npm run publish:stories"
   }
 }
