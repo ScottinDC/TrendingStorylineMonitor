@@ -317,7 +317,7 @@ function normalizeAirtableStory(record) {
     date,
     slug,
     url,
-    relatedUrls: combinedUrls,
+    relatedUrls,
     tags,
     topic: String(fields.Topic || "General").trim() || "General",
     summary: String(fields.Summary || "Needs editorial summary.").trim(),
