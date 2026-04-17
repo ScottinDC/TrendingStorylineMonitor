@@ -86,6 +86,12 @@
   ],
   "audioBriefings": [
     {
+      "title": "Civic Engagement: From Global Service to Local Activism",
+      "duration": "5 min",
+      "note": "This briefing explores contrasting forms of civic engagement, from structured international volunteerism to confrontational local activism. Generated with Google single-speaker TTS fallback.",
+      "link": "audio/briefing-2026-04-17.mp3"
+    },
+    {
       "title": "Weekly briefing: Grid strain and infrastructure politics",
       "duration": "12 min",
       "note": "source-grounded weekly roundup for public listening and team review",
