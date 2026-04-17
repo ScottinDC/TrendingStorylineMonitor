@@ -176,22 +176,10 @@ const fallbackData = {
   ],
   audioBriefings: [
     {
-      title: "Weekly briefing: Grid strain and infrastructure politics",
-      duration: "12 min",
-      note: "source-grounded weekly roundup for public listening and team review",
-      link: "#"
-    },
-    {
-      title: "Topic explainer: Water access pressure points",
-      duration: "9 min",
-      note: "clustered source synthesis spanning policy, agriculture, and legal response",
-      link: "#"
-    },
-    {
-      title: "Weekly briefing: Student attention and device rules",
-      duration: "8 min",
-      note: "quick narrative pass across policy rollout, district data, and procurement",
-      link: "#"
+      title: "Civic Engagement: From Global Service to Local Activism",
+      duration: "5 min",
+      note: "This briefing explores contrasting forms of civic engagement, from structured international volunteerism to confrontational local activism.",
+      link: "audio/briefing-2026-04-17.mp3"
     }
   ]
 };
