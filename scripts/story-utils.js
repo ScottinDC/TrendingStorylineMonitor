@@ -185,6 +185,21 @@ function splitList(value) {
     .filter(Boolean);
 }
 
+function extractUrls(value) {
+  const matches = String(value || "").match(/https?:\/\/[^\s<>"')\]]+/gi) || [];
+  const seen = new Set();
+
+  return matches
+    .map((item) => item.replace(/[),.;]+$/, ""))
+    .filter((item) => {
+      if (!item || seen.has(item)) {
+        return false;
+      }
+      seen.add(item);
+      return true;
+    });
+}
+
 function normalizeAirtableStory(record) {
   const fields = record.fields || {};
   const headline = String(fields.Headline || "").trim() || "Untitled story";
@@ -194,18 +209,20 @@ function normalizeAirtableStory(record) {
   const recentMovement = splitList(fields.RecentMovement).map((value) => Number(value) || 1);
   const related = splitList(fields.Related);
   const tags = splitList(fields.Tags);
+  const rawEmailUrls = extractUrls(fields["Raw Email"]);
   const relatedUrls = splitList(
     fields["Related URLs"] ||
       fields.URLs ||
       fields.Links
   );
+  const combinedUrls = [...new Set([...relatedUrls, ...rawEmailUrls])];
   const url = String(
     fields.URL ||
       fields["Primary URL"] ||
       fields["Story URL"] ||
       fields["Source URL"] ||
       fields["Outlook Link"] ||
-      relatedUrls[0] ||
+      combinedUrls[0] ||
       ""
   ).trim();
 
@@ -216,7 +233,7 @@ function normalizeAirtableStory(record) {
     date,
     slug,
     url,
-    relatedUrls,
+    relatedUrls: combinedUrls,
     tags,
     topic: String(fields.Topic || "General").trim() || "General",
     summary: String(fields.Summary || "Needs editorial summary.").trim(),
