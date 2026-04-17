@@ -303,10 +303,7 @@ function normalizeAirtableStory(record) {
     ...mappedRelatedUrls,
     ...rawEmailUrls
   ]);
-  const relatedUrls = [...new Set([
-    ...mappedRelatedUrls.filter((value) => !isBlockedUrl(value)),
-    primaryUrl
-  ].filter(Boolean))];
+  const relatedUrls = primaryUrl ? [primaryUrl] : [];
   const url = normalizeUrl(
     directUrl ||
       primaryUrl ||
