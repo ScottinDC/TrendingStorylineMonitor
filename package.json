@@ -1,0 +1,13 @@
+{
+  "name": "trending-storyline-monitor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static story monitor with Outlook ingestion and JSON publishing scripts.",
+  "scripts": {
+    "sync:outlook": "node scripts/sync-stories.js",
+    "review:list": "node scripts/review-story.js list",
+    "publish:stories": "node scripts/publish-stories.js",
+    "publish:airtable": "node scripts/publish-airtable.js",
+    "build:data": "npm run publish:stories"
+  }
+}

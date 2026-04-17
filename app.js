@@ -1,161 +1,164 @@
-const stories = [
-  {
-    id: "water-rights-colorado",
-    headline: "Colorado basin talks tighten as rural districts brace for new water restrictions",
-    source: "highcountrynews.com",
-    date: "2026-04-12",
-    slug: "water-rights-colorado",
-    tags: ["water policy", "rural counties", "climate"],
-    topic: "Water access",
-    summary: "regional talks converge on emergency conservation targets ahead of peak summer demand",
-    whyItMatters: "food production, municipal planning, and interstate coordination all tighten at once",
-    relevance: "high relevance",
-    momentum: 81,
-    recentMovement: [4, 5, 5, 7, 8, 10, 12],
-    related: ["crop-insurance-west", "reservoir-emergency-rule"]
-  },
-  {
-    id: "crop-insurance-west",
-    headline: "Farm groups press for crop insurance changes as drought losses spread westward",
-    source: "apnews.com",
-    date: "2026-04-11",
-    slug: "crop-insurance-west",
-    tags: ["agriculture", "drought", "insurance"],
-    topic: "Water access",
-    summary: "state advocates want faster claims handling and revised risk models as drought widens",
-    whyItMatters: "insurance rules are becoming operating rules for farms under climate pressure",
-    relevance: "high relevance",
-    momentum: 75,
-    recentMovement: [3, 4, 5, 6, 7, 8, 9],
-    related: ["water-rights-colorado", "reservoir-emergency-rule"]
-  },
-  {
-    id: "grid-data-center-south",
-    headline: "Power regulators weigh fast-track approvals for data center corridors across the South",
-    source: "reuters.com",
-    date: "2026-04-13",
-    slug: "grid-data-center-south",
-    tags: ["energy", "ai infrastructure", "utilities"],
-    topic: "Grid strain",
-    summary: "utilities debate how quickly new capacity can come online as large compute projects stack up",
-    whyItMatters: "household reliability and industrial growth are now tied to the same buildout decisions",
-    relevance: "very high relevance",
-    momentum: 92,
-    recentMovement: [2, 3, 5, 7, 8, 11, 14],
-    related: ["utility-rate-hearings", "semiconductor-water-demand"]
-  },
-  {
-    id: "utility-rate-hearings",
-    headline: "Consumer advocates push back on utility rate hikes tied to new server campus demand",
-    source: "texastribune.org",
-    date: "2026-04-10",
-    slug: "utility-rate-hearings",
-    tags: ["rates", "consumer impact", "electricity"],
-    topic: "Grid strain",
-    summary: "public hearings are testing who pays when transmission upgrades follow industrial demand spikes",
-    whyItMatters: "rate design will shape whether public support for AI-era grid expansion holds",
-    relevance: "medium relevance",
-    momentum: 63,
-    recentMovement: [2, 2, 3, 4, 5, 7, 8],
-    related: ["grid-data-center-south", "semiconductor-water-demand"]
-  },
-  {
-    id: "school-phone-bans",
-    headline: "More states move from pilot programs to statewide school phone restrictions",
-    source: "npr.org",
-    date: "2026-04-12",
-    slug: "school-phone-bans",
-    tags: ["education", "youth policy", "mental health"],
-    topic: "Student attention",
-    summary: "districts move from pilots to broader restrictions while working through enforcement details",
-    whyItMatters: "policy momentum is outrunning implementation capacity in many systems",
-    relevance: "medium relevance",
-    momentum: 58,
-    recentMovement: [3, 3, 4, 4, 5, 6, 7],
-    related: ["student-discipline-tech", "edtech-procurement"]
-  },
-  {
-    id: "student-discipline-tech",
-    headline: "District discipline data shows uneven rollout of classroom device rules",
-    source: "chalkbeat.org",
-    date: "2026-04-09",
-    slug: "student-discipline-tech",
-    tags: ["classroom policy", "district data", "implementation"],
-    topic: "Student attention",
-    summary: "early district reporting shows rule enforcement varies sharply by school and staffing level",
-    whyItMatters: "the practical story is whether attention rules widen discipline disparities",
-    relevance: "moderate relevance",
-    momentum: 44,
-    recentMovement: [1, 2, 2, 3, 4, 4, 5],
-    related: ["school-phone-bans", "edtech-procurement"]
-  },
-  {
-    id: "semiconductor-water-demand",
-    headline: "Chip expansion plans reignite debate over industrial water use in high-growth regions",
-    source: "bloomberg.com",
-    date: "2026-04-08",
-    slug: "semiconductor-water-demand",
-    tags: ["manufacturing", "industrial policy", "water demand"],
-    topic: "Resource competition",
-    summary: "large manufacturing projects are colliding with local concerns over water, land, and subsidies",
-    whyItMatters: "industrial policy and local resource stress are becoming the same public argument",
-    relevance: "high relevance",
-    momentum: 69,
-    recentMovement: [2, 4, 4, 5, 6, 8, 8],
-    related: ["grid-data-center-south", "water-rights-colorado"]
-  },
-  {
-    id: "reservoir-emergency-rule",
-    headline: "Emergency reservoir rule changes trigger legal review across western states",
-    source: "politico.com",
-    date: "2026-04-07",
-    slug: "reservoir-emergency-rule",
-    tags: ["legal challenge", "reservoirs", "state response"],
-    topic: "Water access",
-    summary: "temporary operating changes are shifting release timing and local planning assumptions",
-    whyItMatters: "emergency rules can harden into precedent if another stress season follows",
-    relevance: "medium relevance",
-    momentum: 61,
-    recentMovement: [2, 2, 3, 4, 5, 6, 6],
-    related: ["water-rights-colorado", "crop-insurance-west"]
-  },
-  {
-    id: "edtech-procurement",
-    headline: "District buyers revisit edtech contracts as classroom attention priorities shift",
-    source: "edsurge.com",
-    date: "2026-04-06",
-    slug: "edtech-procurement",
-    tags: ["procurement", "education budgets", "classroom tools"],
-    topic: "Student attention",
-    summary: "buyers are reevaluating software categories that expanded during remote learning",
-    whyItMatters: "budget changes are a durable downstream signal for where schools are headed",
-    relevance: "developing relevance",
-    momentum: 38,
-    recentMovement: [1, 1, 2, 2, 3, 4, 4],
-    related: ["school-phone-bans", "student-discipline-tech"]
-  }
-];
+const fallbackData = {
+  stories: [
+    {
+      id: "water-rights-colorado",
+      headline: "Colorado basin talks tighten as rural districts brace for new water restrictions",
+      source: "highcountrynews.com",
+      date: "2026-04-12",
+      slug: "water-rights-colorado",
+      tags: ["water policy", "rural counties", "climate"],
+      topic: "Water access",
+      summary: "regional talks converge on emergency conservation targets ahead of peak summer demand",
+      whyItMatters: "food production, municipal planning, and interstate coordination all tighten at once",
+      relevance: "high relevance",
+      momentum: 81,
+      recentMovement: [4, 5, 5, 7, 8, 10, 12],
+      related: ["crop-insurance-west", "reservoir-emergency-rule"]
+    },
+    {
+      id: "crop-insurance-west",
+      headline: "Farm groups press for crop insurance changes as drought losses spread westward",
+      source: "apnews.com",
+      date: "2026-04-11",
+      slug: "crop-insurance-west",
+      tags: ["agriculture", "drought", "insurance"],
+      topic: "Water access",
+      summary: "state advocates want faster claims handling and revised risk models as drought widens",
+      whyItMatters: "insurance rules are becoming operating rules for farms under climate pressure",
+      relevance: "high relevance",
+      momentum: 75,
+      recentMovement: [3, 4, 5, 6, 7, 8, 9],
+      related: ["water-rights-colorado", "reservoir-emergency-rule"]
+    },
+    {
+      id: "grid-data-center-south",
+      headline: "Power regulators weigh fast-track approvals for data center corridors across the South",
+      source: "reuters.com",
+      date: "2026-04-13",
+      slug: "grid-data-center-south",
+      tags: ["energy", "ai infrastructure", "utilities"],
+      topic: "Grid strain",
+      summary: "utilities debate how quickly new capacity can come online as large compute projects stack up",
+      whyItMatters: "household reliability and industrial growth are now tied to the same buildout decisions",
+      relevance: "very high relevance",
+      momentum: 92,
+      recentMovement: [2, 3, 5, 7, 8, 11, 14],
+      related: ["utility-rate-hearings", "semiconductor-water-demand"]
+    },
+    {
+      id: "utility-rate-hearings",
+      headline: "Consumer advocates push back on utility rate hikes tied to new server campus demand",
+      source: "texastribune.org",
+      date: "2026-04-10",
+      slug: "utility-rate-hearings",
+      tags: ["rates", "consumer impact", "electricity"],
+      topic: "Grid strain",
+      summary: "public hearings are testing who pays when transmission upgrades follow industrial demand spikes",
+      whyItMatters: "rate design will shape whether public support for AI-era grid expansion holds",
+      relevance: "medium relevance",
+      momentum: 63,
+      recentMovement: [2, 2, 3, 4, 5, 7, 8],
+      related: ["grid-data-center-south", "semiconductor-water-demand"]
+    },
+    {
+      id: "school-phone-bans",
+      headline: "More states move from pilot programs to statewide school phone restrictions",
+      source: "npr.org",
+      date: "2026-04-12",
+      slug: "school-phone-bans",
+      tags: ["education", "youth policy", "mental health"],
+      topic: "Student attention",
+      summary: "districts move from pilots to broader restrictions while working through enforcement details",
+      whyItMatters: "policy momentum is outrunning implementation capacity in many systems",
+      relevance: "medium relevance",
+      momentum: 58,
+      recentMovement: [3, 3, 4, 4, 5, 6, 7],
+      related: ["student-discipline-tech", "edtech-procurement"]
+    },
+    {
+      id: "student-discipline-tech",
+      headline: "District discipline data shows uneven rollout of classroom device rules",
+      source: "chalkbeat.org",
+      date: "2026-04-09",
+      slug: "student-discipline-tech",
+      tags: ["classroom policy", "district data", "implementation"],
+      topic: "Student attention",
+      summary: "early district reporting shows rule enforcement varies sharply by school and staffing level",
+      whyItMatters: "the practical story is whether attention rules widen discipline disparities",
+      relevance: "moderate relevance",
+      momentum: 44,
+      recentMovement: [1, 2, 2, 3, 4, 4, 5],
+      related: ["school-phone-bans", "edtech-procurement"]
+    },
+    {
+      id: "semiconductor-water-demand",
+      headline: "Chip expansion plans reignite debate over industrial water use in high-growth regions",
+      source: "bloomberg.com",
+      date: "2026-04-08",
+      slug: "semiconductor-water-demand",
+      tags: ["manufacturing", "industrial policy", "water demand"],
+      topic: "Resource competition",
+      summary: "large manufacturing projects are colliding with local concerns over water, land, and subsidies",
+      whyItMatters: "industrial policy and local resource stress are becoming the same public argument",
+      relevance: "high relevance",
+      momentum: 69,
+      recentMovement: [2, 4, 4, 5, 6, 8, 8],
+      related: ["grid-data-center-south", "water-rights-colorado"]
+    },
+    {
+      id: "reservoir-emergency-rule",
+      headline: "Emergency reservoir rule changes trigger legal review across western states",
+      source: "politico.com",
+      date: "2026-04-07",
+      slug: "reservoir-emergency-rule",
+      tags: ["legal challenge", "reservoirs", "state response"],
+      topic: "Water access",
+      summary: "temporary operating changes are shifting release timing and local planning assumptions",
+      whyItMatters: "emergency rules can harden into precedent if another stress season follows",
+      relevance: "medium relevance",
+      momentum: 61,
+      recentMovement: [2, 2, 3, 4, 5, 6, 6],
+      related: ["water-rights-colorado", "crop-insurance-west"]
+    },
+    {
+      id: "edtech-procurement",
+      headline: "District buyers revisit edtech contracts as classroom attention priorities shift",
+      source: "edsurge.com",
+      date: "2026-04-06",
+      slug: "edtech-procurement",
+      tags: ["procurement", "education budgets", "classroom tools"],
+      topic: "Student attention",
+      summary: "buyers are reevaluating software categories that expanded during remote learning",
+      whyItMatters: "budget changes are a durable downstream signal for where schools are headed",
+      relevance: "developing relevance",
+      momentum: 38,
+      recentMovement: [1, 1, 2, 2, 3, 4, 4],
+      related: ["school-phone-bans", "student-discipline-tech"]
+    }
+  ],
+  audioBriefings: [
+    {
+      title: "Weekly briefing: Grid strain and infrastructure politics",
+      duration: "12 min",
+      note: "source-grounded weekly roundup for public listening and team review",
+      link: "#"
+    },
+    {
+      title: "Topic explainer: Water access pressure points",
+      duration: "9 min",
+      note: "clustered source synthesis spanning policy, agriculture, and legal response",
+      link: "#"
+    },
+    {
+      title: "Weekly briefing: Student attention and device rules",
+      duration: "8 min",
+      note: "quick narrative pass across policy rollout, district data, and procurement",
+      link: "#"
+    }
+  ]
+};
 
-const audioBriefings = [
-  {
-    title: "Weekly briefing: Grid strain and infrastructure politics",
-    duration: "12 min",
-    note: "source-grounded weekly roundup for public listening and team review",
-    link: "#"
-  },
-  {
-    title: "Topic explainer: Water access pressure points",
-    duration: "9 min",
-    note: "clustered source synthesis spanning policy, agriculture, and legal response",
-    link: "#"
-  },
-  {
-    title: "Weekly briefing: Student attention and device rules",
-    duration: "8 min",
-    note: "quick narrative pass across policy rollout, district data, and procurement",
-    link: "#"
-  }
-];
+const DATA_URL = "./data/stories.json";
 
 const topicFilter = document.querySelector("#topic-filter");
 const storyFeed = document.querySelector("#story-feed");
@@ -164,8 +167,13 @@ const topicDetail = document.querySelector("#topic-detail");
 const audioList = document.querySelector("#audio-list");
 const storyTemplate = document.querySelector("#story-item-template");
 
-const topics = [...new Set(stories.map((story) => story.topic))].sort();
+let stories = [];
+let audioBriefings = [];
 let activeTopic = new URLSearchParams(window.location.search).get("topic") || "all";
+
+function getTopics() {
+  return [...new Set(stories.map((story) => story.topic))].sort();
+}
 
 function formatDate(dateString) {
   return new Date(`${dateString}T12:00:00`).toLocaleDateString("en-US", {
@@ -175,27 +183,8 @@ function formatDate(dateString) {
   });
 }
 
-function topicStats() {
-  return topics
-    .map((topic) => {
-    const topicStories = stories.filter((story) => story.topic === topic);
-    const volume = topicStories.length;
-    const avgMomentum = Math.round(
-      topicStories.reduce((sum, story) => sum + story.momentum, 0) / volume
-    );
-    const outlets = new Set(topicStories.map((story) => story.source)).size;
-    const movement = avgMomentum - 50;
-
-    return {
-      topic,
-      volume,
-      avgMomentum,
-      outlets,
-      movement,
-      stories: topicStories
-    };
-    })
-    .sort((a, b) => b.avgMomentum - a.avgMomentum || b.volume - a.volume || a.topic.localeCompare(b.topic));
+function formatMovement(value) {
+  return value > 0 ? `+${value}` : `${value}`;
 }
 
 function storyById(id) {
@@ -208,40 +197,48 @@ function sortedStoriesForTopic(topic) {
   );
 }
 
+function topicStats() {
+  return getTopics()
+    .map((topic) => {
+      const topicStories = stories.filter((story) => story.topic === topic);
+      const volume = topicStories.length;
+      const avgMomentum = Math.round(
+        topicStories.reduce((sum, story) => sum + story.momentum, 0) / volume
+      );
+      const outlets = new Set(topicStories.map((story) => story.source)).size;
+      const movement = avgMomentum - 50;
+
+      return {
+        topic,
+        volume,
+        avgMomentum,
+        outlets,
+        movement,
+        stories: topicStories
+      };
+    })
+    .sort((a, b) => b.avgMomentum - a.avgMomentum || b.volume - a.volume || a.topic.localeCompare(b.topic));
+}
+
+function filteredStories() {
+  return [...stories]
+    .filter((story) => activeTopic === "all" || story.topic === activeTopic)
+    .sort((a, b) => new Date(b.date) - new Date(a.date) || b.momentum - a.momentum);
+}
+
 function renderTopicFilter() {
+  const topics = getTopics();
+  topicFilter.innerHTML = '<option value="all">all topics</option>';
+
   topics.forEach((topic) => {
     const option = document.createElement("option");
     option.value = topic;
     option.textContent = topic.toLowerCase();
     topicFilter.append(option);
   });
+
   activeTopic = topics.includes(activeTopic) ? activeTopic : "all";
   topicFilter.value = activeTopic;
-}
-
-function filteredStories() {
-  const selected = topicFilter.value;
-  return [...stories]
-    .filter((story) => selected === "all" || story.topic === selected)
-    .sort((a, b) => new Date(b.date) - new Date(a.date) || b.momentum - a.momentum);
-}
-
-function selectTopic(topic) {
-  activeTopic = topics.includes(topic) ? topic : "all";
-  topicFilter.value = activeTopic;
-  const url = new URL(window.location.href);
-  if (activeTopic === "all") {
-    url.searchParams.delete("topic");
-  } else {
-    url.searchParams.set("topic", activeTopic);
-  }
-  window.history.replaceState({}, "", url);
-  renderStories();
-  renderTopicDetail();
-}
-
-function formatMovement(value) {
-  return value > 0 ? `+${value}` : `${value}`;
 }
 
 function renderStories() {
@@ -255,8 +252,8 @@ function renderStories() {
 
   items.forEach((story) => {
     const node = storyTemplate.content.firstElementChild.cloneNode(true);
-
     const headline = node.querySelector(".story-headline");
+
     headline.textContent = story.headline;
     headline.addEventListener("click", () => selectTopic(story.topic));
 
@@ -268,7 +265,7 @@ function renderStories() {
     node.querySelector(".story-why").textContent = story.whyItMatters;
 
     const tagRow = node.querySelector(".tag-row");
-    story.tags.forEach((tag) => {
+    (story.tags || []).forEach((tag) => {
       const chip = document.createElement("span");
       chip.className = "tag";
       chip.textContent = tag;
@@ -276,7 +273,7 @@ function renderStories() {
     });
 
     const relatedLinks = node.querySelector(".related-links");
-    story.related
+    (story.related || [])
       .map(storyById)
       .filter(Boolean)
       .forEach((relatedStory) => {
@@ -311,6 +308,7 @@ function renderTrends() {
       </div>
       <p>${entry.volume} stories | ${entry.outlets} sources</p>
     `;
+
     const jump = document.createElement("button");
     jump.type = "button";
     jump.textContent = "open thread";
@@ -322,9 +320,8 @@ function renderTrends() {
 
 function renderTopicDetail() {
   const stats = topicStats();
-  const selectedTopic = topicFilter.value;
 
-  if (selectedTopic === "all") {
+  if (activeTopic === "all") {
     const leadTopic = stats[0];
 
     if (!leadTopic) {
@@ -358,7 +355,7 @@ function renderTopicDetail() {
     return;
   }
 
-  const topicEntry = stats.find((entry) => entry.topic === selectedTopic);
+  const topicEntry = stats.find((entry) => entry.topic === activeTopic);
 
   if (!topicEntry) {
     topicDetail.innerHTML = '<div class="empty-state">Choose a topic to browse deeper.</div>';
@@ -374,7 +371,7 @@ function renderTopicDetail() {
     <h3>${topicEntry.topic}</h3>
     <p>${topicEntry.volume} approved stories | average momentum ${topicEntry.avgMomentum} | ${topicEntry.outlets} active sources</p>
     <ul>
-      <li>recent movement: +${topicEntry.movement}</li>
+      <li>recent movement: ${formatMovement(topicEntry.movement)}</li>
       <li>strongest signal: ${strongestStory.headline}</li>
       <li>common thread: ${strongestStory.tags[0]}</li>
     </ul>
@@ -399,6 +396,7 @@ function renderTopicDetail() {
 
 function renderAudioBriefings() {
   audioList.innerHTML = "";
+
   audioBriefings.forEach((briefing) => {
     const entry = document.createElement("div");
     entry.className = "audio-entry";
@@ -461,7 +459,7 @@ function renderTrendDirectionChart() {
 
   stats.forEach((item) => {
     const strongestStory = sortedStoriesForTopic(item.topic)[0];
-    const values = strongestStory.recentMovement;
+    const values = strongestStory?.recentMovement || [1];
     const maxPoint = Math.max(...values);
     const card = document.createElement("div");
     card.className = "spark-card";
@@ -478,15 +476,53 @@ function renderTrendDirectionChart() {
   });
 }
 
+function renderAll() {
+  renderTopicFilter();
+  renderStories();
+  renderTrends();
+  renderTopicDetail();
+  renderAudioBriefings();
+  renderTopicVolumeChart();
+  renderSourceSpreadChart();
+  renderTrendDirectionChart();
+}
+
+function selectTopic(topic) {
+  const topics = getTopics();
+  activeTopic = topics.includes(topic) ? topic : "all";
+  topicFilter.value = activeTopic;
+
+  const url = new URL(window.location.href);
+  if (activeTopic === "all") {
+    url.searchParams.delete("topic");
+  } else {
+    url.searchParams.set("topic", activeTopic);
+  }
+
+  window.history.replaceState({}, "", url);
+  renderStories();
+  renderTopicDetail();
+}
+
+async function loadFeedData() {
+  try {
+    const response = await fetch(DATA_URL, { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error(`Feed request failed with ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.warn("Falling back to embedded seed data.", error);
+    return fallbackData;
+  }
+}
+
 topicFilter?.addEventListener("change", (event) => {
   selectTopic(event.target.value);
 });
 
-renderTopicFilter();
-renderStories();
-renderTrends();
-renderTopicDetail();
-renderAudioBriefings();
-renderTopicVolumeChart();
-renderSourceSpreadChart();
-renderTrendDirectionChart();
+loadFeedData().then((data) => {
+  stories = Array.isArray(data.stories) ? data.stories : fallbackData.stories;
+  audioBriefings = Array.isArray(data.audioBriefings) ? data.audioBriefings : fallbackData.audioBriefings;
+  renderAll();
+});

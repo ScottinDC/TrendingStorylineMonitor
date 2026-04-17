@@ -1,0 +1,294 @@
+{
+  "stories": [
+    {
+      "id": "grid-data-center-south",
+      "headline": "Power regulators weigh fast-track approvals for data center corridors across the South",
+      "source": "reuters.com",
+      "date": "2026-04-13",
+      "slug": "grid-data-center-south",
+      "tags": [
+        "energy",
+        "ai infrastructure",
+        "utilities"
+      ],
+      "topic": "Grid strain",
+      "summary": "utilities debate how quickly new capacity can come online as large compute projects stack up",
+      "whyItMatters": "household reliability and industrial growth are now tied to the same buildout decisions",
+      "relevance": "very high relevance",
+      "momentum": 92,
+      "recentMovement": [
+        2,
+        3,
+        5,
+        7,
+        8,
+        11,
+        14
+      ],
+      "related": [
+        "utility-rate-hearings",
+        "semiconductor-water-demand"
+      ]
+    },
+    {
+      "id": "water-rights-colorado",
+      "headline": "Colorado basin talks tighten as rural districts brace for new water restrictions",
+      "source": "highcountrynews.com",
+      "date": "2026-04-12",
+      "slug": "water-rights-colorado",
+      "tags": [
+        "water policy",
+        "rural counties",
+        "climate"
+      ],
+      "topic": "Water access",
+      "summary": "regional talks converge on emergency conservation targets ahead of peak summer demand",
+      "whyItMatters": "food production, municipal planning, and interstate coordination all tighten at once",
+      "relevance": "high relevance",
+      "momentum": 81,
+      "recentMovement": [
+        4,
+        5,
+        5,
+        7,
+        8,
+        10,
+        12
+      ],
+      "related": [
+        "crop-insurance-west",
+        "reservoir-emergency-rule"
+      ]
+    },
+    {
+      "id": "school-phone-bans",
+      "headline": "More states move from pilot programs to statewide school phone restrictions",
+      "source": "npr.org",
+      "date": "2026-04-12",
+      "slug": "school-phone-bans",
+      "tags": [
+        "education",
+        "youth policy",
+        "mental health"
+      ],
+      "topic": "Student attention",
+      "summary": "districts move from pilots to broader restrictions while working through enforcement details",
+      "whyItMatters": "policy momentum is outrunning implementation capacity in many systems",
+      "relevance": "medium relevance",
+      "momentum": 58,
+      "recentMovement": [
+        3,
+        3,
+        4,
+        4,
+        5,
+        6,
+        7
+      ],
+      "related": [
+        "student-discipline-tech",
+        "edtech-procurement"
+      ]
+    },
+    {
+      "id": "crop-insurance-west",
+      "headline": "Farm groups press for crop insurance changes as drought losses spread westward",
+      "source": "apnews.com",
+      "date": "2026-04-11",
+      "slug": "crop-insurance-west",
+      "tags": [
+        "agriculture",
+        "drought",
+        "insurance"
+      ],
+      "topic": "Water access",
+      "summary": "state advocates want faster claims handling and revised risk models as drought widens",
+      "whyItMatters": "insurance rules are becoming operating rules for farms under climate pressure",
+      "relevance": "high relevance",
+      "momentum": 75,
+      "recentMovement": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "related": [
+        "water-rights-colorado",
+        "reservoir-emergency-rule"
+      ]
+    },
+    {
+      "id": "utility-rate-hearings",
+      "headline": "Consumer advocates push back on utility rate hikes tied to new server campus demand",
+      "source": "texastribune.org",
+      "date": "2026-04-10",
+      "slug": "utility-rate-hearings",
+      "tags": [
+        "rates",
+        "consumer impact",
+        "electricity"
+      ],
+      "topic": "Grid strain",
+      "summary": "public hearings are testing who pays when transmission upgrades follow industrial demand spikes",
+      "whyItMatters": "rate design will shape whether public support for AI-era grid expansion holds",
+      "relevance": "medium relevance",
+      "momentum": 63,
+      "recentMovement": [
+        2,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8
+      ],
+      "related": [
+        "grid-data-center-south",
+        "semiconductor-water-demand"
+      ]
+    },
+    {
+      "id": "student-discipline-tech",
+      "headline": "District discipline data shows uneven rollout of classroom device rules",
+      "source": "chalkbeat.org",
+      "date": "2026-04-09",
+      "slug": "student-discipline-tech",
+      "tags": [
+        "classroom policy",
+        "district data",
+        "implementation"
+      ],
+      "topic": "Student attention",
+      "summary": "early district reporting shows rule enforcement varies sharply by school and staffing level",
+      "whyItMatters": "the practical story is whether attention rules widen discipline disparities",
+      "relevance": "moderate relevance",
+      "momentum": 44,
+      "recentMovement": [
+        1,
+        2,
+        2,
+        3,
+        4,
+        4,
+        5
+      ],
+      "related": [
+        "school-phone-bans",
+        "edtech-procurement"
+      ]
+    },
+    {
+      "id": "semiconductor-water-demand",
+      "headline": "Chip expansion plans reignite debate over industrial water use in high-growth regions",
+      "source": "bloomberg.com",
+      "date": "2026-04-08",
+      "slug": "semiconductor-water-demand",
+      "tags": [
+        "manufacturing",
+        "industrial policy",
+        "water demand"
+      ],
+      "topic": "Resource competition",
+      "summary": "large manufacturing projects are colliding with local concerns over water, land, and subsidies",
+      "whyItMatters": "industrial policy and local resource stress are becoming the same public argument",
+      "relevance": "high relevance",
+      "momentum": 69,
+      "recentMovement": [
+        2,
+        4,
+        4,
+        5,
+        6,
+        8,
+        8
+      ],
+      "related": [
+        "grid-data-center-south",
+        "water-rights-colorado"
+      ]
+    },
+    {
+      "id": "reservoir-emergency-rule",
+      "headline": "Emergency reservoir rule changes trigger legal review across western states",
+      "source": "politico.com",
+      "date": "2026-04-07",
+      "slug": "reservoir-emergency-rule",
+      "tags": [
+        "legal challenge",
+        "reservoirs",
+        "state response"
+      ],
+      "topic": "Water access",
+      "summary": "temporary operating changes are shifting release timing and local planning assumptions",
+      "whyItMatters": "emergency rules can harden into precedent if another stress season follows",
+      "relevance": "medium relevance",
+      "momentum": 61,
+      "recentMovement": [
+        2,
+        2,
+        3,
+        4,
+        5,
+        6,
+        6
+      ],
+      "related": [
+        "water-rights-colorado",
+        "crop-insurance-west"
+      ]
+    },
+    {
+      "id": "edtech-procurement",
+      "headline": "District buyers revisit edtech contracts as classroom attention priorities shift",
+      "source": "edsurge.com",
+      "date": "2026-04-06",
+      "slug": "edtech-procurement",
+      "tags": [
+        "procurement",
+        "education budgets",
+        "classroom tools"
+      ],
+      "topic": "Student attention",
+      "summary": "buyers are reevaluating software categories that expanded during remote learning",
+      "whyItMatters": "budget changes are a durable downstream signal for where schools are headed",
+      "relevance": "developing relevance",
+      "momentum": 38,
+      "recentMovement": [
+        1,
+        1,
+        2,
+        2,
+        3,
+        4,
+        4
+      ],
+      "related": [
+        "school-phone-bans",
+        "student-discipline-tech"
+      ]
+    }
+  ],
+  "audioBriefings": [
+    {
+      "title": "Weekly briefing: Grid strain and infrastructure politics",
+      "duration": "12 min",
+      "note": "source-grounded weekly roundup for public listening and team review",
+      "link": "#"
+    },
+    {
+      "title": "Topic explainer: Water access pressure points",
+      "duration": "9 min",
+      "note": "clustered source synthesis spanning policy, agriculture, and legal response",
+      "link": "#"
+    },
+    {
+      "title": "Weekly briefing: Student attention and device rules",
+      "duration": "8 min",
+      "note": "quick narrative pass across policy rollout, district data, and procurement",
+      "link": "#"
+    }
+  ]
+}
