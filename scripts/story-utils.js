@@ -253,7 +253,6 @@ function isBlockedUrl(value) {
     }
 
     return (
-      path === "/" ||
       path === "/search" ||
       path === "/news" ||
       path === "/weather" ||
@@ -273,7 +272,37 @@ function isBlockedUrl(value) {
 function choosePrimaryUrl(candidates) {
   const normalized = [...new Set(candidates.map(normalizeUrl).filter(Boolean))];
   const preferred = normalized.find((value) => !isBlockedUrl(value));
-  return preferred || "";
+  if (preferred) {
+    return preferred;
+  }
+
+  const fallback = normalized.find((value) => {
+    try {
+      const host = new URL(value).hostname.replace(/^www\./, "");
+      return !(
+        host === "mail.google.com" ||
+        host === "facebook.com" ||
+        host === "x.com" ||
+        host === "twitter.com" ||
+        host === "instagram.com" ||
+        host === "youtube.com" ||
+        host === "youtu.be" ||
+        host === "bsky.app" ||
+        host === "adclick.g.doubleclick.net" ||
+        host.endsWith("revcontent.com") ||
+        host === "minute-ly.com" ||
+        host === "sellwild.com" ||
+        host === "apps.apple.com" ||
+        host === "play.google.com" ||
+        host === "bloxdigital.com" ||
+        host === "bloxcms.com"
+      );
+    } catch (_error) {
+      return false;
+    }
+  });
+
+  return fallback || "";
 }
 
 function normalizeAirtableStory(record) {

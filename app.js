@@ -540,7 +540,7 @@ function renderTopicFeed() {
         <span class="direction-pill">${entry.direction.label}</span>
       </div>
       <div class="topic-card-meta">
-        <span>${entry.urls.length || entry.volume} related URLs</span>
+        <span>${entry.urls.length} related URLs</span>
         <span>${entry.outlets} sources</span>
         <span>momentum ${entry.avgMomentum}</span>
       </div>
@@ -563,7 +563,7 @@ function renderTopicFeed() {
     details.open = activeTopic === entry.topic;
 
     const summaryRow = document.createElement("summary");
-    summaryRow.textContent = `Related URLs (${entry.urls.length || entry.volume})`;
+    summaryRow.textContent = `Related URLs (${entry.urls.length})`;
     details.append(summaryRow);
 
     const urlList = document.createElement("ul");
@@ -631,7 +631,7 @@ function renderTopicDetail() {
     topicDetail.innerHTML = `
       <div class="topic-summary">
         <h3>Tag page: ${activeTag}</h3>
-        <p>${taggedStories.length} related URLs across ${new Set(taggedStories.map((story) => story.topic)).size} topics.</p>
+        <p>${taggedStories.filter((story) => story.url || story.relatedUrls?.length).length} related URLs across ${new Set(taggedStories.map((story) => story.topic)).size} topics.</p>
       </div>
     `;
 
@@ -680,7 +680,7 @@ function renderTopicDetail() {
     entries.forEach((entry) => {
       const button = document.createElement("button");
       button.type = "button";
-      button.textContent = `${entry.topic} | ${entry.urls.length || entry.volume} URLs | ${entry.direction.label.toLowerCase()}`;
+      button.textContent = `${entry.topic} | ${entry.urls.length} URLs | ${entry.direction.label.toLowerCase()}`;
       button.addEventListener("click", () => selectTopic(entry.topic));
       list.append(button);
     });
@@ -700,7 +700,7 @@ function renderTopicDetail() {
       <h3>${entry.topic}</h3>
       <p>${entry.summary}</p>
       <ul>
-        <li>${entry.urls.length || entry.volume} tracked URLs</li>
+        <li>${entry.urls.length} tracked URLs</li>
         <li>${entry.outlets} active sources</li>
         <li>${entry.direction.label.toLowerCase()} | average momentum ${entry.avgMomentum}</li>
       </ul>
