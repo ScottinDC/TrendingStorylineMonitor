@@ -18,7 +18,7 @@ async function fetchApprovedRecords() {
 
   const params = new URLSearchParams({
     pageSize: "100",
-    filterByFormula: "Status='Approved'",
+    filterByFormula: "{Status}='Approved'",
     "sort[0][field]": "Date",
     "sort[0][direction]": "desc"
   });
