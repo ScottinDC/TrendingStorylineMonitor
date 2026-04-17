@@ -135,7 +135,6 @@ button {
 .story-subline,
 .story-meta,
 .intel-panel,
-.trend-item,
 .audio-entry,
 .topic-summary,
 .topic-story-list button,
@@ -183,7 +182,6 @@ button {
 .story-meta,
 .related-links button,
 .tag,
-.trend-item p,
 .audio-entry p,
 .chart-row,
 .spark-card,
@@ -209,7 +207,6 @@ button {
 .topic-card-button:hover strong,
 .topic-story-list a:hover,
 .topic-story-list button:hover,
-.trend-item button:hover,
 .audio-entry a:hover,
 .url-item a:hover,
 .tag:hover {
@@ -217,7 +214,6 @@ button {
 }
 
 .topic-feed,
-.trend-item,
 .audio-entry,
 .chart-block,
 .topic-summary,
@@ -239,8 +235,7 @@ button {
 
 .topic-story-list button,
 .topic-story-list a,
-.audio-play-button,
-.trend-item button {
+.audio-play-button {
   appearance: none;
   border: 0;
   padding: 0;
@@ -282,10 +277,14 @@ button {
   border-left: 1px solid var(--line);
 }
 
+.intel-panel {
+  border: 1px solid var(--line);
+  background: var(--white);
+  padding: 8px;
+}
+
 .intel-panel + .intel-panel {
   margin-top: 14px;
-  padding-top: 10px;
-  border-top: 1px solid var(--line);
 }
 
 .intel-panel h2 {
@@ -293,7 +292,6 @@ button {
   color: var(--ink);
 }
 
-.trend-list,
 .audio-list,
 .chart-stack,
 .spark-grid,
@@ -304,7 +302,6 @@ button {
   gap: 6px;
 }
 
-.trend-item,
 .audio-entry,
 .topic-summary,
 .topic-story-list button,
@@ -409,7 +406,6 @@ button {
   font-size: 7pt;
 }
 
-.trend-item-top,
 .audio-entry-top,
 .chart-top {
   display: flex;
@@ -418,7 +414,6 @@ button {
   align-items: baseline;
 }
 
-.trend-item strong,
 .audio-entry strong,
 .topic-summary h3,
 .chart-top strong,
