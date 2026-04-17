@@ -22,13 +22,13 @@ A GitHub Pages-ready public story stream for reviewed story threads, topic momen
 - `scripts/review-story.js` - marks queued items as approved, pending, or rejected
 - `scripts/publish-stories.js` - publishes approved stories to the live feed
 - `scripts/publish-airtable.js` - rebuilds the live feed from approved Airtable records
-- `scripts/generate-podcast-briefing.js` - generates an MP3 briefing from approved Airtable stories using Google's Podcast API
+- `scripts/generate-podcast-briefing.js` - generates an MP3 briefing from approved Airtable stories using Gemini plus Google TTS
 - `docs/airtable-schema.md` - Airtable field layout for the review table
-- `docs/podcast-api-setup.md` - Google Podcast API setup and briefing workflow
+- `docs/audio-briefing-setup.md` - Gemini plus Google TTS setup and briefing workflow
 - `prompts/story-extraction.md` - OpenAI prompt for Zapier extraction
 - `.github/workflows/pages.yml` - GitHub Pages deployment workflow
 - `.github/workflows/publish-from-airtable.yml` - on-demand Airtable publish workflow
-- `.github/workflows/generate-podcast-briefing.yml` - on-demand Podcast API workflow
+- `.github/workflows/generate-podcast-briefing.yml` - on-demand audio briefing workflow
 
 ## Setup
 
@@ -53,9 +53,14 @@ The Outlook sync script uses Microsoft Graph application auth and expects:
 - `AIRTABLE_VIEW_NAME`
 - `GOOGLE_CLOUD_PROJECT_ID`
 - `GOOGLE_OAUTH_ACCESS_TOKEN`
-- `PODCAST_API_LANGUAGE_CODE`
-- `PODCAST_API_LENGTH`
-- `PODCAST_BRIEFING_STORY_LIMIT`
+- `GEMINI_LOCATION`
+- `GEMINI_MODEL`
+- `GOOGLE_TTS_USE_MULTISPEAKER`
+- `GOOGLE_TTS_MULTISPEAKER_VOICE`
+- `GOOGLE_TTS_FALLBACK_VOICE_NAME`
+- `GOOGLE_TTS_FALLBACK_GENDER`
+- `AUDIO_BRIEFING_STORY_LIMIT`
+- `AUDIO_BRIEFING_MINUTES`
 
 ## Workflow
 
@@ -102,15 +107,15 @@ For GitHub automation, add these repository secrets:
 
 Then trigger `.github/workflows/publish-from-airtable.yml` manually, or from Zapier using GitHub `repository_dispatch` with event type `publish-stories`.
 
-## Podcast Briefings
+## Audio Briefings
 
-To generate a podcast-style audio briefing from approved Airtable stories:
+To generate an audio briefing from approved Airtable stories:
 
 ```bash
 npm run generate:podcast
 ```
 
-See [`docs/podcast-api-setup.md`](./docs/podcast-api-setup.md) for Google Cloud setup, secrets, and the GitHub workflow path.
+See [`docs/audio-briefing-setup.md`](./docs/audio-briefing-setup.md) for Google Cloud setup, secrets, and the GitHub workflow path.
 
 ## Recommended Zapier Chain
 

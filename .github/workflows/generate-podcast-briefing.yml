@@ -1,4 +1,4 @@
-name: Generate podcast briefing
+name: Generate audio briefing
 
 on:
   workflow_dispatch:
@@ -28,7 +28,7 @@ jobs:
           credentials_json: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
           token_format: access_token
 
-      - name: Generate podcast briefing
+      - name: Generate audio briefing
         env:
           AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
           AIRTABLE_TABLE_NAME: ${{ secrets.AIRTABLE_TABLE_NAME }}
@@ -36,9 +36,14 @@ jobs:
           AIRTABLE_VIEW_NAME: ${{ secrets.AIRTABLE_VIEW_NAME }}
           GOOGLE_CLOUD_PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}
           GOOGLE_OAUTH_ACCESS_TOKEN: ${{ steps.auth.outputs.access_token }}
-          PODCAST_API_LANGUAGE_CODE: ${{ secrets.PODCAST_API_LANGUAGE_CODE }}
-          PODCAST_API_LENGTH: ${{ secrets.PODCAST_API_LENGTH }}
-          PODCAST_BRIEFING_STORY_LIMIT: ${{ secrets.PODCAST_BRIEFING_STORY_LIMIT }}
+          GEMINI_LOCATION: ${{ secrets.GEMINI_LOCATION }}
+          GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
+          GOOGLE_TTS_USE_MULTISPEAKER: ${{ secrets.GOOGLE_TTS_USE_MULTISPEAKER }}
+          GOOGLE_TTS_MULTISPEAKER_VOICE: ${{ secrets.GOOGLE_TTS_MULTISPEAKER_VOICE }}
+          GOOGLE_TTS_FALLBACK_VOICE_NAME: ${{ secrets.GOOGLE_TTS_FALLBACK_VOICE_NAME }}
+          GOOGLE_TTS_FALLBACK_GENDER: ${{ secrets.GOOGLE_TTS_FALLBACK_GENDER }}
+          AUDIO_BRIEFING_STORY_LIMIT: ${{ secrets.AUDIO_BRIEFING_STORY_LIMIT }}
+          AUDIO_BRIEFING_MINUTES: ${{ secrets.AUDIO_BRIEFING_MINUTES }}
         run: node scripts/generate-podcast-briefing.js
 
       - name: Commit generated audio and feed
@@ -47,5 +52,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add audio data/stories.json
           git diff --cached --quiet && exit 0
-          git commit -m "Generate podcast briefing"
+          git commit -m "Generate audio briefing"
           git push

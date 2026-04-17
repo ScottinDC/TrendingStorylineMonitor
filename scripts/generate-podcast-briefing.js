@@ -20,6 +20,7 @@ function buildStoryContext(story, index) {
   const parts = [
     `Story ${index + 1}: ${story.headline}.`,
     `Source: ${story.source}.`,
+    `Date: ${story.date}.`,
     `Topic: ${story.topic}.`,
     `Summary: ${compactText(story.summary) || "No summary provided."}`,
     `Why it matters: ${compactText(story.whyItMatters) || "No significance note provided."}`,
@@ -34,67 +35,68 @@ function buildStoryContext(story, index) {
   return parts.join(" ");
 }
 
-function buildFocus(stories) {
-  const topics = [...new Set(stories.map((story) => story.topic))].slice(0, 3);
-  if (!topics.length) {
-    return "Create a short public briefing covering the most important approved stories.";
-  }
-  return `Create a short public briefing covering the most important approved stories, with emphasis on ${topics.join(", ")}.`;
-}
+function buildGeminiPrompt(stories, minutes) {
+  const storyText = stories.map(buildStoryContext).join("\n\n");
 
-function buildDescription(stories) {
-  return `Generated from ${stories.length} approved story record(s) in Airtable.`;
-}
+  return `
+You are writing a public audio explainer for the Trending Storyline Monitor.
 
-async function pollOperation(accessToken, operationName) {
-  const maxAttempts = Number(process.env.PODCAST_API_MAX_POLLS || 40);
-  const waitMs = Number(process.env.PODCAST_API_POLL_MS || 15000);
+Write a concise two-speaker script for a roughly ${minutes}-minute audio briefing.
+The tone should sound like a polished public radio explainer: clear, conversational, grounded, and confident.
+Do not invent facts beyond the source material below.
+Do not include stage directions, music cues, or sound effects.
+Keep the script focused on the most important connections across the stories.
 
-  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
-    const response = await fetch(`https://discoveryengine.googleapis.com/v1/${operationName}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        Accept: "application/json"
-      }
-    });
-
-    if (!response.ok) {
-      throw new Error(`Operation poll failed with ${response.status}: ${await response.text()}`);
-    }
-
-    const payload = await response.json();
-    if (payload.done) {
-      if (payload.error) {
-        throw new Error(`Podcast generation failed: ${JSON.stringify(payload.error)}`);
-      }
-      return payload;
-    }
-
-    await new Promise((resolve) => setTimeout(resolve, waitMs));
-  }
-
-  throw new Error("Podcast generation timed out while polling the long-running operation.");
-}
-
-async function downloadPodcast(accessToken, operationName, outputPath) {
-  const response = await fetch(
-    `https://discoveryengine.googleapis.com/v1/${operationName}:download?alt=media`,
+Return only valid JSON in this exact shape:
+{
+  "title": "string",
+  "summaryNote": "string",
+  "turns": [
     {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        Accept: "audio/mpeg"
-      },
-      redirect: "follow"
+      "speaker": "HOST",
+      "text": "string"
+    },
+    {
+      "speaker": "GUEST",
+      "text": "string"
     }
-  );
+  ]
+}
 
-  if (!response.ok) {
-    throw new Error(`Podcast download failed with ${response.status}: ${await response.text()}`);
+Rules:
+- Use only speakers HOST and GUEST.
+- Include between 10 and 18 turns total.
+- Each turn should be 1 to 4 sentences.
+- "title" should be short and publication-ready.
+- "summaryNote" should be one sentence describing the briefing.
+- The HOST should guide the conversation and transitions.
+- The GUEST should add analysis and context.
+- End with a short closing line.
+
+Approved stories:
+${storyText}
+`.trim();
+}
+
+function stripCodeFences(value) {
+  const text = String(value || "").trim();
+  if (!text.startsWith("```")) {
+    return text;
   }
+  return text.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "");
+}
 
-  const arrayBuffer = await response.arrayBuffer();
-  await fs.mkdir(path.dirname(outputPath), { recursive: true });
-  await fs.writeFile(outputPath, Buffer.from(arrayBuffer));
+function parseGeminiJson(value) {
+  return JSON.parse(stripCodeFences(value));
+}
+
+function normalizeTurns(turns) {
+  return (Array.isArray(turns) ? turns : [])
+    .map((turn) => ({
+      speaker: String(turn.speaker || "").toUpperCase() === "GUEST" ? "GUEST" : "HOST",
+      text: compactText(turn.text)
+    }))
+    .filter((turn) => turn.text);
 }
 
 async function fetchApprovedStories() {
@@ -109,39 +111,10 @@ async function fetchApprovedStories() {
   return records.map(normalizeAirtableStory);
 }
 
-async function main() {
-  const projectId = process.env.GOOGLE_CLOUD_PROJECT_ID;
-  const accessToken = process.env.GOOGLE_OAUTH_ACCESS_TOKEN;
-  const languageCode = process.env.PODCAST_API_LANGUAGE_CODE || "en-US";
-  const length = process.env.PODCAST_API_LENGTH || "SHORT";
-  const topStories = Number(process.env.PODCAST_BRIEFING_STORY_LIMIT || 6);
-
-  if (!projectId || !accessToken) {
-    throw new Error("Missing Google Podcast API credentials. Set GOOGLE_CLOUD_PROJECT_ID and GOOGLE_OAUTH_ACCESS_TOKEN.");
-  }
-
-  const approvedStories = (await fetchApprovedStories()).slice(0, topStories);
-  if (!approvedStories.length) {
-    throw new Error("No approved Airtable stories found for podcast generation.");
-  }
-
-  const today = new Date().toISOString().slice(0, 10);
-  const title = `Story briefing ${today}`;
-  const payload = {
-    podcastConfig: {
-      focus: buildFocus(approvedStories),
-      length,
-      languageCode
-    },
-    contexts: approvedStories.map((story, index) => ({
-      text: buildStoryContext(story, index)
-    })),
-    title,
-    description: buildDescription(approvedStories)
-  };
-
-  const createResponse = await fetch(
-    `https://discoveryengine.googleapis.com/v1/projects/${projectId}/locations/global/podcasts`,
+async function generateScript(accessToken, projectId, location, model, stories, minutes) {
+  const prompt = buildGeminiPrompt(stories, minutes);
+  const response = await fetch(
+    `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/${model}:generateContent`,
     {
       method: "POST",
       headers: {
@@ -149,46 +122,208 @@ async function main() {
         "Content-Type": "application/json",
         Accept: "application/json"
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({
+        contents: [
+          {
+            role: "user",
+            parts: [{ text: prompt }]
+          }
+        ],
+        generationConfig: {
+          temperature: 0.7,
+          topP: 0.9,
+          responseMimeType: "application/json"
+        }
+      })
     }
   );
 
-  if (!createResponse.ok) {
-    throw new Error(`Podcast API request failed with ${createResponse.status}: ${await createResponse.text()}`);
+  if (!response.ok) {
+    throw new Error(`Gemini script request failed with ${response.status}: ${await response.text()}`);
   }
 
-  const operation = await createResponse.json();
-  if (!operation.name) {
-    throw new Error(`Unexpected podcast API response: ${JSON.stringify(operation)}`);
+  const payload = await response.json();
+  const text = payload.candidates?.[0]?.content?.parts?.map((part) => part.text || "").join("").trim();
+
+  if (!text) {
+    throw new Error(`Gemini returned no script text: ${JSON.stringify(payload)}`);
   }
 
-  await pollOperation(accessToken, operation.name);
+  const parsed = parseGeminiJson(text);
+  const turns = normalizeTurns(parsed.turns);
+  if (!turns.length) {
+    throw new Error(`Gemini returned no usable turns: ${text}`);
+  }
 
-  const fileName = `briefing-${today}.mp3`;
+  return {
+    title: compactText(parsed.title) || `Story briefing ${new Date().toISOString().slice(0, 10)}`,
+    summaryNote: compactText(parsed.summaryNote) || `Audio briefing generated from ${stories.length} approved story record(s).`,
+    turns
+  };
+}
+
+function mapTurnsForMultispeaker(turns) {
+  return turns.map((turn) => ({
+    speaker: turn.speaker === "GUEST" ? "S" : "R",
+    text: turn.text
+  }));
+}
+
+function flattenTurns(turns) {
+  return turns.map((turn) => `${turn.speaker}: ${turn.text}`).join(" ");
+}
+
+async function synthesizeMultispeaker(accessToken, projectId, turns, voiceName) {
+  const response = await fetch("https://texttospeech.googleapis.com/v1beta1/text:synthesize", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "x-goog-user-project": projectId
+    },
+    body: JSON.stringify({
+      input: {
+        multiSpeakerMarkup: {
+          turns: mapTurnsForMultispeaker(turns)
+        }
+      },
+      voice: {
+        languageCode: "en-US",
+        name: voiceName
+      },
+      audioConfig: {
+        audioEncoding: "MP3"
+      }
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error(`Multispeaker TTS failed with ${response.status}: ${await response.text()}`);
+  }
+
+  const payload = await response.json();
+  if (!payload.audioContent) {
+    throw new Error(`Multispeaker TTS returned no audio content: ${JSON.stringify(payload)}`);
+  }
+
+  return Buffer.from(payload.audioContent, "base64");
+}
+
+async function synthesizeSingleSpeaker(accessToken, projectId, turns, voiceName, gender) {
+  const voice = voiceName
+    ? { languageCode: "en-US", name: voiceName }
+    : { languageCode: "en-US", ssmlGender: gender };
+
+  const response = await fetch("https://texttospeech.googleapis.com/v1/text:synthesize", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "x-goog-user-project": projectId
+    },
+    body: JSON.stringify({
+      input: {
+        text: flattenTurns(turns)
+      },
+      voice,
+      audioConfig: {
+        audioEncoding: "MP3"
+      }
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error(`Single-speaker TTS failed with ${response.status}: ${await response.text()}`);
+  }
+
+  const payload = await response.json();
+  if (!payload.audioContent) {
+    throw new Error(`Single-speaker TTS returned no audio content: ${JSON.stringify(payload)}`);
+  }
+
+  return Buffer.from(payload.audioContent, "base64");
+}
+
+async function writeAudioBriefing(fileName, audioBuffer, title, summaryNote, durationLabel, stories) {
   const outputPath = path.join(audioDir, fileName);
-  await downloadPodcast(accessToken, operation.name, outputPath);
+  await fs.mkdir(path.dirname(outputPath), { recursive: true });
+  await fs.writeFile(outputPath, audioBuffer);
 
   const currentFeed = await readJson(publishedStoriesPath, {
-    stories: approvedStories,
+    stories,
     audioBriefings: defaultAudioBriefings
   });
   const relativeLink = `audio/${fileName}`;
-  const note = `Audio summary generated from ${approvedStories.length} approved story record(s).`;
   const briefing = {
     title,
-    duration: length === "SHORT" ? "4-5 min" : "8-10 min",
-    note,
+    duration: durationLabel,
+    note: summaryNote,
     link: relativeLink
   };
 
   const remainingBriefings = (currentFeed.audioBriefings || []).filter((item) => item.link !== relativeLink);
 
   await writeJson(publishedStoriesPath, {
-    stories: currentFeed.stories || approvedStories,
+    stories: currentFeed.stories || stories,
     audioBriefings: [briefing, ...remainingBriefings].slice(0, 6)
   });
 
-  console.log(`Generated podcast briefing at ${outputPath} and updated ${publishedStoriesPath}.`);
+  return outputPath;
+}
+
+async function main() {
+  const projectId = process.env.GOOGLE_CLOUD_PROJECT_ID;
+  const accessToken = process.env.GOOGLE_OAUTH_ACCESS_TOKEN;
+  const location = process.env.GEMINI_LOCATION || "us-central1";
+  const model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+  const topStories = Number(process.env.AUDIO_BRIEFING_STORY_LIMIT || 6);
+  const minutes = Number(process.env.AUDIO_BRIEFING_MINUTES || 5);
+  const useMultispeaker = (process.env.GOOGLE_TTS_USE_MULTISPEAKER || "true").toLowerCase() !== "false";
+  const multispeakerVoice = process.env.GOOGLE_TTS_MULTISPEAKER_VOICE || "en-US-Studio-MultiSpeaker";
+  const fallbackVoiceName = process.env.GOOGLE_TTS_FALLBACK_VOICE_NAME || "";
+  const fallbackGender = process.env.GOOGLE_TTS_FALLBACK_GENDER || "FEMALE";
+
+  if (!projectId || !accessToken) {
+    throw new Error("Missing Google credentials. Set GOOGLE_CLOUD_PROJECT_ID and GOOGLE_OAUTH_ACCESS_TOKEN.");
+  }
+
+  const approvedStories = (await fetchApprovedStories()).slice(0, topStories);
+  if (!approvedStories.length) {
+    throw new Error("No approved Airtable stories found for audio generation.");
+  }
+
+  const script = await generateScript(accessToken, projectId, location, model, approvedStories, minutes);
+  let audioBuffer;
+  let note = script.summaryNote;
+
+  if (useMultispeaker) {
+    try {
+      audioBuffer = await synthesizeMultispeaker(accessToken, projectId, script.turns, multispeakerVoice);
+      note = `${note} Generated with Google multi-speaker TTS.`;
+    } catch (error) {
+      console.warn(`Multispeaker synthesis unavailable, falling back to single speaker. ${error.message}`);
+      audioBuffer = await synthesizeSingleSpeaker(accessToken, projectId, script.turns, fallbackVoiceName, fallbackGender);
+      note = `${note} Generated with Google single-speaker TTS fallback.`;
+    }
+  } else {
+    audioBuffer = await synthesizeSingleSpeaker(accessToken, projectId, script.turns, fallbackVoiceName, fallbackGender);
+    note = `${note} Generated with Google single-speaker TTS.`;
+  }
+
+  const today = new Date().toISOString().slice(0, 10);
+  const fileName = `briefing-${today}.mp3`;
+  const outputPath = await writeAudioBriefing(
+    fileName,
+    audioBuffer,
+    script.title,
+    note,
+    `${minutes} min`,
+    approvedStories
+  );
+
+  console.log(`Generated audio briefing at ${outputPath} and updated ${publishedStoriesPath}.`);
 }
 
 main().catch((error) => {
