@@ -702,6 +702,7 @@ function renderAudioBriefings() {
         <strong>${briefing.title}</strong>
         <span>${briefing.duration}</span>
       </div>
+      ${briefing.topic ? `<p>Topic: ${briefing.topic}</p>` : ""}
       <p>${briefing.note}</p>
     `;
 
@@ -741,6 +742,7 @@ function renderAudioBriefings() {
           <strong>${briefing.title}</strong>
           <span>${briefing.duration}</span>
         </div>
+        ${briefing.topic ? `<p>Topic: ${briefing.topic}</p>` : ""}
         <p>Audio briefing is currently unavailable.</p>
       `;
     });

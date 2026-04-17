@@ -21,6 +21,7 @@ function buildStoryContext(story, index) {
     `Story ${index + 1}: ${story.headline}.`,
     `Source: ${story.source}.`,
     `Date: ${story.date}.`,
+    `Source URL: ${story.url || "Not provided"}.`,
     `Topic: ${story.topic}.`,
     `Summary: ${compactText(story.summary) || "No summary provided."}`,
     `Why it matters: ${compactText(story.whyItMatters) || "No significance note provided."}`,
@@ -35,17 +36,58 @@ function buildStoryContext(story, index) {
   return parts.join(" ");
 }
 
-function buildGeminiPrompt(stories, minutes) {
+function groupStoriesByTopic(stories) {
+  const grouped = new Map();
+
+  stories.forEach((story) => {
+    if (!grouped.has(story.topic)) {
+      grouped.set(story.topic, []);
+    }
+    grouped.get(story.topic).push(story);
+  });
+
+  return [...grouped.entries()].map(([topic, topicStories]) => ({
+    topic,
+    stories: topicStories.sort((a, b) => b.momentum - a.momentum || new Date(b.date) - new Date(a.date)),
+    avgMomentum: Math.round(
+      topicStories.reduce((sum, story) => sum + story.momentum, 0) / Math.max(topicStories.length, 1)
+    )
+  }));
+}
+
+function selectTopicCluster(stories, preferredTopic) {
+  const groups = groupStoriesByTopic(stories).sort((a, b) => {
+    if (b.avgMomentum !== a.avgMomentum) {
+      return b.avgMomentum - a.avgMomentum;
+    }
+    if (b.stories.length !== a.stories.length) {
+      return b.stories.length - a.stories.length;
+    }
+    return a.topic.localeCompare(b.topic);
+  });
+
+  if (preferredTopic) {
+    const match = groups.find((group) => group.topic.toLowerCase() === preferredTopic.toLowerCase());
+    if (match) {
+      return match;
+    }
+  }
+
+  return groups[0] || null;
+}
+
+function buildGeminiPrompt(topicEntry, minutes) {
+  const stories = topicEntry.stories;
   const storyText = stories.map(buildStoryContext).join("\n\n");
 
   return `
 You are writing a public audio explainer for the Trending Storyline Monitor.
 
-Write a concise two-speaker script for a roughly ${minutes}-minute audio briefing.
+Write a concise two-speaker script for a roughly ${minutes}-minute audio briefing about one topic cluster only.
 The tone should sound like a polished public radio explainer: clear, conversational, grounded, and confident.
 Do not invent facts beyond the source material below.
 Do not include stage directions, music cues, or sound effects.
-Keep the script focused on the most important connections across the stories.
+Keep the script focused on the most important connections inside this one topic.
 
 Return only valid JSON in this exact shape:
 {
@@ -68,12 +110,17 @@ Rules:
 - Include between 10 and 18 turns total.
 - Each turn should be 1 to 4 sentences.
 - "title" should be short and publication-ready.
-- "summaryNote" should be one sentence describing the briefing.
+- "summaryNote" should be one sentence describing the topic briefing.
 - The HOST should guide the conversation and transitions.
 - The GUEST should add analysis and context.
 - End with a short closing line.
+- Make the topic name explicit early in the script.
+- Use only the stories below that belong to the topic.
 
-Approved stories:
+Topic:
+${topicEntry.topic}
+
+Topic stories:
 ${storyText}
 `.trim();
 }
@@ -111,8 +158,8 @@ async function fetchApprovedStories() {
   return records.map(normalizeAirtableStory);
 }
 
-async function generateScript(accessToken, projectId, location, model, stories, minutes) {
-  const prompt = buildGeminiPrompt(stories, minutes);
+async function generateScript(accessToken, projectId, location, model, topicEntry, minutes) {
+  const prompt = buildGeminiPrompt(topicEntry, minutes);
   const response = await fetch(
     `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/${model}:generateContent`,
     {
@@ -156,8 +203,8 @@ async function generateScript(accessToken, projectId, location, model, stories, 
   }
 
   return {
-    title: compactText(parsed.title) || `Story briefing ${new Date().toISOString().slice(0, 10)}`,
-    summaryNote: compactText(parsed.summaryNote) || `Audio briefing generated from ${stories.length} approved story record(s).`,
+    title: compactText(parsed.title) || `${topicEntry.topic} briefing`,
+    summaryNote: compactText(parsed.summaryNote) || `Audio briefing generated for the ${topicEntry.topic} topic.`,
     turns
   };
 }
@@ -246,7 +293,7 @@ async function synthesizeSingleSpeaker(accessToken, projectId, turns, voiceName,
   return Buffer.from(payload.audioContent, "base64");
 }
 
-async function writeAudioBriefing(fileName, audioBuffer, title, summaryNote, durationLabel, stories) {
+async function writeAudioBriefing(fileName, audioBuffer, title, summaryNote, durationLabel, stories, topic) {
   const outputPath = path.join(audioDir, fileName);
   await fs.mkdir(path.dirname(outputPath), { recursive: true });
   await fs.writeFile(outputPath, audioBuffer);
@@ -258,6 +305,7 @@ async function writeAudioBriefing(fileName, audioBuffer, title, summaryNote, dur
   const relativeLink = `audio/${fileName}`;
   const briefing = {
     title,
+    topic,
     duration: durationLabel,
     note: summaryNote,
     link: relativeLink
@@ -280,6 +328,7 @@ async function main() {
   const model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
   const topStories = Number(process.env.AUDIO_BRIEFING_STORY_LIMIT || 6);
   const minutes = Number(process.env.AUDIO_BRIEFING_MINUTES || 5);
+  const preferredTopic = process.env.AUDIO_BRIEFING_TOPIC || "";
   const useMultispeaker = (process.env.GOOGLE_TTS_USE_MULTISPEAKER || "true").toLowerCase() !== "false";
   const multispeakerVoice = process.env.GOOGLE_TTS_MULTISPEAKER_VOICE || "en-US-Studio-MultiSpeaker";
   const fallbackVoiceName = process.env.GOOGLE_TTS_FALLBACK_VOICE_NAME || "";
@@ -294,7 +343,12 @@ async function main() {
     throw new Error("No approved Airtable stories found for audio generation.");
   }
 
-  const script = await generateScript(accessToken, projectId, location, model, approvedStories, minutes);
+  const topicEntry = selectTopicCluster(approvedStories, preferredTopic);
+  if (!topicEntry) {
+    throw new Error("No topic cluster available for audio generation.");
+  }
+
+  const script = await generateScript(accessToken, projectId, location, model, topicEntry, minutes);
   let audioBuffer;
   let note = script.summaryNote;
 
@@ -313,17 +367,19 @@ async function main() {
   }
 
   const today = new Date().toISOString().slice(0, 10);
-  const fileName = `briefing-${today}.mp3`;
+  const topicSlug = topicEntry.topic.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  const fileName = `briefing-${topicSlug || "topic"}-${today}.mp3`;
   const outputPath = await writeAudioBriefing(
     fileName,
     audioBuffer,
     script.title,
     note,
     `${minutes} min`,
-    approvedStories
+    approvedStories,
+    topicEntry.topic
   );
 
-  console.log(`Generated audio briefing at ${outputPath} and updated ${publishedStoriesPath}.`);
+  console.log(`Generated ${topicEntry.topic} audio briefing at ${outputPath} and updated ${publishedStoriesPath}.`);
 }
 
 main().catch((error) => {

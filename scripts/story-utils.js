@@ -6,14 +6,7 @@ const envPath = path.join(__dirname, "..", ".env");
 const reviewQueuePath = path.join(dataDir, "review-queue.json");
 const publishedStoriesPath = path.join(dataDir, "stories.json");
 
-const defaultAudioBriefings = [
-  {
-    title: "Civic Engagement: From Global Service to Local Activism",
-    duration: "5 min",
-    note: "This briefing explores contrasting forms of civic engagement, from structured international volunteerism to confrontational local activism.",
-    link: "audio/briefing-2026-04-17.mp3"
-  }
-];
+const defaultAudioBriefings = [];
 
 async function readJson(filePath, fallback) {
   try {
