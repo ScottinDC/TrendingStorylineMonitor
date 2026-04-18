@@ -292,6 +292,11 @@ button {
   color: var(--ink);
 }
 
+.chart-block + .chart-block {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
 .audio-list,
 .chart-stack,
 .spark-grid,

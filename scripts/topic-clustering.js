@@ -14,6 +14,16 @@ const LOCATION_PATTERNS = [
   { label: "Federal", terms: ["federal", "u.s.", "us ", "bureau of land management", "blm"] }
 ];
 
+const GENERIC_LABEL_PATTERNS = [
+  /\bdepartment tackles\b/i,
+  /\bdraws line\b/i,
+  /\bplan second\b/i,
+  /\bunderway across\b/i,
+  /\btargets\b/i,
+  /\bchallenge\b/i,
+  /\bcopy\b/i
+];
+
 function slugify(value) {
   return String(value || "")
     .toLowerCase()
@@ -28,6 +38,27 @@ function titleCase(value) {
     .filter(Boolean)
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(" ");
+}
+
+function formatLabel(value) {
+  const raw = String(value || "").trim();
+  if (!raw) {
+    return "";
+  }
+
+  return raw
+    .split(/\s+/)
+    .map((part) => {
+      if (/^[A-Z0-9/&-]{2,}$/.test(part)) {
+        return part;
+      }
+      if (/^[a-z0-9/&-]{2,}$/.test(part) && /[A-Z]{2,}/.test(raw)) {
+        return part;
+      }
+      return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+    })
+    .join(" ")
+    .replace(/\s+\/\s+/g, " / ");
 }
 
 function compactText(value) {
@@ -64,6 +95,13 @@ function buildPhrases(value) {
 
 function unique(values) {
   return [...new Set(values.filter(Boolean))];
+}
+
+function splitTopicCandidates(value) {
+  return String(value || "")
+    .split(/[;,]|(?:\s+\|\s+)/)
+    .map((item) => item.trim())
+    .filter(Boolean);
 }
 
 function textForStory(story) {
@@ -156,17 +194,7 @@ function detectIssueLabel(signature) {
     return "Public Service / Volunteerism";
   }
 
-  const phraseCounts = new Map();
-  signature.phrases.forEach((phrase) => {
-    if (phrase.split(" ").every((token) => !STOPWORDS.has(token))) {
-      phraseCounts.set(phrase, (phraseCounts.get(phrase) || 0) + 1);
-    }
-  });
-
-  const bestPhrase = [...phraseCounts.entries()]
-    .sort((a, b) => b[1] - a[1] || b[0].length - a[0].length)[0]?.[0];
-
-  return bestPhrase ? titleCase(bestPhrase) : "General";
+  return "";
 }
 
 function detectLocationLabel(signature) {
@@ -185,7 +213,7 @@ function buildClusterLabel(cluster) {
     relatedUrls: cluster.stories.flatMap((story) => story.relatedUrls || [])
   });
 
-  const issue = detectIssueLabel(aggregateSignature);
+  const issue = detectIssueLabel(aggregateSignature) || chooseFallbackIssue(cluster, aggregateSignature);
   const location = detectLocationLabel(aggregateSignature);
 
   if (!location || issue.includes(location) || issue === "Public Service / Volunteerism") {
@@ -201,6 +229,77 @@ function buildClusterLabel(cluster) {
   }
 
   return `${issue} in ${location}`;
+}
+
+function isMeaningfulCandidate(label) {
+  const normalized = String(label || "").trim();
+  if (!normalized) {
+    return false;
+  }
+
+  if (GENERIC_LABEL_PATTERNS.some((pattern) => pattern.test(normalized))) {
+    return false;
+  }
+
+  const tokens = tokenize(normalized);
+  return tokens.length >= 2;
+}
+
+function scoreCandidate(label, aggregateSignature) {
+  const normalized = compactText(label);
+  if (!normalized) {
+    return -1;
+  }
+
+  let score = 0;
+  const tokenCount = tokenize(label).length;
+  score += Math.min(tokenCount, 4);
+
+  if (aggregateSignature.text.includes(normalized)) {
+    score += 3;
+  }
+
+  if (normalized.includes("animal welfare") || normalized.includes("animal rights")) {
+    score += 2;
+  }
+
+  if (normalized.includes("spay") || normalized.includes("neuter") || normalized.includes("kitten")) {
+    score += 2;
+  }
+
+  if (normalized.includes("volunteer") || normalized.includes("public service")) {
+    score += 2;
+  }
+
+  return score;
+}
+
+function chooseFallbackIssue(cluster, aggregateSignature) {
+  const candidates = [];
+
+  cluster.stories.forEach((story) => {
+    splitTopicCandidates(story.rawTopic || story.topic || "").forEach((candidate) => {
+      candidates.push(candidate);
+    });
+
+    (Array.isArray(story.tags) ? story.tags : []).forEach((tag) => {
+      candidates.push(tag);
+    });
+  });
+
+  const meaningful = unique(candidates)
+    .map((candidate) => formatLabel(candidate))
+    .filter(isMeaningfulCandidate);
+
+  const best = meaningful
+    .map((candidate) => ({ candidate, score: scoreCandidate(candidate, aggregateSignature) }))
+    .sort((a, b) => b.score - a.score || b.candidate.length - a.candidate.length)[0]?.candidate;
+
+  if (best) {
+    return best;
+  }
+
+  return "General Coverage";
 }
 
 function clusterStories(stories) {
