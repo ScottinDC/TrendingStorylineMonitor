@@ -1,6 +1,72 @@
 {
   "stories": [
     {
+      "id": "animal-welfare-department-tackles-kitten-season",
+      "headline": "Animal Welfare Department Tackles “Kitten Season”",
+      "source": "City of Albuquerque",
+      "date": "2026-04-18",
+      "slug": "animal-welfare-department-tackles-kitten-season",
+      "url": "https://www.cabq.gov/pets/news/animal-welfare-department-tackles-kitten-season",
+      "relatedUrls": [
+        "https://www.cabq.gov/pets/news/animal-welfare-department-tackles-kitten-season"
+      ],
+      "tags": [
+        "Animal Welfare",
+        "Spay/Neuter",
+        "Kitten Season",
+        "Community Service"
+      ],
+      "topic": "Animal Welfare",
+      "summary": "Needs editorial summary.",
+      "whyItMatters": "This initiative is crucial in controlling cat overpopulation during the spring, preventing unwanted litters and helping local shelters manage the influx of cats.",
+      "relevance": "High",
+      "momentum": 50,
+      "recentMovement": [
+        1,
+        2026,
+        1,
+        2026
+      ],
+      "related": [
+        "Local animal shelters",
+        "Cat adoption campaigns",
+        "Pet care resources"
+      ]
+    },
+    {
+      "id": "second-circuit-upholds-usda-slaughterhouse-inspection-protocol-over-animal-right",
+      "headline": "Second Circuit upholds USDA slaughterhouse inspection protocol over animal rights challenge",
+      "source": "Courthouse News",
+      "date": "2026-04-18",
+      "slug": "second-circuit-upholds-usda-slaughterhouse-inspection-protocol-over-animal-right",
+      "url": "https://www.courthousenews.com/second-circuit-upholds-usda-slaughterhouse-inspection-protocol-over-animal-rights-challenge",
+      "relatedUrls": [
+        "https://www.courthousenews.com/second-circuit-upholds-usda-slaughterhouse-inspection-protocol-over-animal-rights-challenge"
+      ],
+      "tags": [
+        "USDA",
+        "Animal Rights",
+        "Animal Advocacy",
+        "Meat Processing",
+        "Public Health"
+      ],
+      "topic": "Animal Rights, USDA Regulations, Court Ruling",
+      "summary": "Needs editorial summary.",
+      "whyItMatters": "This ruling affects regulatory oversight in pork production, impacting animal welfare standards and public health protections against contaminated meat.",
+      "relevance": "High",
+      "momentum": 50,
+      "recentMovement": [
+        1,
+        1
+      ],
+      "related": [
+        "Animal Rights Advocacy",
+        "Food Safety Regulations",
+        "USDA Inspection Debate",
+        "Animal Welfare Lawsuits"
+      ]
+    },
+    {
       "id": "animal-rights-activists-plan-large-scale-protest-action-at-dane-county-dog-breed",
       "headline": "Animal rights activists plan large-scale protest action at Dane County dog breeding facility",
       "source": "Wisconsin Public Radio",
