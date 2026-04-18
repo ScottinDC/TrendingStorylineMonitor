@@ -172,6 +172,13 @@ function detectIssueLabel(signature) {
   }
 
   if (
+    text.includes("usda") &&
+    (text.includes("slaughterhouse") || text.includes("inspection protocol") || text.includes("meat processing"))
+  ) {
+    return "USDA Slaughterhouse Inspection Rules";
+  }
+
+  if (
     (text.includes("animal rights") || text.includes("activist") || text.includes("protest") || text.includes("beagle")) &&
     (text.includes("ridglan") || text.includes("breeding") || text.includes("farms"))
   ) {

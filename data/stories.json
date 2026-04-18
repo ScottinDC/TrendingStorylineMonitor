@@ -52,7 +52,7 @@
         "Meat Processing",
         "Public Health"
       ],
-      "topic": "Animal Rights",
+      "topic": "USDA Slaughterhouse Inspection Rules",
       "summary": "Needs editorial summary.",
       "whyItMatters": "This ruling affects regulatory oversight in pork production, impacting animal welfare standards and public health protections against contaminated meat.",
       "relevance": "High",
@@ -68,7 +68,7 @@
         "Animal Welfare Lawsuits"
       ],
       "rawTopic": "Animal Rights, USDA Regulations, Court Ruling",
-      "clusterId": "animal-rights"
+      "clusterId": "usda-slaughterhouse-inspection-rules"
     },
     {
       "id": "animal-rights-activists-plan-large-scale-protest-action-at-dane-county-dog-breed",
