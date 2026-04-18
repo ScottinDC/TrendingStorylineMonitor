@@ -279,7 +279,9 @@ function normalizeStory(story) {
     topic: String(story.topic || story.rawTopic || "General").trim() || "General",
     tags: dedupeBy(toList(story.tags), (item) => item.toLowerCase()),
     recentMovement: toList(story.recentMovement).map((item) => Number(item) || 1).slice(0, 7),
-    summary: String(story.summary || "Needs editorial summary.").trim(),
+    summary: String(story.summary || "").trim() === "Needs editorial summary."
+      ? ""
+      : String(story.summary || "").trim(),
     whyItMatters: String(story.whyItMatters || "Needs editorial review before publishing.").trim(),
     relevance: String(story.relevance || "developing relevance").trim(),
     momentum: Number(story.momentum) || 50,
@@ -385,7 +387,8 @@ function buildTopicSummary(topic, topicStories, direction, urls, avgMomentum, ou
     (a, b) => b.momentum - a.momentum || new Date(b.date) - new Date(a.date)
   )[0];
   const directionPhrase = direction.tone === "up" ? "moving up" : direction.tone === "down" ? "slipping back" : "holding steady";
-  const leadingSummary = trimSentenceEnd(firstSentence(strongestStory?.summary, `${topic} is drawing attention across multiple sources.`));
+  const summarySource = strongestStory?.summary || strongestStory?.whyItMatters || "";
+  const leadingSummary = trimSentenceEnd(firstSentence(summarySource, `${topic} is drawing attention across multiple sources.`));
   const significance = trimSentenceEnd(
     firstSentence(
       strongestStory?.whyItMatters,
@@ -528,8 +531,6 @@ function renderTopicFeed() {
         <span class="direction-pill">${entry.direction.label}</span>
       </div>
       <div class="topic-card-meta">
-        <span>${entry.urls.length} related URLs</span>
-        <span>${entry.outlets} sources</span>
         <span>momentum ${entry.avgMomentum}</span>
       </div>
     `;
@@ -551,7 +552,7 @@ function renderTopicFeed() {
     details.open = activeTopic === entry.topic;
 
     const summaryRow = document.createElement("summary");
-    summaryRow.textContent = `Related URLs (${entry.urls.length})`;
+    summaryRow.textContent = `Sources (${entry.urls.length})`;
     details.append(summaryRow);
 
     const urlList = document.createElement("ul");
@@ -568,7 +569,7 @@ function renderTopicFeed() {
         row.className = "url-item";
         row.innerHTML = `
           <a href="${item.url}" target="_blank" rel="noreferrer">${formatUrlLabel(item.url)}</a>
-          <span>${item.source} | ${formatDate(item.date)}</span>
+          <span>${item.source}, ${formatDate(item.date)}</span>
         `;
         urlList.append(row);
       });
@@ -590,7 +591,7 @@ function renderTopicDetail() {
     topicDetail.innerHTML = `
       <div class="topic-summary">
         <h3>Tag page: ${activeTag}</h3>
-        <p>${taggedStories.filter((story) => story.url || story.relatedUrls?.length).length} related URLs across ${new Set(taggedStories.map((story) => story.topic)).size} topics.</p>
+        <p>${taggedStories.filter((story) => story.url || story.relatedUrls?.length).length} source links collected for this tag.</p>
       </div>
     `;
 
@@ -602,7 +603,7 @@ function renderTopicDetail() {
       item.href = story.url || "#";
       item.target = story.url ? "_blank" : "";
       item.rel = story.url ? "noreferrer" : "";
-      item.textContent = `${story.topic} | ${story.headline}`;
+      item.textContent = `${story.topic}, ${story.headline}`;
       if (!story.url) {
         item.removeAttribute("target");
         item.removeAttribute("rel");
@@ -625,7 +626,7 @@ function renderTopicDetail() {
     topicDetail.innerHTML = `
       <div class="topic-summary">
         <h3>All Topics</h3>
-        <p>${entries.length} live topic clusters from ${storiesForCurrentTag().length} tracked URLs.</p>
+        <p>${entries.length} live topic clusters from ${storiesForCurrentTag().length} tracked sources.</p>
         <ul>
           <li>strongest topic: ${lead.topic}</li>
           <li>current direction leader: ${lead.direction.label.toLowerCase()}</li>
@@ -639,7 +640,7 @@ function renderTopicDetail() {
     entries.forEach((entry) => {
       const button = document.createElement("button");
       button.type = "button";
-      button.textContent = `${entry.topic} | ${entry.urls.length} URLs | ${entry.direction.label.toLowerCase()}`;
+      button.textContent = `${entry.topic}, ${entry.direction.label.toLowerCase()}`;
       button.addEventListener("click", () => selectTopic(entry.topic));
       list.append(button);
     });
@@ -659,9 +660,8 @@ function renderTopicDetail() {
       <h3>${entry.topic}</h3>
       <p>${entry.summary}</p>
       <ul>
-        <li>${entry.urls.length} tracked URLs</li>
-        <li>${entry.outlets} active sources</li>
-        <li>${entry.direction.label.toLowerCase()} | average momentum ${entry.avgMomentum}</li>
+        <li>${entry.direction.label.toLowerCase()}</li>
+        <li>average momentum ${entry.avgMomentum}</li>
       </ul>
     </div>
   `;
@@ -674,7 +674,7 @@ function renderTopicDetail() {
     link.href = story.url || "#";
     link.target = story.url ? "_blank" : "";
     link.rel = story.url ? "noreferrer" : "";
-    link.textContent = `${story.headline} | ${story.source} | ${formatDate(story.date)}`;
+    link.textContent = `${story.headline}, ${story.source}, ${formatDate(story.date)}`;
     if (!story.url) {
       link.removeAttribute("target");
       link.removeAttribute("rel");
