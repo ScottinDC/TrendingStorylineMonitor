@@ -127,6 +127,13 @@ function detectIssueLabel(signature) {
   const text = signature.text;
 
   if (
+    (text.includes("kitten season") || text.includes("spay/neuter") || text.includes("spayed") || text.includes("neutered")) &&
+    (text.includes("albuquerque") || text.includes("cabq"))
+  ) {
+    return "Cats Spayed and Neutered in Albuquerque";
+  }
+
+  if (
     (text.includes("animal rights") || text.includes("activist") || text.includes("protest") || text.includes("beagle")) &&
     (text.includes("ridglan") || text.includes("breeding") || text.includes("farms"))
   ) {

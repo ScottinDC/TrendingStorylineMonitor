@@ -16,7 +16,7 @@
         "Kitten Season",
         "Community Service"
       ],
-      "topic": "Welfare Department Tackles",
+      "topic": "Cats Spayed and Neutered in Albuquerque",
       "summary": "Needs editorial summary.",
       "whyItMatters": "This initiative is crucial in controlling cat overpopulation during the spring, preventing unwanted litters and helping local shelters manage the influx of cats.",
       "relevance": "High",
@@ -33,7 +33,7 @@
         "Pet care resources"
       ],
       "rawTopic": "Animal Welfare",
-      "clusterId": "welfare-department-tackles"
+      "clusterId": "cats-spayed-and-neutered-in-albuquerque"
     },
     {
       "id": "second-circuit-upholds-usda-slaughterhouse-inspection-protocol-over-animal-right",
