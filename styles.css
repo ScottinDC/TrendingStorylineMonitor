@@ -292,9 +292,18 @@ button {
   color: var(--ink);
 }
 
+.chart-block {
+  padding: 10px 0;
+}
+
+.chart-block:first-child {
+  padding-top: 0;
+}
+
 .chart-block + .chart-block {
-  margin-top: 10px;
-  padding-top: 10px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
 }
 
 .audio-list,
