@@ -223,44 +223,6 @@ function trimSentenceEnd(value) {
   return String(value || "").trim().replace(/[.!?]+$/, "");
 }
 
-function includesAny(text, needles) {
-  return needles.some((needle) => text.includes(needle));
-}
-
-function inferCanonicalTopic(story) {
-  const combined = [
-    story.topic,
-    story.headline,
-    ...(Array.isArray(story.tags) ? story.tags : []),
-    story.summary,
-    story.whyItMatters,
-    story.source,
-    ...(Array.isArray(story.related) ? story.related : [])
-  ]
-    .map((value) => String(value || "").toLowerCase())
-    .join(" ");
-
-  if (
-    includesAny(combined, ["ridglan", "beagle operation", "beagle", "animal rights", "animal-rights", "activists"]) &&
-    includesAny(combined, ["wisconsin", "dane county", "ridglan farms", "wkow", "wpr"])
-  ) {
-    return "Animal Rights Activism in Wisconsin";
-  }
-
-  if (
-    includesAny(combined, ["wild horse", "wild horses", "burro", "burros", "blm"]) &&
-    includesAny(combined, ["roundup", "roundups", "gather"])
-  ) {
-    return "Federal Wild Horse and Burro Roundups";
-  }
-
-  if (includesAny(combined, ["peace corps", "volunteerism", "public service", "cultural exchange"])) {
-    return "Public Service / Volunteerism";
-  }
-
-  return String(story.topic || "General").trim() || "General";
-}
-
 function dedupeBy(values, getKey) {
   const seen = new Set();
   return values.filter((item) => {
@@ -314,7 +276,7 @@ function normalizeStory(story) {
 
   return {
     ...story,
-    topic: inferCanonicalTopic(story),
+    topic: String(story.topic || story.rawTopic || "General").trim() || "General",
     tags: dedupeBy(toList(story.tags), (item) => item.toLowerCase()),
     recentMovement: toList(story.recentMovement).map((item) => Number(item) || 1).slice(0, 7),
     summary: String(story.summary || "Needs editorial summary.").trim(),
@@ -338,14 +300,15 @@ function groupedTopicEntries() {
   const grouped = new Map();
 
   storiesForCurrentTag().forEach((story) => {
-    if (!grouped.has(story.topic)) {
-      grouped.set(story.topic, []);
+    const groupKey = story.clusterId || story.topic;
+    if (!grouped.has(groupKey)) {
+      grouped.set(groupKey, { topic: story.topic, stories: [] });
     }
-    grouped.get(story.topic).push(story);
+    grouped.get(groupKey).stories.push(story);
   });
 
-  return [...grouped.entries()]
-    .map(([topic, topicStories]) => buildTopicEntry(topic, topicStories))
+  return [...grouped.values()]
+    .map(({ topic, stories: topicStories }) => buildTopicEntry(topic, topicStories))
     .sort((a, b) => {
       if (b.direction.delta !== a.direction.delta) {
         return b.direction.delta - a.direction.delta;

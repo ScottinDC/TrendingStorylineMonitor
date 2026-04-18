@@ -5,6 +5,7 @@ const {
   publishedStoriesPath,
   writeJson
 } = require("./story-utils");
+const { clusterStories } = require("./topic-clustering");
 
 async function fetchApprovedRecords() {
   return fetchAirtableRecords({
@@ -18,7 +19,7 @@ async function fetchApprovedRecords() {
 
 async function main() {
   const approvedRecords = await fetchApprovedRecords();
-  const stories = approvedRecords.map(normalizeAirtableStory).sort(
+  const stories = clusterStories(approvedRecords.map(normalizeAirtableStory)).sort(
     (a, b) => new Date(b.date) - new Date(a.date) || b.momentum - a.momentum
   );
 

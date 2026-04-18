@@ -9,6 +9,7 @@ const {
   readJson,
   writeJson
 } = require("./story-utils");
+const { clusterStories } = require("./topic-clustering");
 
 const audioDir = path.join(__dirname, "..", "audio");
 
@@ -155,7 +156,7 @@ async function fetchApprovedStories() {
     }
   });
 
-  return records.map(normalizeAirtableStory);
+  return clusterStories(records.map(normalizeAirtableStory));
 }
 
 async function generateScript(accessToken, projectId, location, model, topicEntry, minutes) {

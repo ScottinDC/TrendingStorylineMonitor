@@ -16,7 +16,7 @@
         "Kitten Season",
         "Community Service"
       ],
-      "topic": "Animal Welfare",
+      "topic": "Welfare Department Tackles",
       "summary": "Needs editorial summary.",
       "whyItMatters": "This initiative is crucial in controlling cat overpopulation during the spring, preventing unwanted litters and helping local shelters manage the influx of cats.",
       "relevance": "High",
@@ -31,7 +31,9 @@
         "Local animal shelters",
         "Cat adoption campaigns",
         "Pet care resources"
-      ]
+      ],
+      "rawTopic": "Animal Welfare",
+      "clusterId": "welfare-department-tackles"
     },
     {
       "id": "second-circuit-upholds-usda-slaughterhouse-inspection-protocol-over-animal-right",
@@ -50,7 +52,7 @@
         "Meat Processing",
         "Public Health"
       ],
-      "topic": "Animal Rights, USDA Regulations, Court Ruling",
+      "topic": "Slaughterhouse Inspection Protocol",
       "summary": "Needs editorial summary.",
       "whyItMatters": "This ruling affects regulatory oversight in pork production, impacting animal welfare standards and public health protections against contaminated meat.",
       "relevance": "High",
@@ -64,7 +66,9 @@
         "Food Safety Regulations",
         "USDA Inspection Debate",
         "Animal Welfare Lawsuits"
-      ]
+      ],
+      "rawTopic": "Animal Rights, USDA Regulations, Court Ruling",
+      "clusterId": "slaughterhouse-inspection-protocol"
     },
     {
       "id": "animal-rights-activists-plan-large-scale-protest-action-at-dane-county-dog-breed",
@@ -82,7 +86,7 @@
         "Dog Breeding",
         "Wisconsin"
       ],
-      "topic": "Animal Rights, Activism, Law Enforcement",
+      "topic": "Animal Rights Activism in Wisconsin",
       "summary": "Needs editorial summary.",
       "whyItMatters": "The protest highlights ongoing concerns regarding animal welfare and the law surrounding breeding practices, sparking broader discussions about animal rights and the legal actions taken against those who violate animal welfare standards.",
       "relevance": "High - due to public interest in animal welfare issues and recent violations at the facility.",
@@ -94,38 +98,9 @@
       "related": [
         "Dane County beagle breeding operation to close after animal cruelty investigation",
         "Animal rights groups call for charges against processor for abandoning Wisconsin chickens"
-      ]
-    },
-    {
-      "id": "the-impact-of-the-peace-corps-on-volunteers-and-communities-copy",
-      "headline": "The Impact of the Peace Corps on Volunteers and Communities copy",
-      "source": "peacecorps.gov",
-      "date": "2026-04-17",
-      "slug": "the-impact-of-the-peace-corps-on-volunteers-and-communities-copy",
-      "url": "https://www.peacecorps.gov/",
-      "relatedUrls": [
-        "https://www.peacecorps.gov/"
       ],
-      "tags": [
-        "Peace Corps",
-        "Volunteerism",
-        "Cultural Exchange",
-        "Public Service"
-      ],
-      "topic": "Public Service and Volunteerism",
-      "summary": "Needs editorial summary.",
-      "whyItMatters": "The organization not only facilitates community development but also transforms the lives of volunteers, creating a lifelong commitment to service and understanding across cultural divides.",
-      "relevance": "Highly relevant due to its continuous impact on global service and community development initiatives.",
-      "momentum": 50,
-      "recentMovement": [
-        1,
-        1
-      ],
-      "related": [
-        "Cross-Cultural Communication",
-        "Community Building",
-        "International Development"
-      ]
+      "rawTopic": "Animal Rights, Activism, Law Enforcement",
+      "clusterId": "animal-rights-activism-in-wisconsin"
     },
     {
       "id": "dane-county-sheriff-draws-line-as-activists-plan-second-beagle-operation-at-ridg",
@@ -144,7 +119,7 @@
         "activism",
         "protest"
       ],
-      "topic": "Animal Rights / Activism",
+      "topic": "Animal Rights Activism in Wisconsin",
       "summary": "Needs editorial summary.",
       "whyItMatters": "This event highlights the ongoing tensions between animal rights activists and commercial breeding practices, raising questions about animal welfare and legal boundaries in protests.",
       "relevance": "High - This event has significant implications for animal rights advocacy and law enforcement's response to protests.",
@@ -157,7 +132,42 @@
         "Protests",
         "Animal Welfare Laws",
         "Animal Shelters"
-      ]
+      ],
+      "rawTopic": "Animal Rights / Activism",
+      "clusterId": "animal-rights-activism-in-wisconsin"
+    },
+    {
+      "id": "the-impact-of-the-peace-corps-on-volunteers-and-communities-copy",
+      "headline": "The Impact of the Peace Corps on Volunteers and Communities copy",
+      "source": "peacecorps.gov",
+      "date": "2026-04-17",
+      "slug": "the-impact-of-the-peace-corps-on-volunteers-and-communities-copy",
+      "url": "https://www.peacecorps.gov/",
+      "relatedUrls": [
+        "https://www.peacecorps.gov/"
+      ],
+      "tags": [
+        "Peace Corps",
+        "Volunteerism",
+        "Cultural Exchange",
+        "Public Service"
+      ],
+      "topic": "Public Service / Volunteerism",
+      "summary": "Needs editorial summary.",
+      "whyItMatters": "The organization not only facilitates community development but also transforms the lives of volunteers, creating a lifelong commitment to service and understanding across cultural divides.",
+      "relevance": "Highly relevant due to its continuous impact on global service and community development initiatives.",
+      "momentum": 50,
+      "recentMovement": [
+        1,
+        1
+      ],
+      "related": [
+        "Cross-Cultural Communication",
+        "Community Building",
+        "International Development"
+      ],
+      "rawTopic": "Public Service and Volunteerism",
+      "clusterId": "public-service-volunteerism"
     },
     {
       "id": "eight-wild-horse-and-burro-roundups-underway-across-the-west-as-blm-targets-14-8",
@@ -176,7 +186,7 @@
         "animal welfare",
         "conservation"
       ],
-      "topic": "Wildlife",
+      "topic": "Wild Horse and Burro Roundups Across the West",
       "summary": "Needs editorial summary.",
       "whyItMatters": "The capture operations coincide with the foaling season, putting the health and safety of pregnant mares and newborn foals at risk, which could lead to severe consequences for the populations of wild horses and burros. Advocates are calling for a suspension of roundups to protect vulnerable wildlife.",
       "relevance": "High",
@@ -188,7 +198,9 @@
         "Animal Conservation Efforts",
         "Federal Wild Horse and Burro Management",
         "BLM Policies on Wildlife"
-      ]
+      ],
+      "rawTopic": "Wildlife",
+      "clusterId": "wild-horse-and-burro-roundups-across-the-west"
     }
   ],
   "audioBriefings": []

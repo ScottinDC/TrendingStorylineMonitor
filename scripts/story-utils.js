@@ -75,46 +75,6 @@ function firstSentence(value, fallback) {
   return (match ? match[0] : trimmed).trim();
 }
 
-function includesAny(text, needles) {
-  return needles.some((needle) => text.includes(needle));
-}
-
-function inferCanonicalTopic(fields = {}) {
-  const combined = [
-    fields.Headline,
-    fields.Topic,
-    fields.Tags,
-    fields.Summary,
-    fields["Why It Matters"],
-    fields.Related,
-    fields["Raw Email"]
-  ]
-    .map((value) => String(value || "").toLowerCase())
-    .join(" ");
-
-  if (
-    includesAny(combined, ["ridglan", "beagle operation", "beagle", "animal rights", "animal-rights", "activists"]) &&
-    includesAny(combined, ["wisconsin", "dane county", "ridglan farms", "wkow", "wpr"])
-  ) {
-    return "Animal Rights Activism in Wisconsin";
-  }
-
-  if (
-    includesAny(combined, ["wild horse", "wild horses", "burro", "burros", "blm"]) &&
-    includesAny(combined, ["roundup", "roundups", "gather"])
-  ) {
-    return "Federal Wild Horse and Burro Roundups";
-  }
-
-  if (
-    includesAny(combined, ["peace corps", "volunteerism", "public service", "cultural exchange"])
-  ) {
-    return "Public Service / Volunteerism";
-  }
-
-  return String(fields.Topic || "General").trim() || "General";
-}
-
 function extractDomain(address) {
   if (!address) {
     return "outlook";
@@ -369,7 +329,8 @@ function normalizeAirtableStory(record) {
     url,
     relatedUrls,
     tags,
-    topic: inferCanonicalTopic(fields),
+    rawTopic: String(fields.Topic || "General").trim() || "General",
+    topic: String(fields.Topic || "General").trim() || "General",
     summary: String(fields.Summary || "Needs editorial summary.").trim(),
     whyItMatters: String(fields["Why It Matters"] || "Needs editorial review before publishing.").trim(),
     relevance: String(fields.Relevance || "developing relevance").trim(),
