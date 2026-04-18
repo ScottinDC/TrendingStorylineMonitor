@@ -189,8 +189,8 @@ const DATA_URL = "./data/stories.json";
 const topicFilter = document.querySelector("#topic-filter");
 const topicFeed = document.querySelector("#topic-feed");
 const topicDetail = document.querySelector("#topic-detail");
-const audioList = document.querySelector("#audio-list");
 const activeFilters = document.querySelector("#active-filters");
+const AUDIO_BRIEFING_TOPIC_THRESHOLD = 2;
 
 let stories = [];
 let audioBriefings = [];
@@ -422,7 +422,13 @@ function buildTopicEntry(topic, topicStories) {
     tags: topicTags(topicStories),
     stories: sortedStories,
     urls,
-    summary: buildTopicSummary(topic, sortedStories, direction, urls, avgMomentum, outlets)
+    summary: buildTopicSummary(topic, sortedStories, direction, urls, avgMomentum, outlets),
+    briefing: audioBriefings.find(
+      (briefing) =>
+        briefing.link &&
+        briefing.link !== "#" &&
+        String(briefing.topic || "").trim().toLowerCase() === String(topic).trim().toLowerCase()
+    ) || null
   };
 }
 
@@ -551,6 +557,47 @@ function renderTopicFeed() {
     sourceCount.className = "topic-source-count";
     sourceCount.textContent = `Source ${entry.outlets}`;
     article.append(sourceCount);
+
+    if (entry.urls.length >= AUDIO_BRIEFING_TOPIC_THRESHOLD && entry.briefing) {
+      const controls = document.createElement("div");
+      controls.className = "topic-audio-controls";
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "audio-play-button";
+      button.textContent = "Play Briefing";
+
+      const audio = document.createElement("audio");
+      audio.preload = "none";
+      audio.src = entry.briefing.link;
+      audio.className = "briefing-audio";
+
+      button.addEventListener("click", async () => {
+        if (audio.paused) {
+          await audio.play();
+          button.textContent = "Pause Briefing";
+        } else {
+          audio.pause();
+          button.textContent = "Play Briefing";
+        }
+      });
+
+      audio.addEventListener("pause", () => {
+        button.textContent = "Play Briefing";
+      });
+
+      audio.addEventListener("play", () => {
+        button.textContent = "Pause Briefing";
+      });
+
+      audio.addEventListener("error", () => {
+        button.disabled = true;
+        button.textContent = "Briefing Unavailable";
+      });
+
+      controls.append(button, audio);
+      article.append(controls);
+    }
 
     const details = document.createElement("details");
     details.className = "url-dropdown";
@@ -690,76 +737,6 @@ function renderTopicDetail() {
   topicDetail.append(list);
 }
 
-function renderAudioBriefings() {
-  audioList.innerHTML = "";
-  const playableBriefings = audioBriefings.filter((briefing) => briefing.link && briefing.link !== "#");
-
-  if (!playableBriefings.length) {
-    audioList.innerHTML = '<div class="empty-state">No audio briefings are available yet.</div>';
-    return;
-  }
-
-  playableBriefings.forEach((briefing) => {
-    const entry = document.createElement("div");
-    entry.className = "audio-entry";
-
-    entry.innerHTML = `
-      <div class="audio-entry-top">
-        <strong>${briefing.title}</strong>
-        <span>${briefing.duration}</span>
-      </div>
-      ${briefing.topic ? `<p>Topic: ${briefing.topic}</p>` : ""}
-      <p>${briefing.note}</p>
-    `;
-
-    const controls = document.createElement("div");
-    controls.className = "audio-controls";
-
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "audio-play-button";
-    button.textContent = "Play Briefing";
-    const audio = document.createElement("audio");
-    audio.preload = "none";
-    audio.src = briefing.link;
-    audio.className = "briefing-audio";
-
-    button.addEventListener("click", async () => {
-      if (audio.paused) {
-        await audio.play();
-        button.textContent = "Pause Briefing";
-      } else {
-        audio.pause();
-        button.textContent = "Play Briefing";
-      }
-    });
-
-    audio.addEventListener("pause", () => {
-      button.textContent = "Play Briefing";
-    });
-
-    audio.addEventListener("play", () => {
-      button.textContent = "Pause Briefing";
-    });
-
-    audio.addEventListener("error", () => {
-      entry.innerHTML = `
-        <div class="audio-entry-top">
-          <strong>${briefing.title}</strong>
-          <span>${briefing.duration}</span>
-        </div>
-        ${briefing.topic ? `<p>Topic: ${briefing.topic}</p>` : ""}
-        <p>Audio briefing is currently unavailable.</p>
-      `;
-    });
-
-    controls.append(button, audio);
-
-    entry.append(controls);
-    audioList.append(entry);
-  });
-}
-
 function renderTopicVolumeChart() {
   const container = document.querySelector("#topic-volume-chart");
   const entries = groupedTopicEntries();
@@ -828,7 +805,6 @@ function renderAll() {
   renderActiveFilters();
   renderTopicFeed();
   renderTopicDetail();
-  renderAudioBriefings();
   renderTopicVolumeChart();
   renderSourceSpreadChart();
   renderTrendDirectionChart();

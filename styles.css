@@ -234,6 +234,14 @@ button {
   font-size: 7pt;
 }
 
+.topic-audio-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-top: 6px;
+}
+
 .tag {
   color: var(--accent);
   text-decoration: none;
@@ -312,7 +320,6 @@ button {
   border-top: 1px solid var(--line);
 }
 
-.audio-list,
 .chart-stack,
 .spark-grid,
 .topic-detail,
