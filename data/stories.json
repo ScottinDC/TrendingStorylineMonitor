@@ -1,6 +1,36 @@
 {
   "stories": [
     {
+      "id": "animal-rights-activists-plan-large-scale-protest-action-at-dane-county-dog-breed",
+      "headline": "Animal rights activists plan large-scale protest action at Dane County dog breeding facility",
+      "source": "Wisconsin Public Radio",
+      "date": "2026-04-18",
+      "slug": "animal-rights-activists-plan-large-scale-protest-action-at-dane-county-dog-breed",
+      "url": "https://www.wpr.org/news/animal-rights-activists-rotest-action-dane-county-dog-breeding-ridglan-farms",
+      "relatedUrls": [
+        "https://www.wpr.org/news/animal-rights-activists-rotest-action-dane-county-dog-breeding-ridglan-farms"
+      ],
+      "tags": [
+        "Animal Rights",
+        "Protest",
+        "Dog Breeding",
+        "Wisconsin"
+      ],
+      "topic": "Animal Rights, Activism, Law Enforcement",
+      "summary": "Needs editorial summary.",
+      "whyItMatters": "The protest highlights ongoing concerns regarding animal welfare and the law surrounding breeding practices, sparking broader discussions about animal rights and the legal actions taken against those who violate animal welfare standards.",
+      "relevance": "High - due to public interest in animal welfare issues and recent violations at the facility.",
+      "momentum": 1,
+      "recentMovement": [
+        1,
+        1
+      ],
+      "related": [
+        "Dane County beagle breeding operation to close after animal cruelty investigation",
+        "Animal rights groups call for charges against processor for abandoning Wisconsin chickens"
+      ]
+    },
+    {
       "id": "the-impact-of-the-peace-corps-on-volunteers-and-communities-copy",
       "headline": "The Impact of the Peace Corps on Volunteers and Communities copy",
       "source": "peacecorps.gov",
