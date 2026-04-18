@@ -235,6 +235,31 @@ function dedupeBy(values, getKey) {
   });
 }
 
+function normalizeMovementSeries(series) {
+  const clean = toList(series).map((item) => Number(item)).filter((item) => Number.isFinite(item));
+  if (!clean.length) {
+    return [];
+  }
+
+  const min = Math.min(...clean);
+  const max = Math.max(...clean);
+
+  if (min === max) {
+    return clean.map(() => 7);
+  }
+
+  return clean.map((value) => Math.max(1, Math.min(14, Math.round(1 + ((value - min) / (max - min)) * 13))));
+}
+
+function storyMovementSeries(story) {
+  const semrushSeries = normalizeMovementSeries(story.semrushTrafficSeries);
+  if (semrushSeries.length >= 3) {
+    return semrushSeries;
+  }
+
+  return normalizeMovementSeries(story.recentMovement);
+}
+
 function formatDate(dateString) {
   return new Date(`${dateString}T12:00:00`).toLocaleDateString("en-US", {
     month: "short",
@@ -279,6 +304,7 @@ function normalizeStory(story) {
     topic: String(story.topic || story.rawTopic || "General").trim() || "General",
     tags: dedupeBy(toList(story.tags), (item) => item.toLowerCase()),
     recentMovement: toList(story.recentMovement).map((item) => Number(item) || 1).slice(0, 7),
+    semrushTrafficSeries: toList(story.semrushTrafficSeries).map((item) => Number(item)).filter((item) => Number.isFinite(item)).slice(-7),
     summary: String(story.summary || "").trim() === "Needs editorial summary."
       ? ""
       : String(story.summary || "").trim(),
@@ -326,10 +352,11 @@ function groupedTopicEntries() {
 }
 
 function averageMovementSeries(topicStories) {
-  const longest = Math.max(...topicStories.map((story) => story.recentMovement.length), 1);
+  const storySeries = topicStories.map((story) => storyMovementSeries(story));
+  const longest = Math.max(...storySeries.map((series) => series.length), 1);
   return Array.from({ length: longest }, (_, index) => {
-    const values = topicStories
-      .map((story) => story.recentMovement[index])
+    const values = storySeries
+      .map((series) => series[index])
       .filter((value) => Number.isFinite(value));
 
     if (!values.length) {

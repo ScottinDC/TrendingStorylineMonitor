@@ -51,6 +51,8 @@ The Outlook sync script uses Microsoft Graph application auth and expects:
 - `AIRTABLE_TABLE_NAME`
 - `AIRTABLE_TOKEN`
 - `AIRTABLE_VIEW_NAME`
+- `SEMRUSH_API_KEY`
+- `SEMRUSH_DATABASE`
 - `GOOGLE_CLOUD_PROJECT_ID`
 - `GOOGLE_OAUTH_ACCESS_TOKEN`
 - `GEMINI_LOCATION`
@@ -104,8 +106,12 @@ For GitHub automation, add these repository secrets:
 - `AIRTABLE_TABLE_NAME`
 - `AIRTABLE_TOKEN`
 - `AIRTABLE_VIEW_NAME` (optional)
+- `SEMRUSH_API_KEY` (optional but recommended for trend direction)
+- `SEMRUSH_DATABASE` such as `us` (optional)
 
 Then trigger `.github/workflows/publish-from-airtable.yml` manually, or from Zapier using GitHub `repository_dispatch` with event type `publish-stories`.
+
+When `SEMRUSH_API_KEY` is present, the publish pipeline enriches each clustered story with Semrush daily traffic for its source domain and uses that traffic series as the preferred directional signal for topic trend movement.
 
 ## Audio Briefings
 

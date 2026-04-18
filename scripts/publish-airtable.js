@@ -6,6 +6,7 @@ const {
   readJson,
   writeJson
 } = require("./story-utils");
+const { enrichStoriesWithSemrush } = require("./semrush-trends");
 const { clusterStories } = require("./topic-clustering");
 
 async function fetchApprovedRecords() {
@@ -24,7 +25,8 @@ async function main() {
     stories: [],
     audioBriefings: defaultAudioBriefings
   });
-  const stories = clusterStories(approvedRecords.map(normalizeAirtableStory)).sort(
+  const clusteredStories = clusterStories(approvedRecords.map(normalizeAirtableStory));
+  const stories = (await enrichStoriesWithSemrush(clusteredStories)).sort(
     (a, b) => new Date(b.date) - new Date(a.date) || b.momentum - a.momentum
   );
 

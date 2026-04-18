@@ -26,6 +26,8 @@ jobs:
           AIRTABLE_TABLE_NAME: ${{ secrets.AIRTABLE_TABLE_NAME }}
           AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN }}
           AIRTABLE_VIEW_NAME: ${{ secrets.AIRTABLE_VIEW_NAME }}
+          SEMRUSH_API_KEY: ${{ secrets.SEMRUSH_API_KEY }}
+          SEMRUSH_DATABASE: ${{ secrets.SEMRUSH_DATABASE }}
         run: node scripts/publish-airtable.js
 
       - name: Commit generated feed
