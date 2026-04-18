@@ -203,5 +203,13 @@
       "clusterId": "wild-horse-and-burro-roundups-across-the-west"
     }
   ],
-  "audioBriefings": []
+  "audioBriefings": [
+    {
+      "title": "Animal Rights Activism in Wisconsin",
+      "topic": "Animal Rights Activism in Wisconsin",
+      "duration": "5 min",
+      "note": "A topic briefing on the Ridglan Farms activism story cluster.",
+      "link": "audio/briefing-animal-rights-activism-2026-04-17.mp3"
+    }
+  ]
 }
