@@ -536,7 +536,7 @@ function renderTopicFeed() {
         <strong>${entry.topic}</strong>
       </div>
       <div class="topic-card-meta">
-        <span>Momentum ${entry.avgMomentum}</span>
+        <span>Momentum ${entry.avgMomentum} / 100</span>
         <span class="direction-pill">${entry.direction.label}</span>
       </div>
     `;
@@ -552,11 +552,6 @@ function renderTopicFeed() {
     tagRow.className = "tag-row";
     entry.tags.forEach((tag) => tagRow.append(tagLink(tag)));
     article.append(tagRow);
-
-    const sourceCount = document.createElement("p");
-    sourceCount.className = "topic-source-count";
-    sourceCount.textContent = `Source ${entry.outlets}`;
-    article.append(sourceCount);
 
     if (entry.urls.length >= AUDIO_BRIEFING_TOPIC_THRESHOLD && entry.briefing) {
       const controls = document.createElement("div");
@@ -604,7 +599,7 @@ function renderTopicFeed() {
     details.open = activeTopic === entry.topic;
 
     const summaryRow = document.createElement("summary");
-    summaryRow.textContent = "Sources";
+    summaryRow.textContent = `Sources (${entry.outlets})`;
     details.append(summaryRow);
 
     const urlList = document.createElement("ul");
@@ -642,7 +637,7 @@ function renderTopicDetail() {
     );
     topicDetail.innerHTML = `
       <div class="topic-summary">
-        <h3>Tag page: ${activeTag}</h3>
+        <h3>Tag: ${activeTag}</h3>
         <p>${taggedStories.filter((story) => story.url || story.relatedUrls?.length).length} source links collected for this tag.</p>
       </div>
     `;
@@ -677,7 +672,6 @@ function renderTopicDetail() {
 
     topicDetail.innerHTML = `
       <div class="topic-summary">
-        <h3>All Topics</h3>
         <p>${entries.length} live topic clusters from ${storiesForCurrentTag().length} tracked sources.</p>
         <ul>
           <li>strongest topic: ${lead.topic}</li>
@@ -713,7 +707,7 @@ function renderTopicDetail() {
       <p>${entry.summary}</p>
       <ul>
         <li>${entry.direction.label.toLowerCase()}</li>
-        <li>average momentum ${entry.avgMomentum}</li>
+        <li>average momentum ${entry.avgMomentum} / 100</li>
       </ul>
     </div>
   `;

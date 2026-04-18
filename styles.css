@@ -55,7 +55,7 @@ button {
 .brand-row {
   min-height: 24px;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr;
   gap: 10px;
   align-items: center;
   padding: 2px 6px;
@@ -87,22 +87,6 @@ button {
   font-size: 10pt;
   text-decoration: none;
   color: var(--white);
-}
-
-.top-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0;
-}
-
-.top-nav a + a::before {
-  content: "|";
-  color: rgba(255, 255, 255, 0.72);
-  margin: 0 6px;
-}
-
-.login-link {
-  white-space: nowrap;
 }
 
 .stream-layout {
@@ -226,12 +210,6 @@ button {
   flex-wrap: wrap;
   gap: 4px;
   margin-top: 6px;
-}
-
-.topic-source-count {
-  margin: 6px 0 0;
-  color: var(--muted);
-  font-size: 7pt;
 }
 
 .topic-audio-controls {
