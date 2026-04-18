@@ -228,6 +228,12 @@ button {
   margin-top: 6px;
 }
 
+.topic-source-count {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 7pt;
+}
+
 .tag {
   color: var(--accent);
   text-decoration: none;
@@ -371,6 +377,7 @@ button {
   margin-top: 4px;
   color: var(--muted);
   font-size: 7pt;
+  align-items: center;
 }
 
 .direction-pill {

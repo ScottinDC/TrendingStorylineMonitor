@@ -528,10 +528,10 @@ function renderTopicFeed() {
     header.innerHTML = `
       <div class="topic-card-top">
         <strong>${entry.topic}</strong>
-        <span class="direction-pill">${entry.direction.label}</span>
       </div>
       <div class="topic-card-meta">
-        <span>momentum ${entry.avgMomentum}</span>
+        <span>Momentum ${entry.avgMomentum}</span>
+        <span class="direction-pill">${entry.direction.label}</span>
       </div>
     `;
     header.addEventListener("click", () => selectTopic(entry.topic));
@@ -547,12 +547,17 @@ function renderTopicFeed() {
     entry.tags.forEach((tag) => tagRow.append(tagLink(tag)));
     article.append(tagRow);
 
+    const sourceCount = document.createElement("p");
+    sourceCount.className = "topic-source-count";
+    sourceCount.textContent = `Source ${entry.outlets}`;
+    article.append(sourceCount);
+
     const details = document.createElement("details");
     details.className = "url-dropdown";
     details.open = activeTopic === entry.topic;
 
     const summaryRow = document.createElement("summary");
-    summaryRow.textContent = `Sources (${entry.urls.length})`;
+    summaryRow.textContent = "Sources";
     details.append(summaryRow);
 
     const urlList = document.createElement("ul");
