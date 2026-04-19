@@ -35,6 +35,39 @@
       "clusterId": "animal-welfare"
     },
     {
+      "id": "are-animal-products-compatible-with-progressive-values-11-arguments-to-consider",
+      "headline": "Are Animal Products Compatible with Progressive Values? 11 Arguments to Consider",
+      "source": "Vegan Horizon",
+      "date": "2026-04-19",
+      "slug": "are-animal-products-compatible-with-progressive-values-11-arguments-to-consider",
+      "url": "https://veganhorizon.substack.com/p/what-most-progressives-dont-see",
+      "relatedUrls": [
+        "https://veganhorizon.substack.com/p/what-most-progressives-dont-see"
+      ],
+      "tags": [
+        "veganism",
+        "progressive values",
+        "ethics",
+        "animal rights"
+      ],
+      "rawTopic": "Veganism and Progressive Values",
+      "topic": "Animal Rights",
+      "summary": "Needs editorial summary.",
+      "whyItMatters": "This topic explores the intersection of ethical consumption and political ideology, highlighting how personal choices in diet can reflect broader values about justice and responsibility.",
+      "relevance": "High, given the increasing interest in ethical consumption and veganism among progressive circles.",
+      "momentum": 50,
+      "recentMovement": [
+        1,
+        1
+      ],
+      "related": [
+        "The Habit that Betrays Everything We Stand For",
+        "Reasons to be Optimistic about Veganism",
+        "Health Arguments Against Veganism"
+      ],
+      "clusterId": "animal-rights"
+    },
+    {
       "id": "animal-welfare-department-tackles-kitten-season",
       "headline": "Animal Welfare Department Tackles “Kitten Season”",
       "source": "City of Albuquerque",
