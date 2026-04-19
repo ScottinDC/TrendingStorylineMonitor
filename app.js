@@ -623,6 +623,10 @@ function appendBriefingControls(container, briefing) {
   const controls = document.createElement("div");
   controls.className = "topic-audio-controls";
 
+  const label = document.createElement("strong");
+  label.className = "briefing-label";
+  label.textContent = "Audio Briefing";
+
   const button = document.createElement("button");
   button.type = "button";
   button.className = "audio-play-button";
@@ -632,6 +636,7 @@ function appendBriefingControls(container, briefing) {
   audio.preload = "none";
   audio.src = briefing.link;
   audio.className = "briefing-audio";
+  audio.controls = true;
 
   button.addEventListener("click", async () => {
     if (audio.paused) {
@@ -656,7 +661,7 @@ function appendBriefingControls(container, briefing) {
     button.textContent = "Briefing Unavailable";
   });
 
-  controls.append(button, audio);
+  controls.append(label, button, audio);
   container.append(controls);
 }
 
@@ -769,20 +774,26 @@ function renderTopicDetail() {
 
 function renderTopicVolumeChart() {
   const container = document.querySelector("#topic-volume-chart");
-  const entries = groupedTopicEntries();
-  const maxVolume = Math.max(...entries.map((item) => item.urls.length || item.volume), 1);
+  const entries = groupedTopicEntries().sort((a, b) => {
+    const left = b.urls.length || b.volume;
+    const right = a.urls.length || a.volume;
+    if (left !== right) {
+      return left - right;
+    }
+    return b.avgMomentum - a.avgMomentum;
+  });
   container.innerHTML = "";
 
   entries.forEach((item) => {
     const value = item.urls.length || item.volume;
     const row = document.createElement("div");
-    row.className = "chart-row";
+    row.className = "metric-row";
     row.innerHTML = `
-      <div class="chart-top">
+      <div class="metric-top">
         <span>${item.topic}</span>
-        <strong>${value}</strong>
+        <strong>${value} sources</strong>
       </div>
-      <div class="chart-track"><div class="chart-fill" style="width:${(value / maxVolume) * 100}%;"></div></div>
+      <p>How many source URLs are currently contributing to this topic.</p>
     `;
     container.append(row);
   });
@@ -790,19 +801,23 @@ function renderTopicVolumeChart() {
 
 function renderSourceSpreadChart() {
   const container = document.querySelector("#source-spread-chart");
-  const entries = groupedTopicEntries();
-  const maxOutlets = Math.max(...entries.map((item) => item.outlets), 1);
+  const entries = groupedTopicEntries().sort((a, b) => {
+    if (b.outlets !== a.outlets) {
+      return b.outlets - a.outlets;
+    }
+    return b.avgMomentum - a.avgMomentum;
+  });
   container.innerHTML = "";
 
   entries.forEach((item) => {
     const row = document.createElement("div");
-    row.className = "chart-row";
+    row.className = "metric-row";
     row.innerHTML = `
-      <div class="chart-top">
+      <div class="metric-top">
         <span>${item.topic}</span>
-        <strong>${item.outlets}</strong>
+        <strong>${item.outlets} outlets</strong>
       </div>
-      <div class="chart-track"><div class="chart-fill" style="width:${(item.outlets / maxOutlets) * 100}%;"></div></div>
+      <p>How many distinct publishers are carrying this topic right now.</p>
     `;
     container.append(row);
   });
