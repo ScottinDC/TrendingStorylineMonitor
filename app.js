@@ -190,7 +190,8 @@ const topicFilter = document.querySelector("#topic-filter");
 const topicFeed = document.querySelector("#topic-feed");
 const topicDetail = document.querySelector("#topic-detail");
 const activeFilters = document.querySelector("#active-filters");
-const AUDIO_BRIEFING_TOPIC_THRESHOLD = 3;
+const AUDIO_BRIEFING_SOURCE_THRESHOLD = 2;
+const AUDIO_BRIEFING_STORY_THRESHOLD = 3;
 
 let stories = [];
 let audioBriefings = [];
@@ -576,7 +577,7 @@ function renderTopicFeed() {
     entry.tags.forEach((tag) => tagRow.append(tagLink(tag)));
     article.append(tagRow);
 
-    if (entry.outlets >= AUDIO_BRIEFING_TOPIC_THRESHOLD && entry.briefing) {
+    if ((entry.outlets >= AUDIO_BRIEFING_SOURCE_THRESHOLD || entry.stories.length >= AUDIO_BRIEFING_STORY_THRESHOLD) && entry.briefing) {
       const controls = document.createElement("div");
       controls.className = "topic-audio-controls";
 
