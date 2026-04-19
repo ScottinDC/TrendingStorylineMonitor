@@ -101,6 +101,70 @@
       "clusterId": "animal-welfare"
     },
     {
+      "id": "cloa-s-ark-owner-arraigned-on-animal-cruelty-charges",
+      "headline": "Cloa's Ark owner arraigned on animal cruelty charges",
+      "source": "WWLP",
+      "date": "2026-04-19",
+      "slug": "cloa-s-ark-owner-arraigned-on-animal-cruelty-charges",
+      "url": "https://www.wwlp.com/video/cloas-ark-owner-arraigned-on-animal-cruelty-charges/11714013",
+      "relatedUrls": [
+        "https://www.wwlp.com/video/cloas-ark-owner-arraigned-on-animal-cruelty-charges/11714013"
+      ],
+      "tags": [
+        "animal cruelty",
+        "legal",
+        "wildlife"
+      ],
+      "rawTopic": "Animal Cruelty",
+      "topic": "Animal Cruelty",
+      "summary": "Needs editorial summary.",
+      "whyItMatters": "Highlights the legal accountability regarding treatment of animals and wildlife laws.",
+      "relevance": "High",
+      "momentum": 50,
+      "recentMovement": [
+        1
+      ],
+      "related": [
+        "title: Local Animal Welfare Organizations Speak Out",
+        "url: https://www.example.com/animal-welfare",
+        "title: Impact of Animal Cruelty Laws",
+        "url: https://www.example.com/animal-cruelty-laws"
+      ],
+      "clusterId": "animal-cruelty"
+    },
+    {
+      "id": "aps-rescues-over-40-animals-from-poor-conditions-at-illegal-henderson-organizati",
+      "headline": "APS rescues over 40 animals from poor conditions at illegal Henderson organization",
+      "source": "KTNV 13 Action News Las Vegas",
+      "date": "2026-04-19",
+      "slug": "aps-rescues-over-40-animals-from-poor-conditions-at-illegal-henderson-organizati",
+      "url": "https://www.ktnv.com/news/aps-rescues-over-40-animals-from-poor-conditions-at-illegal-henderson-organization",
+      "relatedUrls": [
+        "https://www.ktnv.com/news/aps-rescues-over-40-animals-from-poor-conditions-at-illegal-henderson-organization"
+      ],
+      "tags": [
+        "animal rescue",
+        "Henderson",
+        "animal welfare",
+        "illegal organization"
+      ],
+      "rawTopic": "Animal Welfare",
+      "topic": "Animal Welfare",
+      "summary": "Needs editorial summary.",
+      "whyItMatters": "The rescue highlights the ongoing issue of animal welfare and illegal rescues, emphasizing the importance of proper regulations and care for vulnerable animals.",
+      "relevance": "7",
+      "momentum": 6,
+      "recentMovement": [
+        1
+      ],
+      "related": [
+        "Animal Protection Services",
+        "Illegal Animal Rescues",
+        "Animal Welfare Regulations"
+      ],
+      "clusterId": "animal-welfare"
+    },
+    {
       "id": "animal-welfare-department-tackles-kitten-season",
       "headline": "Animal Welfare Department Tackles “Kitten Season”",
       "source": "City of Albuquerque",
