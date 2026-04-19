@@ -1,6 +1,40 @@
 {
   "stories": [
     {
+      "id": "millions-outraged-by-12-month-prison-trap-for-anyone-protesting-beagle-animal-te",
+      "headline": "Millions Outraged By 12-Month Prison Trap For Anyone Protesting Beagle Animal Testing!",
+      "source": "Caavakushi",
+      "date": "2026-04-19",
+      "slug": "millions-outraged-by-12-month-prison-trap-for-anyone-protesting-beagle-animal-te",
+      "url": "https://caavakushi.com/2026/04/19/millions-outraged-by-12-month-prison-trap-for-anyone-protesting-beagle-animal-testing",
+      "relatedUrls": [
+        "https://caavakushi.com/2026/04/19/millions-outraged-by-12-month-prison-trap-for-anyone-protesting-beagle-animal-testing"
+      ],
+      "tags": [
+        "animal cruelty",
+        "animal rights",
+        "animal testing",
+        "animal welfare",
+        "dogs",
+        "vegan"
+      ],
+      "rawTopic": "Animal Rights",
+      "topic": "Animal Welfare",
+      "summary": "Needs editorial summary.",
+      "whyItMatters": "This legislation silences dissent against animal testing practices, reflecting a troubling trend where government priorities protect industry over animal welfare and public protest rights.",
+      "relevance": "High",
+      "momentum": 50,
+      "recentMovement": [
+        1
+      ],
+      "related": [
+        "How Billionaires Are Using Food Supply Chain To Phase Out Meat",
+        "Colgate Total Whitening Toothpaste Animal Testing & Animal Parts",
+        "4 Hair Gel Brands You’re Still Paying For Secret Animal Cruelty"
+      ],
+      "clusterId": "animal-welfare"
+    },
+    {
       "id": "animal-welfare-department-tackles-kitten-season",
       "headline": "Animal Welfare Department Tackles “Kitten Season”",
       "source": "City of Albuquerque",
@@ -16,6 +50,7 @@
         "Kitten Season",
         "Community Service"
       ],
+      "rawTopic": "Animal Welfare",
       "topic": "Cats Spayed and Neutered in Albuquerque",
       "summary": "Needs editorial summary.",
       "whyItMatters": "This initiative is crucial in controlling cat overpopulation during the spring, preventing unwanted litters and helping local shelters manage the influx of cats.",
@@ -32,7 +67,6 @@
         "Cat adoption campaigns",
         "Pet care resources"
       ],
-      "rawTopic": "Animal Welfare",
       "clusterId": "cats-spayed-and-neutered-in-albuquerque"
     },
     {
@@ -52,6 +86,7 @@
         "Meat Processing",
         "Public Health"
       ],
+      "rawTopic": "Animal Rights, USDA Regulations, Court Ruling",
       "topic": "USDA Slaughterhouse Inspection Rules",
       "summary": "Needs editorial summary.",
       "whyItMatters": "This ruling affects regulatory oversight in pork production, impacting animal welfare standards and public health protections against contaminated meat.",
@@ -67,7 +102,6 @@
         "USDA Inspection Debate",
         "Animal Welfare Lawsuits"
       ],
-      "rawTopic": "Animal Rights, USDA Regulations, Court Ruling",
       "clusterId": "usda-slaughterhouse-inspection-rules"
     },
     {
@@ -86,6 +120,7 @@
         "Dog Breeding",
         "Wisconsin"
       ],
+      "rawTopic": "Animal Rights, Activism, Law Enforcement",
       "topic": "Animal Rights Activism in Wisconsin",
       "summary": "Needs editorial summary.",
       "whyItMatters": "The protest highlights ongoing concerns regarding animal welfare and the law surrounding breeding practices, sparking broader discussions about animal rights and the legal actions taken against those who violate animal welfare standards.",
@@ -99,7 +134,6 @@
         "Dane County beagle breeding operation to close after animal cruelty investigation",
         "Animal rights groups call for charges against processor for abandoning Wisconsin chickens"
       ],
-      "rawTopic": "Animal Rights, Activism, Law Enforcement",
       "clusterId": "animal-rights-activism-in-wisconsin"
     },
     {
@@ -119,6 +153,7 @@
         "activism",
         "protest"
       ],
+      "rawTopic": "Animal Rights / Activism",
       "topic": "Animal Rights Activism in Wisconsin",
       "summary": "Needs editorial summary.",
       "whyItMatters": "This event highlights the ongoing tensions between animal rights activists and commercial breeding practices, raising questions about animal welfare and legal boundaries in protests.",
@@ -133,7 +168,6 @@
         "Animal Welfare Laws",
         "Animal Shelters"
       ],
-      "rawTopic": "Animal Rights / Activism",
       "clusterId": "animal-rights-activism-in-wisconsin"
     },
     {
@@ -152,6 +186,7 @@
         "Cultural Exchange",
         "Public Service"
       ],
+      "rawTopic": "Public Service and Volunteerism",
       "topic": "Public Service / Volunteerism",
       "summary": "Needs editorial summary.",
       "whyItMatters": "The organization not only facilitates community development but also transforms the lives of volunteers, creating a lifelong commitment to service and understanding across cultural divides.",
@@ -166,7 +201,6 @@
         "Community Building",
         "International Development"
       ],
-      "rawTopic": "Public Service and Volunteerism",
       "clusterId": "public-service-volunteerism"
     },
     {
@@ -186,6 +220,7 @@
         "animal welfare",
         "conservation"
       ],
+      "rawTopic": "Wildlife",
       "topic": "Wild Horse and Burro Roundups Across the West",
       "summary": "Needs editorial summary.",
       "whyItMatters": "The capture operations coincide with the foaling season, putting the health and safety of pregnant mares and newborn foals at risk, which could lead to severe consequences for the populations of wild horses and burros. Advocates are calling for a suspension of roundups to protect vulnerable wildlife.",
@@ -199,7 +234,6 @@
         "Federal Wild Horse and Burro Management",
         "BLM Policies on Wildlife"
       ],
-      "rawTopic": "Wildlife",
       "clusterId": "wild-horse-and-burro-roundups-across-the-west"
     }
   ],
