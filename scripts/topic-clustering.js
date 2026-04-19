@@ -165,6 +165,41 @@ function detectIssueLabel(signature) {
   const text = signature.text;
 
   if (
+    text.includes("animal testing") &&
+    (text.includes("beagle") || text.includes("protest") || text.includes("protesting"))
+  ) {
+    return "Beagle Animal Testing Protests";
+  }
+
+  if (
+    text.includes("veganism") &&
+    text.includes("progressive values")
+  ) {
+    return "Veganism and Progressive Values";
+  }
+
+  if (
+    text.includes("sled dogs") &&
+    (text.includes("alaska") || text.includes("mat-su") || text.includes("matanuska"))
+  ) {
+    return "Sled Dog Neglect in Alaska";
+  }
+
+  if (
+    text.includes("animal cruelty") &&
+    (text.includes("arraigned") || text.includes(" owner ") || text.includes("on animal cruelty charges"))
+  ) {
+    return "Animal Cruelty Charges";
+  }
+
+  if (
+    text.includes("animal rescue") &&
+    (text.includes("henderson") || text.includes("illegal organization"))
+  ) {
+    return "Animal Rescue Conditions in Henderson";
+  }
+
+  if (
     (text.includes("kitten season") || text.includes("spay/neuter") || text.includes("spayed") || text.includes("neutered")) &&
     (text.includes("albuquerque") || text.includes("cabq"))
   ) {

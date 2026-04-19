@@ -19,7 +19,7 @@
         "vegan"
       ],
       "rawTopic": "Animal Rights",
-      "topic": "Animal Welfare",
+      "topic": "Beagle Animal Testing Protests",
       "summary": "Needs editorial summary.",
       "whyItMatters": "This legislation silences dissent against animal testing practices, reflecting a troubling trend where government priorities protect industry over animal welfare and public protest rights.",
       "relevance": "High",
@@ -32,7 +32,7 @@
         "Colgate Total Whitening Toothpaste Animal Testing & Animal Parts",
         "4 Hair Gel Brands You’re Still Paying For Secret Animal Cruelty"
       ],
-      "clusterId": "animal-welfare"
+      "clusterId": "beagle-animal-testing-protests"
     },
     {
       "id": "are-animal-products-compatible-with-progressive-values-11-arguments-to-consider",
@@ -51,7 +51,7 @@
         "animal rights"
       ],
       "rawTopic": "Veganism and Progressive Values",
-      "topic": "Animal Rights",
+      "topic": "Veganism and Progressive Values",
       "summary": "Needs editorial summary.",
       "whyItMatters": "This topic explores the intersection of ethical consumption and political ideology, highlighting how personal choices in diet can reflect broader values about justice and responsibility.",
       "relevance": "High, given the increasing interest in ethical consumption and veganism among progressive circles.",
@@ -65,7 +65,7 @@
         "Reasons to be Optimistic about Veganism",
         "Health Arguments Against Veganism"
       ],
-      "clusterId": "animal-rights"
+      "clusterId": "veganism-and-progressive-values"
     },
     {
       "id": "25-dead-sled-dogs-found-at-mat-su-kennel-after-months-of-complaints-to-borough",
@@ -85,7 +85,7 @@
         "Matanuska-Susitna Borough"
       ],
       "rawTopic": "Animal Welfare",
-      "topic": "Animal Welfare",
+      "topic": "Sled Dog Neglect in Alaska",
       "summary": "Needs editorial summary.",
       "whyItMatters": "This incident highlights the failure of local authorities to protect animals and respond to warnings from the community, raising questions about animal welfare regulations and enforcement.",
       "relevance": "High",
@@ -98,7 +98,7 @@
         "Community responses to animal neglect cases",
         "Local government accountability"
       ],
-      "clusterId": "animal-welfare"
+      "clusterId": "sled-dog-neglect-in-alaska"
     },
     {
       "id": "cloa-s-ark-owner-arraigned-on-animal-cruelty-charges",
@@ -116,7 +116,7 @@
         "wildlife"
       ],
       "rawTopic": "Animal Cruelty",
-      "topic": "Animal Cruelty",
+      "topic": "Animal Cruelty Charges",
       "summary": "Needs editorial summary.",
       "whyItMatters": "Highlights the legal accountability regarding treatment of animals and wildlife laws.",
       "relevance": "High",
@@ -130,7 +130,7 @@
         "title: Impact of Animal Cruelty Laws",
         "url: https://www.example.com/animal-cruelty-laws"
       ],
-      "clusterId": "animal-cruelty"
+      "clusterId": "animal-cruelty-charges"
     },
     {
       "id": "aps-rescues-over-40-animals-from-poor-conditions-at-illegal-henderson-organizati",
@@ -149,7 +149,7 @@
         "illegal organization"
       ],
       "rawTopic": "Animal Welfare",
-      "topic": "Animal Welfare",
+      "topic": "Animal Rescue Conditions in Henderson",
       "summary": "Needs editorial summary.",
       "whyItMatters": "The rescue highlights the ongoing issue of animal welfare and illegal rescues, emphasizing the importance of proper regulations and care for vulnerable animals.",
       "relevance": "7",
@@ -162,7 +162,7 @@
         "Illegal Animal Rescues",
         "Animal Welfare Regulations"
       ],
-      "clusterId": "animal-welfare"
+      "clusterId": "animal-rescue-conditions-in-henderson"
     },
     {
       "id": "animal-welfare-department-tackles-kitten-season",
