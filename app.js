@@ -196,7 +196,7 @@ let stories = [];
 let audioBriefings = [];
 
 const initialParams = new URLSearchParams(window.location.search);
-let activeTopic = initialParams.get("topic") || "all";
+let activeTopic = "all";
 let activeTag = initialParams.get("tag") || "";
 
 function toList(value) {
@@ -474,11 +474,7 @@ function getTopics() {
 function buildQuery(nextTopic, nextTag) {
   const url = new URL(window.location.href);
 
-  if (!nextTopic || nextTopic === "all") {
-    url.searchParams.delete("topic");
-  } else {
-    url.searchParams.set("topic", nextTopic);
-  }
+  url.searchParams.delete("topic");
 
   if (!nextTag) {
     url.searchParams.delete("tag");
