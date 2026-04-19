@@ -578,44 +578,7 @@ function renderTopicFeed() {
     article.append(tagRow);
 
     if ((entry.outlets >= AUDIO_BRIEFING_SOURCE_THRESHOLD || entry.stories.length >= AUDIO_BRIEFING_STORY_THRESHOLD) && entry.briefing) {
-      const controls = document.createElement("div");
-      controls.className = "topic-audio-controls";
-
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "audio-play-button";
-      button.textContent = "Play Briefing";
-
-      const audio = document.createElement("audio");
-      audio.preload = "none";
-      audio.src = entry.briefing.link;
-      audio.className = "briefing-audio";
-
-      button.addEventListener("click", async () => {
-        if (audio.paused) {
-          await audio.play();
-          button.textContent = "Pause Briefing";
-        } else {
-          audio.pause();
-          button.textContent = "Play Briefing";
-        }
-      });
-
-      audio.addEventListener("pause", () => {
-        button.textContent = "Play Briefing";
-      });
-
-      audio.addEventListener("play", () => {
-        button.textContent = "Pause Briefing";
-      });
-
-      audio.addEventListener("error", () => {
-        button.disabled = true;
-        button.textContent = "Briefing Unavailable";
-      });
-
-      controls.append(button, audio);
-      article.append(controls);
+      appendBriefingControls(article, entry.briefing);
     }
 
     const details = document.createElement("details");
@@ -648,8 +611,53 @@ function renderTopicFeed() {
 
     details.append(urlList);
     article.append(details);
-    topicFeed.append(article);
+  topicFeed.append(article);
   });
+}
+
+function appendBriefingControls(container, briefing) {
+  if (!briefing?.link || briefing.link === "#") {
+    return;
+  }
+
+  const controls = document.createElement("div");
+  controls.className = "topic-audio-controls";
+
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "audio-play-button";
+  button.textContent = "Play Briefing";
+
+  const audio = document.createElement("audio");
+  audio.preload = "none";
+  audio.src = briefing.link;
+  audio.className = "briefing-audio";
+
+  button.addEventListener("click", async () => {
+    if (audio.paused) {
+      await audio.play();
+      button.textContent = "Pause Briefing";
+    } else {
+      audio.pause();
+      button.textContent = "Play Briefing";
+    }
+  });
+
+  audio.addEventListener("pause", () => {
+    button.textContent = "Play Briefing";
+  });
+
+  audio.addEventListener("play", () => {
+    button.textContent = "Pause Briefing";
+  });
+
+  audio.addEventListener("error", () => {
+    button.disabled = true;
+    button.textContent = "Briefing Unavailable";
+  });
+
+  controls.append(button, audio);
+  container.append(controls);
 }
 
 function renderTopicDetail() {
@@ -736,6 +744,10 @@ function renderTopicDetail() {
     </div>
   `;
 
+  if ((entry.outlets >= AUDIO_BRIEFING_SOURCE_THRESHOLD || entry.stories.length >= AUDIO_BRIEFING_STORY_THRESHOLD) && entry.briefing) {
+    appendBriefingControls(topicDetail, entry.briefing);
+  }
+
   const list = document.createElement("div");
   list.className = "topic-story-list";
 
@@ -801,18 +813,48 @@ function renderTrendDirectionChart() {
   const entries = groupedTopicEntries();
   container.innerHTML = "";
 
-  entries.forEach((item) => {
-    const maxPoint = Math.max(...item.movementSeries, 1);
-    const card = document.createElement("div");
-    card.className = "spark-card";
-    card.innerHTML = `<strong>${item.topic}</strong><div class="sparkline"></div>`;
+  const groups = [
+    {
+      key: "up",
+      label: "Gaining attention",
+      helper: "More recent source activity than the earlier cluster baseline."
+    },
+    {
+      key: "steady",
+      label: "Holding steady",
+      helper: "Coverage is still present, but not accelerating."
+    },
+    {
+      key: "down",
+      label: "Cooling off",
+      helper: "The topic has less recent movement than it did earlier."
+    }
+  ];
 
-    const line = card.querySelector(".sparkline");
-    item.movementSeries.forEach((value) => {
-      const bar = document.createElement("span");
-      bar.style.height = `${Math.max(18, (value / maxPoint) * 100)}%`;
-      line.append(bar);
-    });
+  groups.forEach((group) => {
+    const matches = entries
+      .filter((item) => item.direction.tone === group.key)
+      .sort((a, b) => {
+        if (b.volume !== a.volume) {
+          return b.volume - a.volume;
+        }
+        return b.avgMomentum - a.avgMomentum;
+      });
+
+    const card = document.createElement("div");
+    card.className = "trend-summary-card";
+
+    const leadTopics = matches.slice(0, 2).map((item) => item.topic).join(" • ");
+    const exampleText = leadTopics || "No topics right now";
+
+    card.innerHTML = `
+      <div class="chart-top">
+        <span>${group.label}</span>
+        <strong>${matches.length}</strong>
+      </div>
+      <p>${group.helper}</p>
+      <div class="trend-summary-example">${exampleText}</div>
+    `;
 
     container.append(card);
   });

@@ -443,6 +443,24 @@ button {
   grid-template-columns: 1fr;
 }
 
+.trend-summary-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 6px;
+}
+
+.trend-summary-card p {
+  margin: 4px 0 0;
+  font-size: 7pt;
+  color: var(--muted);
+}
+
+.trend-summary-example {
+  margin-top: 6px;
+  color: var(--navy);
+  font-size: 7pt;
+}
+
 .sparkline {
   display: flex;
   align-items: end;
