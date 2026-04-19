@@ -3,14 +3,14 @@
   --blue: #99adc6;
   --white: #ffffff;
   --ice: #f4f9fc;
-  --orange: #cb693a;
+  --orange: #4a678f;
   --page: var(--white);
   --panel: var(--ice);
   --ink: #22344b;
   --muted: #5a708d;
   --line: #c8d5e2;
   --accent: var(--orange);
-  --accent-soft: #f6e0d6;
+  --accent-soft: #d7e1ee;
 }
 
 * {
