@@ -68,6 +68,39 @@
       "clusterId": "animal-rights"
     },
     {
+      "id": "25-dead-sled-dogs-found-at-mat-su-kennel-after-months-of-complaints-to-borough",
+      "headline": "25 dead sled dogs found at Mat-Su kennel after months of complaints to borough",
+      "source": "Anchorage Daily News",
+      "date": "2026-04-19",
+      "slug": "25-dead-sled-dogs-found-at-mat-su-kennel-after-months-of-complaints-to-borough",
+      "url": "https://www.adn.com/alaska-news/mat-su/2026/04/16/25-dead-sled-dogs-discovered-at-mat-su-kennel-after-months-of-complaints-to-borough",
+      "relatedUrls": [
+        "https://www.adn.com/alaska-news/mat-su/2026/04/16/25-dead-sled-dogs-discovered-at-mat-su-kennel-after-months-of-complaints-to-borough"
+      ],
+      "tags": [
+        "sled dogs",
+        "animal cruelty",
+        "Alaska",
+        "neglect",
+        "Matanuska-Susitna Borough"
+      ],
+      "rawTopic": "Animal Welfare",
+      "topic": "Animal Welfare",
+      "summary": "Needs editorial summary.",
+      "whyItMatters": "This incident highlights the failure of local authorities to protect animals and respond to warnings from the community, raising questions about animal welfare regulations and enforcement.",
+      "relevance": "High",
+      "momentum": 50,
+      "recentMovement": [
+        1
+      ],
+      "related": [
+        "Animal control issues in Alaska",
+        "Community responses to animal neglect cases",
+        "Local government accountability"
+      ],
+      "clusterId": "animal-welfare"
+    },
+    {
       "id": "animal-welfare-department-tackles-kitten-season",
       "headline": "Animal Welfare Department Tackles “Kitten Season”",
       "source": "City of Albuquerque",
