@@ -432,8 +432,13 @@ button {
   padding: 6px;
 }
 
+.metric-top {
+  flex-wrap: nowrap;
+}
+
 .metric-top strong {
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .trend-summary-card {
