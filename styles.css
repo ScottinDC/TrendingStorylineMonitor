@@ -432,6 +432,10 @@ button {
   padding: 6px;
 }
 
+.metric-top strong {
+  white-space: nowrap;
+}
+
 .trend-summary-card {
   background: var(--panel);
   border: 1px solid var(--line);

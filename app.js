@@ -815,17 +815,17 @@ function renderTrendDirectionChart() {
   const groups = [
     {
       key: "up",
-      label: "Gaining attention",
+      label: "↑ Gaining attention",
       helper: "More recent source activity than the earlier cluster baseline."
     },
     {
       key: "steady",
-      label: "Holding steady",
+      label: "→ Holding steady",
       helper: "Coverage is still present, but not accelerating."
     },
     {
       key: "down",
-      label: "Cooling off",
+      label: "↓ Cooling off",
       helper: "The topic has less recent movement than it did earlier."
     }
   ];
