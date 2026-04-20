@@ -213,16 +213,16 @@ button {
 }
 
 .topic-audio-controls {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
+  display: block;
   margin-top: 6px;
 }
 
 .briefing-label {
+  display: block;
+  width: 100%;
   color: var(--ink);
   font-size: 7pt;
+  margin-bottom: 4px;
 }
 
 .tag {
@@ -243,6 +243,7 @@ button {
 }
 
 .briefing-audio {
+  display: block;
   width: 100%;
   max-width: 260px;
   height: 28px;
