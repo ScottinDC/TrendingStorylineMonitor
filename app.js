@@ -729,10 +729,6 @@ function renderTopicDetail() {
     </div>
   `;
 
-  if ((entry.outlets >= AUDIO_BRIEFING_SOURCE_THRESHOLD || entry.stories.length >= AUDIO_BRIEFING_STORY_THRESHOLD) && entry.briefing) {
-    appendBriefingControls(topicDetail, entry.briefing);
-  }
-
   const list = document.createElement("div");
   list.className = "topic-story-list";
 
