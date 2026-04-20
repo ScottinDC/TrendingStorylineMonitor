@@ -214,9 +214,9 @@ button {
 
 .topic-audio-controls {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
   margin-top: 6px;
 }
 
@@ -231,8 +231,7 @@ button {
 }
 
 .topic-story-list button,
-.topic-story-list a,
-.audio-play-button {
+.topic-story-list a {
   appearance: none;
   border: 0;
   padding: 0;
@@ -243,31 +242,14 @@ button {
   text-decoration: none;
 }
 
-.audio-controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
-  margin-top: 6px;
-}
-
-.audio-play-button {
-  border: 1px solid var(--line);
-  background: var(--white);
-  color: var(--accent);
-  padding: 4px 8px;
-  border-radius: 8px;
-}
-
-.audio-play-button[disabled] {
-  cursor: default;
-  color: var(--muted);
-}
-
 .briefing-audio {
   width: 100%;
   max-width: 260px;
   height: 28px;
+}
+
+.briefing-unavailable .briefing-audio {
+  display: none;
 }
 
 .intel-column {

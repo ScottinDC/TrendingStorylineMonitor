@@ -627,41 +627,17 @@ function appendBriefingControls(container, briefing) {
   label.className = "briefing-label";
   label.textContent = "Audio Briefing";
 
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = "audio-play-button";
-  button.textContent = "Play Briefing";
-
   const audio = document.createElement("audio");
   audio.preload = "none";
   audio.src = briefing.link;
   audio.className = "briefing-audio";
   audio.controls = true;
-
-  button.addEventListener("click", async () => {
-    if (audio.paused) {
-      await audio.play();
-      button.textContent = "Pause Briefing";
-    } else {
-      audio.pause();
-      button.textContent = "Play Briefing";
-    }
-  });
-
-  audio.addEventListener("pause", () => {
-    button.textContent = "Play Briefing";
-  });
-
-  audio.addEventListener("play", () => {
-    button.textContent = "Pause Briefing";
-  });
-
   audio.addEventListener("error", () => {
-    button.disabled = true;
-    button.textContent = "Briefing Unavailable";
+    controls.classList.add("briefing-unavailable");
+    label.textContent = "Audio Briefing Unavailable";
   });
 
-  controls.append(label, button, audio);
+  controls.append(label, audio);
   container.append(controls);
 }
 
