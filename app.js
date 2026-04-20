@@ -806,7 +806,7 @@ function renderTrendDirectionChart() {
   const groups = [
     {
       key: "up",
-      label: "↑ Gaining attention",
+      label: "Gaining attention",
       helper: "More recent source activity than the earlier cluster baseline."
     },
     {
@@ -816,7 +816,7 @@ function renderTrendDirectionChart() {
     },
     {
       key: "down",
-      label: "↓ Cooling off",
+      label: "Cooling off",
       helper: "The topic has less recent movement than it did earlier."
     }
   ];
