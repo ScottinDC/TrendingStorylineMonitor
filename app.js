@@ -761,14 +761,14 @@ function renderTopicVolumeChart() {
 
   entries.forEach((item) => {
     const value = item.urls.length || item.volume;
+    const sourceLabel = value === 1 ? "source" : "sources";
     const row = document.createElement("div");
     row.className = "metric-row";
     row.innerHTML = `
       <div class="metric-top">
         <span>${item.topic}</span>
-        <strong>${value} sources</strong>
+        <strong>${value} ${sourceLabel}</strong>
       </div>
-      <p>How many source URLs are currently contributing to this topic.</p>
     `;
     container.append(row);
   });
@@ -785,14 +785,14 @@ function renderSourceSpreadChart() {
   container.innerHTML = "";
 
   entries.forEach((item) => {
+    const outletLabel = item.outlets === 1 ? "outlet" : "outlets";
     const row = document.createElement("div");
     row.className = "metric-row";
     row.innerHTML = `
       <div class="metric-top">
         <span>${item.topic}</span>
-        <strong>${item.outlets} outlets</strong>
+        <strong>${item.outlets} ${outletLabel}</strong>
       </div>
-      <p>How many distinct publishers are carrying this topic right now.</p>
     `;
     container.append(row);
   });

@@ -432,12 +432,6 @@ button {
   padding: 6px;
 }
 
-.metric-row p {
-  margin: 4px 0 0;
-  font-size: 7pt;
-  color: var(--muted);
-}
-
 .trend-summary-card {
   background: var(--panel);
   border: 1px solid var(--line);
