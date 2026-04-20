@@ -191,7 +191,6 @@ const topicFeed = document.querySelector("#topic-feed");
 const topicDetail = document.querySelector("#topic-detail");
 const activeFilters = document.querySelector("#active-filters");
 const AUDIO_BRIEFING_SOURCE_THRESHOLD = 2;
-const AUDIO_BRIEFING_STORY_THRESHOLD = 3;
 
 let stories = [];
 let audioBriefings = [];
@@ -577,7 +576,7 @@ function renderTopicFeed() {
     entry.tags.forEach((tag) => tagRow.append(tagLink(tag)));
     article.append(tagRow);
 
-    if ((entry.outlets >= AUDIO_BRIEFING_SOURCE_THRESHOLD || entry.stories.length >= AUDIO_BRIEFING_STORY_THRESHOLD) && entry.briefing) {
+    if (entry.outlets >= AUDIO_BRIEFING_SOURCE_THRESHOLD && entry.briefing) {
       appendBriefingControls(article, entry.briefing);
     }
 
@@ -625,7 +624,7 @@ function appendBriefingControls(container, briefing) {
 
   const label = document.createElement("strong");
   label.className = "briefing-label";
-  label.textContent = "Audio Briefing";
+  label.textContent = "Audio Summary";
 
   const playerRow = document.createElement("div");
   playerRow.className = "briefing-player-row";
@@ -637,7 +636,7 @@ function appendBriefingControls(container, briefing) {
   audio.controls = true;
   audio.addEventListener("error", () => {
     controls.classList.add("briefing-unavailable");
-    label.textContent = "Audio Briefing Unavailable";
+    label.textContent = "Audio Summary Unavailable";
   });
 
   playerRow.append(audio);
