@@ -467,6 +467,15 @@ function visibleTopicEntries() {
   return entries.filter((entry) => entry.topic === activeTopic);
 }
 
+function qualifiesForAudioSummary(entry) {
+  return Boolean(
+    entry &&
+    entry.briefing &&
+    entry.outlets >= AUDIO_BRIEFING_SOURCE_THRESHOLD &&
+    entry.direction?.tone === "up"
+  );
+}
+
 function getTopics() {
   return groupedTopicEntries().map((entry) => entry.topic);
 }
@@ -576,7 +585,7 @@ function renderTopicFeed() {
     entry.tags.forEach((tag) => tagRow.append(tagLink(tag)));
     article.append(tagRow);
 
-    if (entry.outlets >= AUDIO_BRIEFING_SOURCE_THRESHOLD && entry.briefing) {
+    if (qualifiesForAudioSummary(entry)) {
       appendBriefingControls(article, entry.briefing);
     }
 
