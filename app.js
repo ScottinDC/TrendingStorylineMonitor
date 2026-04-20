@@ -627,6 +627,9 @@ function appendBriefingControls(container, briefing) {
   label.className = "briefing-label";
   label.textContent = "Audio Briefing";
 
+  const playerRow = document.createElement("div");
+  playerRow.className = "briefing-player-row";
+
   const audio = document.createElement("audio");
   audio.preload = "none";
   audio.src = briefing.link;
@@ -637,7 +640,8 @@ function appendBriefingControls(container, briefing) {
     label.textContent = "Audio Briefing Unavailable";
   });
 
-  controls.append(label, audio);
+  playerRow.append(audio);
+  controls.append(label, playerRow);
   container.append(controls);
 }
 

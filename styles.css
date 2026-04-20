@@ -225,6 +225,12 @@ button {
   margin-bottom: 4px;
 }
 
+.briefing-player-row {
+  display: block;
+  width: 100%;
+  clear: both;
+}
+
 .tag {
   color: var(--accent);
   text-decoration: none;
