@@ -194,7 +194,7 @@ const archivePanel = document.querySelector("#archive-panel");
 const archiveSummary = document.querySelector("#archive-summary");
 const archiveFeed = document.querySelector("#archive-feed");
 const AUDIO_BRIEFING_SOURCE_THRESHOLD = 2;
-const ARCHIVE_AFTER_DAYS = 7;
+const ARCHIVE_FRESHNESS_THRESHOLD = 20;
 
 let stories = [];
 let audioBriefings = [];
@@ -279,15 +279,38 @@ function latestDateValue(storiesList) {
   }, 0);
 }
 
-function isArchivedDate(dateString) {
+function currentDayTime() {
+  const today = new Date();
+  return new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 0, 0).getTime();
+}
+
+function daysSinceDate(dateString) {
   const storyTime = new Date(`${dateString}T12:00:00`).getTime();
   if (!Number.isFinite(storyTime)) {
-    return false;
+    return 999;
   }
-  const today = new Date();
-  const todayNoon = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 0, 0).getTime();
-  const daysOld = Math.floor((todayNoon - storyTime) / 86400000);
-  return daysOld > ARCHIVE_AFTER_DAYS;
+  return Math.max(0, Math.floor((currentDayTime() - storyTime) / 86400000));
+}
+
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function computeFreshnessScore(topicStories) {
+  if (!topicStories.length) {
+    return 0;
+  }
+
+  const latestStoryDate = new Date(latestDateValue(topicStories)).toISOString().slice(0, 10);
+  const daysOld = daysSinceDate(latestStoryDate);
+  const recentStories = topicStories.filter((story) => daysSinceDate(story.date) <= 3);
+  const recentOutlets = new Set(recentStories.map((story) => story.source)).size;
+
+  const recencyBase = 100 - daysOld * 12;
+  const recentStoryBonus = Math.min(12, Math.max(0, recentStories.length - 1) * 4);
+  const recentOutletBonus = Math.min(8, Math.max(0, recentOutlets - 1) * 4);
+
+  return clamp(Math.round(recencyBase + recentStoryBonus + recentOutletBonus), 0, 100);
 }
 
 function formatMovement(value) {
@@ -360,6 +383,9 @@ function groupedTopicEntries() {
   return [...grouped.values()]
     .map(({ topic, stories: topicStories }) => buildTopicEntry(topic, topicStories))
     .sort((a, b) => {
+      if (b.freshness !== a.freshness) {
+        return b.freshness - a.freshness;
+      }
       if (b.direction.delta !== a.direction.delta) {
         return b.direction.delta - a.direction.delta;
       }
@@ -462,16 +488,18 @@ function buildTopicEntry(topic, topicStories) {
   const urls = collectTopicUrls(topicStories);
   const latestStoryTime = latestDateValue(topicStories);
   const latestStoryDate = latestStoryTime ? new Date(latestStoryTime).toISOString().slice(0, 10) : "";
+  const freshness = computeFreshnessScore(topicStories);
 
   return {
     topic,
     volume,
     avgMomentum,
+    freshness,
     outlets,
     movementSeries,
     direction,
     latestStoryDate,
-    isArchived: latestStoryDate ? isArchivedDate(latestStoryDate) : false,
+    isArchived: freshness < ARCHIVE_FRESHNESS_THRESHOLD,
     tags: topicTags(topicStories),
     stories: sortedStories,
     urls,
@@ -603,6 +631,7 @@ function renderTopicFeed() {
       </div>
       <div class="topic-card-meta">
         <span>Momentum ${entry.avgMomentum} / 100</span>
+        <span>Freshness ${entry.freshness} / 100</span>
         <span class="direction-pill">${entry.direction.label}</span>
       </div>
     `;
@@ -737,6 +766,7 @@ function renderTopicDetail() {
           <li>strongest topic: ${lead.topic}</li>
           <li>current direction leader: ${lead.direction.label.toLowerCase()}</li>
           <li>average momentum leader: ${lead.avgMomentum}</li>
+          <li>freshness leader: ${lead.freshness}</li>
         </ul>
       </div>
     `;
@@ -768,6 +798,7 @@ function renderTopicDetail() {
       <ul>
         <li>${entry.direction.label.toLowerCase()}</li>
         <li>average momentum ${entry.avgMomentum} / 100</li>
+        <li>freshness ${entry.freshness} / 100</li>
       </ul>
     </div>
   `;
@@ -829,6 +860,9 @@ function renderTopicVolumeChart() {
     if (left !== right) {
       return left - right;
     }
+    if (b.freshness !== a.freshness) {
+      return b.freshness - a.freshness;
+    }
     return b.avgMomentum - a.avgMomentum;
   });
   container.innerHTML = "";
@@ -853,6 +887,9 @@ function renderSourceSpreadChart() {
   const entries = activeTopicEntries().sort((a, b) => {
     if (b.outlets !== a.outlets) {
       return b.outlets - a.outlets;
+    }
+    if (b.freshness !== a.freshness) {
+      return b.freshness - a.freshness;
     }
     return b.avgMomentum - a.avgMomentum;
   });
@@ -899,6 +936,9 @@ function renderTrendDirectionChart() {
     const matches = entries
       .filter((item) => item.direction.tone === group.key)
       .sort((a, b) => {
+        if (b.freshness !== a.freshness) {
+          return b.freshness - a.freshness;
+        }
         if (b.volume !== a.volume) {
           return b.volume - a.volume;
         }
