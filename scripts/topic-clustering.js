@@ -10,7 +10,7 @@ const STOPWORDS = new Set([
 
 const LOCATION_PATTERNS = [
   { label: "Wisconsin", terms: ["wisconsin", "dane county", "madison", "wkow", "wpr"] },
-  { label: "Across the West", terms: ["across the west", "western", "west", "nevada", "utah", "wyoming", "colorado"] },
+  { label: "Across the West", terms: ["across the west", "western states", "american west", "nevada", "utah", "wyoming", "colorado"] },
   { label: "Federal", terms: ["federal", "u.s.", "us ", "bureau of land management", "blm"] }
 ];
 
@@ -163,6 +163,13 @@ function similarity(leftSignature, rightSignature) {
 
 function detectIssueLabel(signature) {
   const text = signature.text;
+
+  if (
+    (text.includes("fur industry") || text.includes("fur") || text.includes("furrier")) &&
+    (text.includes("western macedonia") || text.includes("macedonia") || text.includes("eu regulations") || text.includes("european union"))
+  ) {
+    return "EU Fur Industry in Western Macedonia";
+  }
 
   if (
     text.includes("animal testing") &&
