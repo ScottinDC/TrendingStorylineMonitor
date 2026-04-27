@@ -190,7 +190,11 @@ const topicFilter = document.querySelector("#topic-filter");
 const topicFeed = document.querySelector("#topic-feed");
 const topicDetail = document.querySelector("#topic-detail");
 const activeFilters = document.querySelector("#active-filters");
+const archivePanel = document.querySelector("#archive-panel");
+const archiveSummary = document.querySelector("#archive-summary");
+const archiveFeed = document.querySelector("#archive-feed");
 const AUDIO_BRIEFING_SOURCE_THRESHOLD = 2;
+const ARCHIVE_AFTER_DAYS = 7;
 
 let stories = [];
 let audioBriefings = [];
@@ -266,6 +270,24 @@ function formatDate(dateString) {
     day: "numeric",
     year: "numeric"
   });
+}
+
+function latestDateValue(storiesList) {
+  return storiesList.reduce((latest, story) => {
+    const value = new Date(`${story.date}T12:00:00`).getTime();
+    return Number.isFinite(value) && value > latest ? value : latest;
+  }, 0);
+}
+
+function isArchivedDate(dateString) {
+  const storyTime = new Date(`${dateString}T12:00:00`).getTime();
+  if (!Number.isFinite(storyTime)) {
+    return false;
+  }
+  const today = new Date();
+  const todayNoon = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 0, 0).getTime();
+  const daysOld = Math.floor((todayNoon - storyTime) / 86400000);
+  return daysOld > ARCHIVE_AFTER_DAYS;
 }
 
 function formatMovement(value) {
@@ -438,6 +460,8 @@ function buildTopicEntry(topic, topicStories) {
   const movementSeries = averageMovementSeries(topicStories);
   const direction = directionFromSeries(movementSeries);
   const urls = collectTopicUrls(topicStories);
+  const latestStoryTime = latestDateValue(topicStories);
+  const latestStoryDate = latestStoryTime ? new Date(latestStoryTime).toISOString().slice(0, 10) : "";
 
   return {
     topic,
@@ -446,6 +470,8 @@ function buildTopicEntry(topic, topicStories) {
     outlets,
     movementSeries,
     direction,
+    latestStoryDate,
+    isArchived: latestStoryDate ? isArchivedDate(latestStoryDate) : false,
     tags: topicTags(topicStories),
     stories: sortedStories,
     urls,
@@ -460,11 +486,11 @@ function buildTopicEntry(topic, topicStories) {
 }
 
 function visibleTopicEntries() {
-  const entries = groupedTopicEntries();
+  const entries = activeTopicEntries();
   if (activeTopic === "all") {
     return entries;
   }
-  return entries.filter((entry) => entry.topic === activeTopic);
+  return groupedTopicEntries().filter((entry) => entry.topic === activeTopic);
 }
 
 function qualifiesForAudioSummary(entry) {
@@ -477,7 +503,15 @@ function qualifiesForAudioSummary(entry) {
 }
 
 function getTopics() {
-  return groupedTopicEntries().map((entry) => entry.topic);
+  return activeTopicEntries().map((entry) => entry.topic);
+}
+
+function activeTopicEntries() {
+  return groupedTopicEntries().filter((entry) => !entry.isArchived);
+}
+
+function archivedTopicEntries() {
+  return groupedTopicEntries().filter((entry) => entry.isArchived);
 }
 
 function buildQuery(nextTopic, nextTag) {
@@ -655,6 +689,7 @@ function appendBriefingControls(container, briefing) {
 
 function renderTopicDetail() {
   const entries = groupedTopicEntries();
+  const activeEntries = activeTopicEntries();
 
   if (activeTag) {
     const taggedStories = storiesForCurrentTag().sort(
@@ -688,7 +723,7 @@ function renderTopicDetail() {
   }
 
   if (activeTopic === "all") {
-    const lead = entries[0];
+    const lead = activeEntries[0];
 
     if (!lead) {
       topicDetail.innerHTML = '<div class="empty-state">Choose a topic to browse deeper.</div>';
@@ -697,7 +732,7 @@ function renderTopicDetail() {
 
     topicDetail.innerHTML = `
       <div class="topic-summary">
-        <p>${entries.length} live topic clusters from ${storiesForCurrentTag().length} tracked sources.</p>
+        <p>${activeEntries.length} live topic clusters from ${storiesForCurrentTag().length} tracked sources.</p>
         <ul>
           <li>strongest topic: ${lead.topic}</li>
           <li>current direction leader: ${lead.direction.label.toLowerCase()}</li>
@@ -708,7 +743,7 @@ function renderTopicDetail() {
 
     const list = document.createElement("div");
     list.className = "topic-story-list";
-    entries.forEach((entry) => {
+    activeEntries.forEach((entry) => {
       const button = document.createElement("button");
       button.type = "button";
       button.textContent = `${entry.topic}, ${entry.direction.label.toLowerCase()}`;
@@ -756,9 +791,39 @@ function renderTopicDetail() {
   topicDetail.append(list);
 }
 
+function renderArchiveFeed() {
+  const entries = archivedTopicEntries().sort((a, b) => {
+    return new Date(b.latestStoryDate) - new Date(a.latestStoryDate);
+  });
+
+  if (!archivePanel || !archiveSummary || !archiveFeed) {
+    return;
+  }
+
+  archiveSummary.textContent = `Archived Topics (${entries.length})`;
+  archiveFeed.innerHTML = "";
+  archivePanel.hidden = !entries.length;
+
+  if (!entries.length) {
+    return;
+  }
+
+  entries.forEach((entry) => {
+    const row = document.createElement("button");
+    row.type = "button";
+    row.className = "archive-item";
+    row.innerHTML = `
+      <strong>${entry.topic}</strong>
+      <span>Last active ${formatDate(entry.latestStoryDate)}</span>
+    `;
+    row.addEventListener("click", () => selectTopic(entry.topic));
+    archiveFeed.append(row);
+  });
+}
+
 function renderTopicVolumeChart() {
   const container = document.querySelector("#topic-volume-chart");
-  const entries = groupedTopicEntries().sort((a, b) => {
+  const entries = activeTopicEntries().sort((a, b) => {
     const left = b.urls.length || b.volume;
     const right = a.urls.length || a.volume;
     if (left !== right) {
@@ -785,7 +850,7 @@ function renderTopicVolumeChart() {
 
 function renderSourceSpreadChart() {
   const container = document.querySelector("#source-spread-chart");
-  const entries = groupedTopicEntries().sort((a, b) => {
+  const entries = activeTopicEntries().sort((a, b) => {
     if (b.outlets !== a.outlets) {
       return b.outlets - a.outlets;
     }
@@ -809,7 +874,7 @@ function renderSourceSpreadChart() {
 
 function renderTrendDirectionChart() {
   const container = document.querySelector("#trend-direction-chart");
-  const entries = groupedTopicEntries();
+  const entries = activeTopicEntries();
   container.innerHTML = "";
 
   const groups = [
@@ -863,6 +928,7 @@ function renderAll() {
   renderTopicFilter();
   renderActiveFilters();
   renderTopicFeed();
+  renderArchiveFeed();
   renderTopicDetail();
   renderTopicVolumeChart();
   renderSourceSpreadChart();

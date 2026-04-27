@@ -201,7 +201,50 @@ button {
 .audio-entry,
 .chart-block,
 .topic-summary,
-.topic-story-list {
+.topic-story-list,
+.archive-panel {
+  margin-top: 2px;
+}
+
+.archive-panel {
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+
+.archive-panel summary {
+  cursor: pointer;
+  color: var(--navy);
+  font-size: 8pt;
+}
+
+.archive-feed {
+  display: grid;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.archive-item {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 6px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.archive-item strong,
+.archive-item span {
+  display: block;
+}
+
+.archive-item strong {
+  color: var(--ink);
+  font-size: 8pt;
+}
+
+.archive-item span {
+  color: var(--muted);
+  font-size: 7pt;
   margin-top: 2px;
 }
 

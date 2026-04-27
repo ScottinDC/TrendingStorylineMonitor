@@ -8,7 +8,7 @@
       name="description"
       content="A public topic monitor for clustering incoming URLs into trends, direction, source spread, and audio briefings."
     />
-    <link rel="stylesheet" href="./styles.css?v=20260420-1" />
+    <link rel="stylesheet" href="./styles.css?v=20260427-1" />
   </head>
   <body>
     <div class="page-shell">
@@ -39,6 +39,10 @@
 
           <div id="active-filters" class="active-filters" aria-live="polite"></div>
           <div id="topic-feed" class="topic-feed" aria-live="polite"></div>
+          <details id="archive-panel" class="archive-panel">
+            <summary id="archive-summary">Archived Topics</summary>
+            <div id="archive-feed" class="archive-feed" aria-live="polite"></div>
+          </details>
         </section>
 
         <aside class="intel-column" aria-label="Story intelligence">
@@ -64,6 +68,6 @@
         </aside>
       </main>
     </div>
-    <script src="./app.js?v=20260420-1"></script>
+    <script src="./app.js?v=20260427-1"></script>
   </body>
 </html>
