@@ -1,6 +1,40 @@
 {
   "stories": [
     {
+      "id": "after-cockfighting-tied-to-flights-from-dfw-korean-air-puts-roosters-on-no-fly-l",
+      "headline": "After cockfighting tied to flights from DFW, Korean Air puts roosters on no-fly list to Philippines",
+      "source": "Dallas Morning News",
+      "date": "2026-04-28",
+      "slug": "after-cockfighting-tied-to-flights-from-dfw-korean-air-puts-roosters-on-no-fly-l",
+      "url": "https://www.yahoo.com/news/articles/cockfighting-tied-flights-dfw-korean-184121882.html",
+      "relatedUrls": [
+        "https://www.yahoo.com/news/articles/cockfighting-tied-flights-dfw-korean-184121882.html"
+      ],
+      "tags": [
+        "cockfighting",
+        "animal welfare",
+        "airline policies",
+        "legislation",
+        "animal trafficking"
+      ],
+      "rawTopic": "Cockfighting and Animal Welfare",
+      "topic": "Cockfighting And Animal Welfare",
+      "summary": "Needs editorial summary.",
+      "whyItMatters": "This decision is significant in the fight against illegal cockfighting and reflects increasing scrutiny on the transport of fighting birds, which has been linked to organized crime and animal cruelty.",
+      "relevance": "High",
+      "momentum": 50,
+      "recentMovement": [
+        1
+      ],
+      "related": [
+        "Animal Wellness Action",
+        "No Flight",
+        "No Fight Act",
+        "FIGHT Act"
+      ],
+      "clusterId": "cockfighting-and-animal-welfare"
+    },
+    {
       "id": "the-war-on-fur-is-heating-up-again",
       "headline": "The war on fur is heating up again",
       "source": "Ekathimerini",
@@ -18,7 +52,7 @@
         "economy"
       ],
       "rawTopic": "Fur Industry",
-      "topic": "EU Fur Industry in Western Macedonia",
+      "topic": "Federal EU Fur Industry in Western Macedonia",
       "summary": "Needs editorial summary.",
       "whyItMatters": "The fur industry impacts thousands of jobs in regions like Western Macedonia, raising concerns about economic stability versus animal welfare practices as EU regulations evolve.",
       "relevance": "High - the ongoing debate over fur production directly affects livelihoods and ethical considerations in animal treatment.",
@@ -32,7 +66,7 @@
         "EU animal welfare policies",
         "Global fur market trends"
       ],
-      "clusterId": "animal-welfare-across-the-west"
+      "clusterId": "federal-eu-fur-industry-in-western-macedonia"
     },
     {
       "id": "millions-outraged-by-12-month-prison-trap-for-anyone-protesting-beagle-animal-te",
